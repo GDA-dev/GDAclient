@@ -229,21 +229,23 @@ __export(clothes_sale_exports, {
 
 // graphql/saleClothes.ts
 import { GraphQLClient, gql } from "graphql-request";
-var client = new GraphQLClient(`${process.env.API_URL}/sale_clothes/`, { method: "GET" }), saleClothesQueries = class {
+var client = new GraphQLClient(`${process.env.GRAPHQL_URL}`, { method: "GET" }), saleClothesQueries = class {
   async getAllSaleClothes() {
     let query = gql`
             {
-                id
-                title
-                description
-                category
-                size
-                measurements
-                gender
-                price
-                notes 
-                thumbnail
-                gallery
+                allSaleClothes {
+                    id
+                    title
+                    description
+                    category
+                    size
+                    measurements
+                    gender
+                    price
+                    notes 
+                    thumbnail
+                    gallery
+                }
             }
         `, res = await client.request(query);
     return console.log("gql", res), res;
@@ -308,8 +310,27 @@ function Index() {
   }, this);
 }
 
+// app/routes/admin/route.tsx
+var route_exports = {};
+__export(route_exports, {
+  default: () => Admin,
+  meta: () => meta3
+});
+import { jsxDEV as jsxDEV8 } from "react/jsx-dev-runtime";
+var meta3 = () => [
+  { title: "Admin Portal" },
+  { name: "description", content: "Welcome to Admin Portal!" }
+];
+function Admin() {
+  return /* @__PURE__ */ jsxDEV8("div", {}, void 0, !1, {
+    fileName: "app/routes/admin/route.tsx",
+    lineNumber: 12,
+    columnNumber: 5
+  }, this);
+}
+
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-QHKMUKHJ.js", imports: ["/build/_shared/chunk-WDEFNMNB.js", "/build/_shared/chunk-V7KYXGPF.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-UEPCJH3Y.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2GNSBH5E.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-FRXZ3S4B.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale": { id: "routes/clothes.sale", parentId: "root", path: "clothes/sale", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale-KZFWI4FH.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale.$id": { id: "routes/clothes.sale.$id", parentId: "routes/clothes.sale", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale.$id-IZ6SDCHL.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold": { id: "routes/clothes.sold", parentId: "root", path: "clothes/sold", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold-ZXUUWFTT.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold.$id": { id: "routes/clothes.sold.$id", parentId: "routes/clothes.sold", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold.$id-XIVZNOAQ.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "a83ab6d9", hmr: { runtime: "/build/_shared/chunk-UEPCJH3Y.js", timestamp: 1704837988447 }, url: "/build/manifest-A83AB6D9.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-QHKMUKHJ.js", imports: ["/build/_shared/chunk-WDEFNMNB.js", "/build/_shared/chunk-V7KYXGPF.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-UEPCJH3Y.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2GNSBH5E.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-FRXZ3S4B.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/admin": { id: "routes/admin", parentId: "root", path: "admin", index: void 0, caseSensitive: void 0, module: "/build/routes/admin-UPLVZ4ZR.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale": { id: "routes/clothes.sale", parentId: "root", path: "clothes/sale", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale-YTXLYDOY.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale.$id": { id: "routes/clothes.sale.$id", parentId: "routes/clothes.sale", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale.$id-IZ6SDCHL.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold": { id: "routes/clothes.sold", parentId: "root", path: "clothes/sold", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold-ZXUUWFTT.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold.$id": { id: "routes/clothes.sold.$id", parentId: "routes/clothes.sold", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold.$id-XIVZNOAQ.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "8add5a2c", hmr: { runtime: "/build/_shared/chunk-UEPCJH3Y.js", timestamp: 1704925744872 }, url: "/build/manifest-8ADD5A2C.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -360,6 +381,14 @@ var mode = "development", assetsBuildDirectory = "public/build", future = { v3_f
     index: !0,
     caseSensitive: void 0,
     module: index_exports
+  },
+  "routes/admin": {
+    id: "routes/admin",
+    parentId: "root",
+    path: "admin",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route_exports
   }
 };
 export {
