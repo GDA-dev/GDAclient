@@ -1,5 +1,5 @@
 import React from "react";
-import { Sold } from "../utils/types";
+import { Sold } from "../../utils/types";
 
  interface SoldByIDProps {
     soldCard: Sold;

@@ -1,10 +1,13 @@
 import { GraphQLClient, gql } from 'graphql-request';
+import toArray from '../utils/toArray';
+import { Clothing } from '../utils/types';
 
 const client = new GraphQLClient(`${process.env.GRAPHQL_URL}`, { method: "GET" });
 
 export class saleClothesQueries {
 
     async getAllSaleClothes() {
+        
         const query = gql`
             {
                 saleClothes {
@@ -22,9 +25,9 @@ export class saleClothesQueries {
                 }
             }
         `;
-        const res = await client.request(query);
-        console.log('gql', res)
-        return res;
+
+        const res: any = await client.request(query);
+        return toArray(res.saleClothes);
     };
 
     async getAllSaleClothingByID() {

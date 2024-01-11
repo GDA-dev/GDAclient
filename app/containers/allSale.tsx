@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Sale } from "../utils/types";
+import { Sale } from "../../utils/types";
 
 interface AllSaleProps {
     saleCards: Sale[];
