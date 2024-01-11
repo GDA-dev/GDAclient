@@ -1,5 +1,5 @@
 import React from "react";
-import { Sale, Sold } from "../utils/types";
+import { Sale, Sold } from "../../utils/types";
 
 interface RelatedItemsProps {
     saleClothing: Sale[];
