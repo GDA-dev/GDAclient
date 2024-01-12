@@ -183,49 +183,10 @@ function App() {
 var clothes_sale_id_exports = {};
 __export(clothes_sale_id_exports, {
   default: () => SaleByIDPage,
-  loader: () => loader
+  loader: () => loader,
+  meta: () => meta2
 });
-import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
-var loader = async ({
-  params
-}) => json({ id: params.id });
-function SaleByIDPage() {
-  let { id } = useLoaderData();
-  return /* @__PURE__ */ jsxDEV3("div", {}, void 0, !1, {
-    fileName: "app/routes/clothes.sale.$id.tsx",
-    lineNumber: 17,
-    columnNumber: 9
-  }, this);
-}
-
-// app/routes/clothes.sold.$id.tsx
-var clothes_sold_id_exports = {};
-__export(clothes_sold_id_exports, {
-  default: () => SoldByIDPage,
-  loader: () => loader2
-});
-import { json as json2 } from "@remix-run/node";
-import { useLoaderData as useLoaderData2 } from "@remix-run/react";
-import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
-var loader2 = async ({
-  params
-}) => json2({ id: params.id });
-function SoldByIDPage() {
-  let { id } = useLoaderData2();
-  return /* @__PURE__ */ jsxDEV4("div", {}, void 0, !1, {
-    fileName: "app/routes/clothes.sold.$id.tsx",
-    lineNumber: 17,
-    columnNumber: 9
-  }, this);
-}
-
-// app/routes/clothes.sale.tsx
-var clothes_sale_exports = {};
-__export(clothes_sale_exports, {
-  default: () => AllSalePage
-});
 
 // graphql/saleClothes.ts
 import { GraphQLClient, gql } from "graphql-request";
@@ -243,7 +204,7 @@ function toArray(data) {
 }
 
 // graphql/saleClothes.ts
-var client = new GraphQLClient(`${process.env.GRAPHQL_URL}`, { method: "GET" }), saleClothesQueries = class {
+var client = new GraphQLClient(`${process.env.GRAPHQL_URL}`), saleClothesQueries = class {
   async getAllSaleClothes() {
     let query = gql`
             {
@@ -264,23 +225,138 @@ var client = new GraphQLClient(`${process.env.GRAPHQL_URL}`, { method: "GET" }),
         `, res = await client.request(query);
     return toArray(res.saleClothes);
   }
-  async getAllSaleClothingByID() {
+  async getAllSaleClothingByID(id) {
     let query = gql`
             {
-                
+                saleClothes(id: ${id}) {
+                    id
+                    title
+                    description
+                    category
+                    size
+                    measurements
+                    gender
+                    price
+                    notes
+                    thumbnail
+                    gallery
+                }
             }
-        `;
-    return await client.request(query);
+        `, res = await client.request(query);
+    return toArray(res.saleClothes);
   }
 };
 
+// app/routes/clothes.sale.$id.tsx
+import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
+var meta2 = () => [
+  { title: "Sale Clothing" },
+  { name: "description", content: "Welcome to Genet Design's and Alterations!" }
+];
+async function loader({ params }) {
+  return await new saleClothesQueries().getAllSaleClothingByID(String(params.id));
+}
+function SaleByIDPage() {
+  let saleClothingByID = useLoaderData();
+  return /* @__PURE__ */ jsxDEV3("div", {}, void 0, !1, {
+    fileName: "app/routes/clothes.sale.$id.tsx",
+    lineNumber: 24,
+    columnNumber: 9
+  }, this);
+}
+
+// app/routes/clothes.sold.$id.tsx
+var clothes_sold_id_exports = {};
+__export(clothes_sold_id_exports, {
+  default: () => SoldByIDPage,
+  loader: () => loader2,
+  meta: () => meta3
+});
+import { useLoaderData as useLoaderData2 } from "@remix-run/react";
+
+// graphql/soldClothes.ts
+import { GraphQLClient as GraphQLClient2, gql as gql2 } from "graphql-request";
+var client2 = new GraphQLClient2(`${process.env.GRAPHQL_URL}`, { method: "GET" }), soldClothesQueries = class {
+  async getAllSoldClothes() {
+    let query = gql2`
+            {
+                soldClothes {
+                    id
+                    title
+                    description
+                    category
+                    size
+                    measurements
+                    gender
+                    notes 
+                    thumbnail
+                    gallery
+                }
+            }
+        `, res = await client2.request(query);
+    return toArray(res.soldClothes);
+  }
+  async getAllSoldClothingByID(id) {
+    let query = gql2`
+            {
+                soldClothes(id: ${id}) {
+                    id
+                    title
+                    description
+                    category
+                    size
+                    measurements
+                    gender
+                    price
+                    notes
+                    thumbnail
+                    gallery
+                }
+            }
+        `, res = await client2.request(query);
+    return toArray(res.soldClothes);
+  }
+};
+
+// app/routes/clothes.sold.$id.tsx
+import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
+var meta3 = () => [
+  { title: "Sold Clothing" },
+  { name: "description", content: "Welcome to Genet Design's and Alterations!" }
+];
+async function loader2({ params }) {
+  return await new soldClothesQueries().getAllSoldClothingByID(String(params.id));
+}
+function SoldByIDPage() {
+  let soldClothingByID = useLoaderData2();
+  return /* @__PURE__ */ jsxDEV4("div", {}, void 0, !1, {
+    fileName: "app/routes/clothes.sold.$id.tsx",
+    lineNumber: 25,
+    columnNumber: 9
+  }, this);
+}
+
 // app/routes/clothes.sale.tsx
+var clothes_sale_exports = {};
+__export(clothes_sale_exports, {
+  default: () => AllSalePage,
+  loader: () => loader3,
+  meta: () => meta4
+});
+import { useLoaderData as useLoaderData3 } from "@remix-run/react";
 import { jsxDEV as jsxDEV5 } from "react/jsx-dev-runtime";
+var meta4 = () => [
+  { title: "Sale Clothing" },
+  { name: "description", content: "Welcome to Genet Design's and Alterations!" }
+];
+async function loader3() {
+  return await new saleClothesQueries().getAllSaleClothes();
+}
 function AllSalePage() {
-  let allSaleClothes = new saleClothesQueries().getAllSaleClothes();
-  return console.log(allSaleClothes), /* @__PURE__ */ jsxDEV5("div", {}, void 0, !1, {
+  let allSaleClothes = useLoaderData3();
+  return /* @__PURE__ */ jsxDEV5("div", {}, void 0, !1, {
     fileName: "app/routes/clothes.sale.tsx",
-    lineNumber: 11,
+    lineNumber: 24,
     columnNumber: 9
   }, this);
 }
@@ -288,13 +364,24 @@ function AllSalePage() {
 // app/routes/clothes.sold.tsx
 var clothes_sold_exports = {};
 __export(clothes_sold_exports, {
-  default: () => AllSoldPage
+  default: () => AllSoldPage,
+  loader: () => loader4,
+  meta: () => meta5
 });
+import { useLoaderData as useLoaderData4 } from "@remix-run/react";
 import { jsxDEV as jsxDEV6 } from "react/jsx-dev-runtime";
+var meta5 = () => [
+  { title: "Sold Clothing" },
+  { name: "description", content: "Welcome to Genet Design's and Alterations!" }
+];
+async function loader4() {
+  return await new soldClothesQueries().getAllSoldClothes();
+}
 function AllSoldPage() {
+  let allSoldClothes = useLoaderData4();
   return /* @__PURE__ */ jsxDEV6("div", {}, void 0, !1, {
     fileName: "app/routes/clothes.sold.tsx",
-    lineNumber: 8,
+    lineNumber: 24,
     columnNumber: 9
   }, this);
 }
@@ -302,47 +389,132 @@ function AllSoldPage() {
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  default: () => Index,
-  meta: () => meta2
+  default: () => AllSoldPage2,
+  loader: () => loader5,
+  meta: () => meta6
 });
+import { useLoaderData as useLoaderData5 } from "@remix-run/react";
 import { jsxDEV as jsxDEV7 } from "react/jsx-dev-runtime";
-var meta2 = () => [
-  { title: "New Remix App" },
-  { name: "description", content: "Welcome to Remix!" }
+var meta6 = () => [
+  { title: "Sold Clothing" },
+  { name: "description", content: "Welcome to Genet Design's and Alterations!" }
 ];
-function Index() {
-  return /* @__PURE__ */ jsxDEV7("div", { style: { fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }, children: /* @__PURE__ */ jsxDEV7("p", { children: "HIiiiiIIIIIIIIIII" }, void 0, !1, {
+async function loader5() {
+  return await new soldClothesQueries().getAllSoldClothes();
+}
+function AllSoldPage2() {
+  let allSoldClothes = useLoaderData5();
+  return /* @__PURE__ */ jsxDEV7("div", {}, void 0, !1, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 13,
-    columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/_index.tsx",
-    lineNumber: 12,
-    columnNumber: 5
+    lineNumber: 24,
+    columnNumber: 9
   }, this);
 }
 
 // app/routes/admin/route.tsx
 var route_exports = {};
 __export(route_exports, {
-  default: () => Admin,
-  meta: () => meta3
+  default: () => AdminPage
 });
+
+// app/routes/admin/componenets/createImage.tsx
+import { useState } from "react";
+
+// services/POST/cloudinaryUpload.ts
+import axios from "axios";
+async function cloudinaryUpload(uploadedFile) {
+  try {
+    let reader = new FileReader();
+    return reader.onload = async () => {
+      let readerResult = reader.result;
+      return await (async (readerResult2) => {
+        let formData = new FormData();
+        return formData.append("file", readerResult2), formData.append("upload_preset", "vweauohf"), console.log("upload value: ", formData), (async (formData2) => {
+          let imageURL2 = await axios.post("https://api.cloudinary.com/v1_1/don8pmkp2/image/upload", formData2);
+          return console.log("cloundinary imageURL:", imageURL2), imageURL2.data.secure_url;
+        })(formData);
+      })(readerResult);
+    }, await reader.readAsDataURL(uploadedFile);
+  } catch (error) {
+    return console.log(error), error;
+  }
+}
+
+// app/routes/admin/componenets/createImage.tsx
 import { jsxDEV as jsxDEV8 } from "react/jsx-dev-runtime";
-var meta3 = () => [
-  { title: "Admin Portal" },
-  { name: "description", content: "Welcome to Admin Portal!" }
-];
-function Admin() {
-  return /* @__PURE__ */ jsxDEV8("div", {}, void 0, !1, {
+function CreateImage() {
+  let [imageURLArray, setImageURLArray] = useState([]), sendImage = async (value) => {
+    console.log("createImage value:", value.target.files?.[0]);
+    let res = await cloudinaryUpload(value.target.files?.[0]);
+    setImageURLArray([...imageURLArray, res]), console.log("createImage res: "), console.log("createImage ImageArray: ", imageURLArray);
+  };
+  return /* @__PURE__ */ jsxDEV8("div", { children: [
+    /* @__PURE__ */ jsxDEV8("input", { id: "UploadFile", type: "file", onChange: (value) => sendImage(value) }, void 0, !1, {
+      fileName: "app/routes/admin/componenets/createImage.tsx",
+      lineNumber: 18,
+      columnNumber: 13
+    }, this),
+    imageURLArray.map((image) => /* @__PURE__ */ jsxDEV8("div", { id: "ImagePreview" }, image, !1, {
+      fileName: "app/routes/admin/componenets/createImage.tsx",
+      lineNumber: 20,
+      columnNumber: 17
+    }, this))
+  ] }, void 0, !0, {
+    fileName: "app/routes/admin/componenets/createImage.tsx",
+    lineNumber: 17,
+    columnNumber: 9
+  }, this);
+}
+
+// app/routes/admin/componenets/createSale.tsx
+import { useLoaderData as useLoaderData6 } from "@remix-run/react";
+import { jsxDEV as jsxDEV9 } from "react/jsx-dev-runtime";
+function CreateSale() {
+  let allSaleClothes = useLoaderData6();
+  return /* @__PURE__ */ jsxDEV9("div", {}, void 0, !1, {
+    fileName: "app/routes/admin/componenets/createSale.tsx",
+    lineNumber: 16,
+    columnNumber: 9
+  }, this);
+}
+
+// app/routes/admin/containers/create.tsx
+import { jsxDEV as jsxDEV10 } from "react/jsx-dev-runtime";
+function CreatePage() {
+  return /* @__PURE__ */ jsxDEV10("div", { children: [
+    /* @__PURE__ */ jsxDEV10(CreateImage, {}, void 0, !1, {
+      fileName: "app/routes/admin/containers/create.tsx",
+      lineNumber: 12,
+      columnNumber: 13
+    }, this),
+    /* @__PURE__ */ jsxDEV10(CreateSale, {}, void 0, !1, {
+      fileName: "app/routes/admin/containers/create.tsx",
+      lineNumber: 13,
+      columnNumber: 13
+    }, this)
+  ] }, void 0, !0, {
+    fileName: "app/routes/admin/containers/create.tsx",
+    lineNumber: 11,
+    columnNumber: 9
+  }, this);
+}
+
+// app/routes/admin/route.tsx
+import { jsxDEV as jsxDEV11 } from "react/jsx-dev-runtime";
+function AdminPage() {
+  return /* @__PURE__ */ jsxDEV11("div", { children: /* @__PURE__ */ jsxDEV11(CreatePage, {}, void 0, !1, {
     fileName: "app/routes/admin/route.tsx",
-    lineNumber: 12,
-    columnNumber: 5
+    lineNumber: 10,
+    columnNumber: 13
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/admin/route.tsx",
+    lineNumber: 9,
+    columnNumber: 9
   }, this);
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-QHKMUKHJ.js", imports: ["/build/_shared/chunk-WDEFNMNB.js", "/build/_shared/chunk-V7KYXGPF.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-UEPCJH3Y.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2GNSBH5E.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-FRXZ3S4B.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/admin": { id: "routes/admin", parentId: "root", path: "admin", index: void 0, caseSensitive: void 0, module: "/build/routes/admin-UPLVZ4ZR.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale": { id: "routes/clothes.sale", parentId: "root", path: "clothes/sale", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale-OZOTUEVG.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale.$id": { id: "routes/clothes.sale.$id", parentId: "routes/clothes.sale", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale.$id-IZ6SDCHL.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold": { id: "routes/clothes.sold", parentId: "root", path: "clothes/sold", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold-ZXUUWFTT.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold.$id": { id: "routes/clothes.sold.$id", parentId: "routes/clothes.sold", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold.$id-XIVZNOAQ.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "8f631383", hmr: { runtime: "/build/_shared/chunk-UEPCJH3Y.js", timestamp: 1705012210781 }, url: "/build/manifest-8F631383.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-IWH7ERZG.js", imports: ["/build/_shared/chunk-65T5P4UG.js", "/build/_shared/chunk-ESVGNZ3V.js", "/build/_shared/chunk-EGSDBNXF.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-YX3OBB7W.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QSXFWXYJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/admin": { id: "routes/admin", parentId: "root", path: "admin", index: void 0, caseSensitive: void 0, module: "/build/routes/admin-4GPDVOSP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale": { id: "routes/clothes.sale", parentId: "root", path: "clothes/sale", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale-37X7DJYJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale.$id": { id: "routes/clothes.sale.$id", parentId: "routes/clothes.sale", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale.$id-LL6TGJFF.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold": { id: "routes/clothes.sold", parentId: "root", path: "clothes/sold", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold-XT4JXVNN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold.$id": { id: "routes/clothes.sold.$id", parentId: "routes/clothes.sold", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold.$id-HSHCOUYH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "55e794c0", hmr: { runtime: "/build/_shared/chunk-EGSDBNXF.js", timestamp: 1705088286483 }, url: "/build/manifest-55E794C0.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
