@@ -1,16 +1,28 @@
+import React from "react";
 import type { MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { soldClothesQueries } from "../../graphql/soldClothes";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+    return [
+        { title: "Sold Clothing" },
+        { name: "description", content: "Welcome to Genet Design's and Alterations!" },
+    ];
 };
 
-export default function Index() {
-  return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <p>HIiiiiIIIIIIIIIII</p>
-    </div>
-  );
-}
+export async function loader() {
+    const gql = new soldClothesQueries();
+    const res = await gql.getAllSoldClothes();
+    return res;
+};
+
+export default function AllSoldPage() {
+    
+    const allSoldClothes = useLoaderData<typeof loader>();
+    
+    return (
+        <div>
+
+        </div>
+    );
+};

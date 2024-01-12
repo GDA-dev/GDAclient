@@ -42,4 +42,6 @@ export interface Clothing {
     notes?: string;
     thumbnail: string;
     gallery: any;
+    saleClothes: any;
+    soldClothes: any;
 }

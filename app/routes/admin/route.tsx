@@ -1,16 +1,13 @@
-import type { MetaFunction } from "@remix-run/node";
+import React from "react";
+import CreatePage from "./containers/create";
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Admin Portal" },
-    { name: "description", content: "Welcome to Admin Portal!" },
-  ];
+export default function AdminPage() {
+    
+
+
+    return (
+        <div>
+            <CreatePage />
+        </div>
+    );
 };
-
-export default function Admin() {
-  return (
-    <div>
-
-    </div>
-  );
-}
