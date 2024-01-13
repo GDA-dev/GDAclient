@@ -424,17 +424,8 @@ import { useState } from "react";
 import axios from "axios";
 async function cloudinaryUpload(uploadedFile) {
   try {
-    let reader = new FileReader();
-    return reader.onload = async () => {
-      let readerResult = reader.result;
-      return await (async (readerResult2) => {
-        let formData = new FormData();
-        return formData.append("file", readerResult2), formData.append("upload_preset", "vweauohf"), console.log("upload value: ", formData), (async (formData2) => {
-          let imageURL2 = await axios.post("https://api.cloudinary.com/v1_1/don8pmkp2/image/upload", formData2);
-          return console.log("cloundinary imageURL:", imageURL2), imageURL2.data.secure_url;
-        })(formData);
-      })(readerResult);
-    }, await reader.readAsDataURL(uploadedFile);
+    let formData = new FormData();
+    return formData.append("file", uploadedFile), formData.append("upload_preset", "cqj0wxav"), (await axios.post("https://api.cloudinary.com/v1_1/don8pmkp2/image/upload", formData)).data.secure_url;
   } catch (error) {
     return console.log(error), error;
   }
@@ -444,24 +435,27 @@ async function cloudinaryUpload(uploadedFile) {
 import { jsxDEV as jsxDEV8 } from "react/jsx-dev-runtime";
 function CreateImage() {
   let [imageURLArray, setImageURLArray] = useState([]), sendImage = async (value) => {
-    console.log("createImage value:", value.target.files?.[0]);
     let res = await cloudinaryUpload(value.target.files?.[0]);
-    setImageURLArray([...imageURLArray, res]), console.log("createImage res: "), console.log("createImage ImageArray: ", imageURLArray);
+    setImageURLArray([...imageURLArray, res]);
   };
   return /* @__PURE__ */ jsxDEV8("div", { children: [
-    /* @__PURE__ */ jsxDEV8("input", { id: "UploadFile", type: "file", onChange: (value) => sendImage(value) }, void 0, !1, {
+    /* @__PURE__ */ jsxDEV8("input", { id: "UploadFile", type: "file", accept: "image/*", onChange: (value) => sendImage(value) }, void 0, !1, {
       fileName: "app/routes/admin/componenets/createImage.tsx",
-      lineNumber: 18,
+      lineNumber: 15,
       columnNumber: 13
     }, this),
-    imageURLArray.map((image) => /* @__PURE__ */ jsxDEV8("div", { id: "ImagePreview" }, image, !1, {
+    imageURLArray.map((image, index) => /* @__PURE__ */ jsxDEV8("div", { id: "ImagePreview", children: /* @__PURE__ */ jsxDEV8("img", { src: image, alt: "" }, void 0, !1, {
       fileName: "app/routes/admin/componenets/createImage.tsx",
-      lineNumber: 20,
+      lineNumber: 18,
+      columnNumber: 21
+    }, this) }, index, !1, {
+      fileName: "app/routes/admin/componenets/createImage.tsx",
+      lineNumber: 17,
       columnNumber: 17
     }, this))
   ] }, void 0, !0, {
     fileName: "app/routes/admin/componenets/createImage.tsx",
-    lineNumber: 17,
+    lineNumber: 14,
     columnNumber: 9
   }, this);
 }
@@ -514,7 +508,7 @@ function AdminPage() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-IWH7ERZG.js", imports: ["/build/_shared/chunk-65T5P4UG.js", "/build/_shared/chunk-ESVGNZ3V.js", "/build/_shared/chunk-EGSDBNXF.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-YX3OBB7W.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QSXFWXYJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/admin": { id: "routes/admin", parentId: "root", path: "admin", index: void 0, caseSensitive: void 0, module: "/build/routes/admin-4GPDVOSP.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale": { id: "routes/clothes.sale", parentId: "root", path: "clothes/sale", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale-37X7DJYJ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale.$id": { id: "routes/clothes.sale.$id", parentId: "routes/clothes.sale", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale.$id-LL6TGJFF.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold": { id: "routes/clothes.sold", parentId: "root", path: "clothes/sold", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold-XT4JXVNN.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold.$id": { id: "routes/clothes.sold.$id", parentId: "routes/clothes.sold", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold.$id-HSHCOUYH.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "55e794c0", hmr: { runtime: "/build/_shared/chunk-EGSDBNXF.js", timestamp: 1705088286483 }, url: "/build/manifest-55E794C0.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-WMPNKZNH.js", imports: ["/build/_shared/chunk-WDEFNMNB.js", "/build/_shared/chunk-JOKOJ3RP.js", "/build/_shared/chunk-UEPCJH3Y.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-ALHHJNUT.js", imports: ["/build/_shared/chunk-NMZL6IDN.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-ZFUYOKGV.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/admin": { id: "routes/admin", parentId: "root", path: "admin", index: void 0, caseSensitive: void 0, module: "/build/routes/admin-SDGVFV34.js", imports: void 0, hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale": { id: "routes/clothes.sale", parentId: "root", path: "clothes/sale", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale-Z4UVXT7P.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sale.$id": { id: "routes/clothes.sale.$id", parentId: "routes/clothes.sale", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sale.$id-L6YYSQL3.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold": { id: "routes/clothes.sold", parentId: "root", path: "clothes/sold", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold-56HH5SSZ.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/clothes.sold.$id": { id: "routes/clothes.sold.$id", parentId: "routes/clothes.sold", path: ":id", index: void 0, caseSensitive: void 0, module: "/build/routes/clothes.sold.$id-RSCFDPMB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "2fb9106c", hmr: { runtime: "/build/_shared/chunk-UEPCJH3Y.js", timestamp: 1705096197142 }, url: "/build/manifest-2FB9106C.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
