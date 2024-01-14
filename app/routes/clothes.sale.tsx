@@ -2,6 +2,8 @@ import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
+import Header from "../global/header";
+import Footer from "../global/footer";
 
 export const meta: MetaFunction = () => {
     return [
@@ -21,8 +23,11 @@ export default function AllSalePage() {
     const allSaleClothes = useLoaderData<typeof loader>();
     
     return (
-        <div>
-            
-        </div>
+        <html>
+            <body>
+                <Header />
+                <Footer />
+            </body>
+        </html>
     );
 };

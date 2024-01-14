@@ -2,6 +2,8 @@ import React from "react";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
+import Header from "../global/header";
+import Footer from "../global/footer";
 
 export const meta: MetaFunction = () => {
     return [
@@ -12,7 +14,7 @@ export const meta: MetaFunction = () => {
 
 export async function loader({ params }: LoaderFunctionArgs) {
     const gql = new saleClothesQueries();
-    const res = await gql.getAllSaleClothingByID(String(params.id));
+    const res = await gql.getSaleClothingByID(String(params.id));
     return res;
 };
 
@@ -21,8 +23,11 @@ export default function SaleByIDPage() {
     const saleClothingByID = useLoaderData<typeof loader>();
 
     return (
-        <div>
-            
-        </div>
+        <html>
+            <body>
+                <Header />
+                <Footer />
+            </body>   
+        </html>
     );
 };
