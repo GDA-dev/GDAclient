@@ -1,5 +1,5 @@
 import React from "react";
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
 import { soldClothesQueries } from "../../graphql/soldClothes";
@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
     ];
 };
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader() {
     const saleGQL = new saleClothesQueries();
     const soldGQL = new soldClothesQueries();
     const saleRes: any = await saleGQL.getLatestSaleClothing();
