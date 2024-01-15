@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
-export default function WishlistButton() {
+interface WishlistButtonProps {
+    openWishlist: () => void;
+};
+
+const WishlistButton: React.FC<WishlistButtonProps> = ({ openWishlist }) => {
     
-    
+    const [showWishlist, setShowWishlist] = useState(false);
+
+    const handleWishlistView = () => {
+        setShowWishlist(true);
+    };
     
     return (
-        <div>
-
-        </div>
+        <>
+            <FaHeart style={{ color: "red" }}/>
+        </>
     );
 };
+
+export default WishlistButton;

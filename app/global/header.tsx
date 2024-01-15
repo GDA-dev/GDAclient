@@ -1,49 +1,159 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from '@remix-run/react';
+import { FaBars } from 'react-icons/fa';
+import { AiOutlineClose } from 'react-icons/ai';
 
 export default function Header() {
     
     const [clothingOptions, setClothingOptions] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [showMobileView, setShowMobileView] = useState(false);
+    const [showBars, setShowBars] = useState(true);
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [showMobileMenuItems, setShowMobileMenuItems] = useState(false);
+    const navigate = useNavigate();
 
-    const openClothingOptions = () => {
-        setClothingOptions(true);
+    const handleClothingOptions = () => {
+        setClothingOptions(!clothingOptions);
     };
 
-    const closeClothingOptions = () => {
-        setClothingOptions(false);
+    const redirect = (option: string) => {
+        const currentPath = window.location.pathname;
+    
+        if (currentPath !== '/') {
+            navigate('/');
+            setTimeout(() => {
+                scrollToSection(option);
+            }, 0);
+        } else {
+            scrollToSection(option);
+        };
     };
+    
+    const scrollToSection = (option: string) => {
+        const section = document.getElementById(option);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+    };
+
+    const handleScroll = () => {
+        if (window.scrollY > 10) {
+            setScrolled(true);
+        } else {
+            setScrolled(false);
+            closeMobileHeader();
+        }
+    };
+
+    const handleMediaQuery = () => {
+        if (window.innerWidth < 600) {
+            setShowBars(true);
+            setShowMobileView(true);
+            setShowMobileMenu(false);
+        } else {
+            setShowBars(false);
+            setShowMobileView(false);
+            setShowMobileMenu(false);
+        }
+    };
+
+    const openMobileHeader = () => {
+        setShowMobileMenu(true);
+        setShowBars(false);
+        setScrolled(true);
+        setTimeout(() => {
+            setShowMobileMenuItems(true);
+        }, 1);
+    };
+
+    const closeMobileHeader = () => {
+        setShowMobileMenu(false);
+        setShowBars(true);
+        if (window.scrollY <= 10) {
+            setScrolled(false);
+        }
+        setTimeout(() => {
+            setShowMobileMenuItems(false);
+        }, 1);
+    };
+
+    useEffect(() => {
+
+        if (window.innerWidth < 600) {
+            setShowMobileView(true);
+        } else {
+            setShowMobileView(false);
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleMediaQuery);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleMediaQuery);
+        };
+
+    }, []);
     
     return (
         <div id="Header">
-            <div id="HeaderContainer">
+            <div id="HeaderContainer" className={scrolled ? 'scrolled' : ''}>
                 <div id="HeaderLeftContainer">
                     <div id="LogoContainer">
                         <a href="/"><img id="Logo" src="" alt="Genet Design's and Alterations Logo" /></a>
                     </div>
                 </div>
-                <div id="HeaderRightContainer">
-                    <ul id="HeaderListContainer">
-                        <li className="HeaderListItem">Home</li>
-                        <li className="HeaderListItem">About</li>
-                        <li className="HeaderListItem" onMouseOver={openClothingOptions} onMouseLeave={closeClothingOptions}>
-                            Clothing
-                            {clothingOptions && 
-                                <div id="ClothingOptionsContainer" className={clothingOptions ? "down" : "up"}>
-                                    <div id="ClothingOptionsSale">
-                                        <a id="ClothingOptionsSaleButton" href="/clothes/sale">Sale Clothing</a>
-                                    </div>
-                                    <div id="ClothingOptionsSold">
-                                        <a id="ClothingOptionsSoldButton" href="/clothes/sold">Sold Clothing</a>
+                {showMobileView ? (
+                    <div id="MobileHeaderRightContainer">
+                        {showBars ? (
+                            <div id="MobileHeaderOpenContainer">
+                                <FaBars id='MobileHeaderOpen' onClick={openMobileHeader} />
+                            </div>
+                        ) : (    
+                            <div id="MobileHeaderCloseContainer">
+                                <AiOutlineClose id='MobileHeaderClose' onClick={closeMobileHeader} />
+                            </div>
+                        )}
+                        {showMobileMenu ? (
+                            <div id='MobileHeaderMenu'>
+                                <div id="MobileHeaderMenuItems" className={showMobileMenuItems ? 'opened' : ''}>
+                                    <div id="MobileStadiumItemContainer">
+                                        <a id="MobileStadiumItem" href="/stadiums">Stadiums</a>
                                     </div>
                                 </div>
-                            }
-                        </li>
-                        <li className="HeaderListItem">Contact</li>
-                    </ul>
-                </div>
+                            </div>
+                        ) : (
+                            null
+                        )}
+                    </div>
+                ) : (
+                    <div id="HeaderRightContainer">
+                        <ul id="HeaderListContainer">
+                            <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
+                            <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
+                            <li className="HeaderListItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
+                                <div id="HeaderListClothing">
+                                    <a id="HeaderListClothingLink" href="/clothes">Clothing</a>
+                                    <div id="ClothingOptionsContainer" style={{ display: clothingOptions ? "flex" : "none" }} className={ clothingOptions ? "down" : "" }>
+                                        <div id="ClothingOptionsSale">
+                                            <a id="ClothingOptionsSaleButton" href="/clothes/sale">Sale Clothing</a>
+                                        </div>
+                                        <div id="ClothingOptionsSold">
+                                            <a id="ClothingOptionsSoldButton" href="/clothes/sold">Sold Clothing</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
+                        </ul>
+                    </div>
+                )}
             </div>
 
         <style>
             {`
+
                 #Header {
                     display: flex;
                     position: fixed;
@@ -51,6 +161,7 @@ export default function Header() {
                     left: 0;
                     width: 100vw;
                     height: 10vh;
+                    background-color: rgba(0, 0, 0, 0);
                     border-bottom: 1px solid black;
                     z-index: 3;
                 }
@@ -58,11 +169,19 @@ export default function Header() {
                 #HeaderContainer {
                     display: flex;
                     position: relative;
-                    width: 100%;
+                    width: 95%;
                     height: 100%;
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
+                    background-color: rgba(0, 0, 0, 0);
+                    transition: 0.5s;
+                    padding: 0 -10%;
+                }
+
+                #HeaderContainer.scrolled {
+                    padding: 0 2.5%;
+                    background-color: rgba(0, 0, 0, 0.85);
                 }
 
                 #HeaderLeftContainer {
@@ -70,7 +189,6 @@ export default function Header() {
                     position: relative;
                     width: 20%;
                     height: 100%;
-                    margin-left: 5%;
                 }
 
                 #LogoContainer {
@@ -92,7 +210,6 @@ export default function Header() {
                     position: relative;
                     width: 40%;
                     height: 100%;
-                    margin-right: 10%;
                 }
 
                 #HeaderListContainer {
@@ -107,7 +224,9 @@ export default function Header() {
 
                 .HeaderListItem {
                     display: flex;
+                    position: relative;
                     width: 100%;
+                    height: 100%;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
@@ -115,39 +234,41 @@ export default function Header() {
                 }
 
                 .HeaderListItem:hover {
-                    opacity: 0.8;
+                    opacity: 0.7;
                     cursor: pointer;
                 }
 
-                @keyframes slide-down {
-                    0% { margin-top: -18vh; opacity: 0; }
-                    100% { margin-top: 0; opacity: 1; }
-                }
-
-                @keyframes slide-up {
-                    0% { margin-top: 0; opacity: 1; }
-                    100% { margin-top: -18vh; opacity: 0; }
+                #HeaderListClothingLink {
+                    display: flex;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    color: black;
                 }
 
                 #ClothingOptionsContainer {
                     display: flex;
                     positon: absolute;
-                    margin-top: 18vh;
-                    width: 100%;
-                    height: 90px;
+                    width: 170%;
+                    height: 7vh;
+                    margin-left: -35%;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
                     border: 1px solid black;
                     border-radius: 0 0 25px 25px;
+                    z-index: 2;
+                }
+
+                @keyframes slide-down {
+                    from { transform: translateY(-7vh); opacity: 0; }
+                    to { transform: transalateY(0vh); opacity: 1; }
                 }
 
                 #ClothingOptionsContainer.down {
-                    animation: slide-down 2s ease-in-out;
-                }
-                
-                #ClothingOptionsContainer.up {
-                    animation: slide-up 2s ease-in-out;
+                    animation: slide-down 0.5s ease-in-out;
                 }
 
                 #ClothingOptionsSale, #ClothingOptionsSold {
@@ -161,8 +282,12 @@ export default function Header() {
 
                 #ClothingOptionsSale { border-bottom: 1px solid black; }
 
-                #ClothingOptionsSaleButton, #ClothingOptionsSoldButton {
-                    
+                #ClothingOptionsSaleButton:hover, #ClothingOptionsSoldButton:hover {
+                    opacity: 0.8;
+                }
+
+                @media (max-width: 600px) {
+                    #HeaderContainer { display: none; }
                 }
 
             `}
