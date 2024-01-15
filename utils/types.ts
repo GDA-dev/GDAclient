@@ -1,5 +1,5 @@
 export interface Sale {
-    id?: string;
+    id?: number;
     title: string;
     description: string;
     category: string;
@@ -10,10 +10,10 @@ export interface Sale {
     notes?: string;
     thumbnail: string;
     gallery: string[];
-}
+};
 
 export interface Sold {
-    id?: string;
+    id?: number;
     title: string;
     description: string;
     category: string;
@@ -23,15 +23,15 @@ export interface Sold {
     notes?: string;
     thumbnail: string;
     gallery: string[];
-}
+};
 
 export interface Admin {
     name: string;
     password: string;
-}
+};
 
 export interface Clothing {
-    id?: string;
+    id?: number;
     title: string;
     description: string;
     category: string;
@@ -44,4 +44,29 @@ export interface Clothing {
     gallery: any;
     saleClothes: any;
     soldClothes: any;
-}
+};
+
+export interface Category {
+    CT: string;
+    CB: string;
+    CO: string;
+    A: string;
+    O: string;
+};
+
+export interface Size {
+    XXS: string;
+    XS: string;
+    S: string;
+    M: string;
+    L: string;
+    XL: string;
+    XXL: string;
+    OS: string;
+};
+
+export interface Gender {
+    M: string;
+    F: string;
+    U: string;
+};

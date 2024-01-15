@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from '@remix-run/react';
 import { FaBars } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -10,13 +11,30 @@ export default function Header() {
     const [showBars, setShowBars] = useState(true);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showMobileMenuItems, setShowMobileMenuItems] = useState(false);
+    const navigate = useNavigate();
 
-    const openClothingOptions = () => {
-        setClothingOptions(true);
+    const handleClothingOptions = () => {
+        setClothingOptions(!clothingOptions);
     };
 
-    const closeClothingOptions = () => {
-        setClothingOptions(false);
+    const redirect = (option: string) => {
+        const currentPath = window.location.pathname;
+    
+        if (currentPath !== '/') {
+            navigate('/');
+            setTimeout(() => {
+                scrollToSection(option);
+            }, 0);
+        } else {
+            scrollToSection(option);
+        };
+    };
+    
+    const scrollToSection = (option: string) => {
+        const section = document.getElementById(option);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
     };
 
     const handleScroll = () => {
@@ -112,9 +130,9 @@ export default function Header() {
                 ) : (
                     <div id="HeaderRightContainer">
                         <ul id="HeaderListContainer">
-                            <li className="HeaderListItem">Home</li>
-                            <li className="HeaderListItem">About</li>
-                            <li className="HeaderListItem" onMouseEnter={openClothingOptions} onMouseLeave={closeClothingOptions}>
+                            <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
+                            <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
+                            <li className="HeaderListItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
                                 <div id="HeaderListClothing">
                                     <a id="HeaderListClothingLink" href="/clothes">Clothing</a>
                                     <div id="ClothingOptionsContainer" style={{ display: clothingOptions ? "flex" : "none" }} className={ clothingOptions ? "down" : "" }>
@@ -127,7 +145,7 @@ export default function Header() {
                                     </div>
                                 </div>
                             </li>
-                            <li className="HeaderListItem">Contact</li>
+                            <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
                         </ul>
                     </div>
                 )}
