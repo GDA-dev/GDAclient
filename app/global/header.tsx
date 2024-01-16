@@ -1,40 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from '@remix-run/react';
-import { FaBars } from 'react-icons/fa';
+import redirect from "../../utils/redirectWithoutReload";
+import MobileMenu from "./mobileMenu";
+import WishlistModal from "../containers/wishlistModal";
+import { FaBars, FaHeart } from 'react-icons/fa';
+import { IoClose } from "react-icons/io5";
 import { AiOutlineClose } from 'react-icons/ai';
 
 export default function Header() {
     
     const [clothingOptions, setClothingOptions] = useState(false);
+    const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
+    const [wishlistItems, setWishlistItems] = useState([]);
     const [scrolled, setScrolled] = useState(false);
     const [showMobileView, setShowMobileView] = useState(false);
     const [showBars, setShowBars] = useState(true);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showMobileMenuItems, setShowMobileMenuItems] = useState(false);
-    const navigate = useNavigate();
 
     const handleClothingOptions = () => {
         setClothingOptions(!clothingOptions);
     };
 
-    const redirect = (option: string) => {
-        const currentPath = window.location.pathname;
-    
-        if (currentPath !== '/') {
-            navigate('/');
-            setTimeout(() => {
-                scrollToSection(option);
-            }, 0);
-        } else {
-            scrollToSection(option);
-        };
-    };
-    
-    const scrollToSection = (option: string) => {
-        const section = document.getElementById(option);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
+    const getWishlistItems = () => { 
+        const wishlistString = localStorage.getItem('wishlist');
+        const wishlist = wishlistString ? JSON.parse(wishlistString) : []; 
+        setWishlistItems(wishlist);
+        setWishlistModalOpen(true);
     };
 
     const handleScroll = () => {
@@ -117,10 +108,8 @@ export default function Header() {
                         )}
                         {showMobileMenu ? (
                             <div id='MobileHeaderMenu'>
-                                <div id="MobileHeaderMenuItems" className={showMobileMenuItems ? 'opened' : ''}>
-                                    <div id="MobileStadiumItemContainer">
-                                        <a id="MobileStadiumItem" href="/stadiums">Stadiums</a>
-                                    </div>
+                                <div id="MobileHeaderMenuContainer" className={showMobileMenuItems ? 'opened' : ''}>
+                                    <MobileMenu />
                                 </div>
                             </div>
                         ) : (
@@ -132,7 +121,7 @@ export default function Header() {
                         <ul id="HeaderListContainer">
                             <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
                             <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
-                            <li className="HeaderListItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
+                            <li id="HeaderListClothingItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
                                 <div id="HeaderListClothing">
                                     <a id="HeaderListClothingLink" href="/clothes">Clothing</a>
                                     <div id="ClothingOptionsContainer" style={{ display: clothingOptions ? "flex" : "none" }} className={ clothingOptions ? "down" : "" }>
@@ -146,7 +135,16 @@ export default function Header() {
                                 </div>
                             </li>
                             <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
+                            <li className="HeaderListItem" onClick={getWishlistItems}><FaHeart style={{ color: "red" }}/></li>
                         </ul>
+                        {wishlistModalOpen && 
+                            <div id="HeaderWishlistModalContainer">
+                                <div id="HeaderWishlistCloseContainer" onClick={() => setWishlistModalOpen(false)}>
+                                    <IoClose id="HeaderWishlistClose" />
+                                </div>
+                                <WishlistModal wishlistItems={wishlistItems} requestWishlistItems={getWishlistItems} />
+                            </div>
+                        }
                     </div>
                 )}
             </div>
@@ -234,8 +232,19 @@ export default function Header() {
                 }
 
                 .HeaderListItem:hover {
-                    opacity: 0.7;
+                    opacity: 0.1;
                     cursor: pointer;
+                }
+
+                #HeaderListClothingItem {
+                    display: flex;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
                 }
 
                 #HeaderListClothingLink {
@@ -248,11 +257,17 @@ export default function Header() {
                     color: black;
                 }
 
+                #HeaderListClothingLink:hover {
+                    opacity: 0.5;
+                    cursor: pointer;
+                }                
+
                 #ClothingOptionsContainer {
                     display: flex;
                     positon: absolute;
                     width: 170%;
-                    height: 7vh;
+                    height: 10vh;
+                    margin-top: -1vh;
                     margin-left: -35%;
                     flex-direction: column;
                     justify-content: center;
@@ -280,10 +295,42 @@ export default function Header() {
                     align-items: center;
                 }
 
-                #ClothingOptionsSale { border-bottom: 1px solid black; }
+                #ClothingOptionsSale { border-bottom: 1px solid black; } 
 
                 #ClothingOptionsSaleButton:hover, #ClothingOptionsSoldButton:hover {
-                    opacity: 0.8;
+                    opacity: 0.5;
+                }
+
+                #HeaderWishlistModalContainer {
+                    display: flex;
+                    position: fixed;
+                    top: 10vh;
+                    right: 5px;
+                    width: 30vw;
+                    height: 50vh;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid black;
+                }
+
+                #HeaderWishlistCloseContainer {
+                    display: flex;
+                    position: absolute;
+                    top: 10px;
+                    right: 5px;
+                    width: 10%;
+                    height: 10%;
+                }
+
+                #HeaderWishlistCloseContainer:hover {
+                    opacity: 0.5;
+                    cursor: pointer;
+                }
+
+                #HeaderWishlistClose {
+                    width: 80%;
+                    height: 80%;
                 }
 
                 @media (max-width: 600px) {
