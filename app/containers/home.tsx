@@ -5,8 +5,8 @@ export default function Home() {
     
     
     return (
-        <div>
-
+        <div style={{ height: "130vh", marginTop: 100 }}>
+hi
         </div>
     );
 };

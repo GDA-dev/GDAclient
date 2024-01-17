@@ -1,6 +1,6 @@
 import React from "react";
-import CreatePost from "../componenets/createImage";
-import CreateSale from '../componenets/createSale';
+import CreatePost from "../components/createImage";
+import CreateSale from '../components/createSale';
 // import CreateSold from '../components/createSold';
 
 export default function CreatePage() {

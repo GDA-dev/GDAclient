@@ -42,8 +42,8 @@ export interface Clothing {
     notes?: string;
     thumbnail: string;
     gallery: any;
-    saleClothes: any;
-    soldClothes: any;
+    saleClothes?: any;
+    soldClothes?: any;
 };
 
 export interface Category {

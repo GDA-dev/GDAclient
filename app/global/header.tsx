@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import redirect from "../../utils/redirectWithoutReload";
 import MobileMenu from "./mobileMenu";
 import WishlistModal from "../containers/wishlistModal";
-import { FaBars, FaHeart } from 'react-icons/fa';
-import { IoClose } from "react-icons/io5";
-import { AiOutlineClose } from 'react-icons/ai';
+import redirect from "../../utils/redirectWithoutReload";
+import { getWishlistItems } from "../../utils/localStorage";
+import { FaHeart } from 'react-icons/fa';
 
 export default function Header() {
     
@@ -13,19 +12,9 @@ export default function Header() {
     const [wishlistItems, setWishlistItems] = useState([]);
     const [scrolled, setScrolled] = useState(false);
     const [showMobileView, setShowMobileView] = useState(false);
-    const [showBars, setShowBars] = useState(true);
-    const [showMobileMenu, setShowMobileMenu] = useState(false);
-    const [showMobileMenuItems, setShowMobileMenuItems] = useState(false);
 
     const handleClothingOptions = () => {
         setClothingOptions(!clothingOptions);
-    };
-
-    const getWishlistItems = () => { 
-        const wishlistString = localStorage.getItem('wishlist');
-        const wishlist = wishlistString ? JSON.parse(wishlistString) : []; 
-        setWishlistItems(wishlist);
-        setWishlistModalOpen(true);
     };
 
     const handleScroll = () => {
@@ -34,48 +23,30 @@ export default function Header() {
         } else {
             setScrolled(false);
             closeMobileHeader();
-        }
+        };
     };
 
     const handleMediaQuery = () => {
-        if (window.innerWidth < 600) {
-            setShowBars(true);
+        if (window.innerWidth < 900) {
             setShowMobileView(true);
-            setShowMobileMenu(false);
         } else {
-            setShowBars(false);
             setShowMobileView(false);
-            setShowMobileMenu(false);
-        }
-    };
-
-    const openMobileHeader = () => {
-        setShowMobileMenu(true);
-        setShowBars(false);
-        setScrolled(true);
-        setTimeout(() => {
-            setShowMobileMenuItems(true);
-        }, 1);
+        };
     };
 
     const closeMobileHeader = () => {
-        setShowMobileMenu(false);
-        setShowBars(true);
         if (window.scrollY <= 10) {
             setScrolled(false);
         }
-        setTimeout(() => {
-            setShowMobileMenuItems(false);
-        }, 1);
     };
 
     useEffect(() => {
 
-        if (window.innerWidth < 600) {
+        if (window.innerWidth < 900) {
             setShowMobileView(true);
         } else {
             setShowMobileView(false);
-        }
+        };
 
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleMediaQuery);
@@ -90,34 +61,15 @@ export default function Header() {
     return (
         <div id="Header">
             <div id="HeaderContainer" className={scrolled ? 'scrolled' : ''}>
-                <div id="HeaderLeftContainer">
-                    <div id="LogoContainer">
-                        <a href="/"><img id="Logo" src="" alt="Genet Design's and Alterations Logo" /></a>
-                    </div>
+                <div id="HeaderLogoContainer">
+                    <a href="/"><img id="HeaderLogo" src="" alt="Genet Design's and Alterations Logo" /></a>
                 </div>
                 {showMobileView ? (
-                    <div id="MobileHeaderRightContainer">
-                        {showBars ? (
-                            <div id="MobileHeaderOpenContainer">
-                                <FaBars id='MobileHeaderOpen' onClick={openMobileHeader} />
-                            </div>
-                        ) : (    
-                            <div id="MobileHeaderCloseContainer">
-                                <AiOutlineClose id='MobileHeaderClose' onClick={closeMobileHeader} />
-                            </div>
-                        )}
-                        {showMobileMenu ? (
-                            <div id='MobileHeaderMenu'>
-                                <div id="MobileHeaderMenuContainer" className={showMobileMenuItems ? 'opened' : ''}>
-                                    <MobileMenu />
-                                </div>
-                            </div>
-                        ) : (
-                            null
-                        )}
+                    <div id="MobileHeaderMenuContainer">
+                        <MobileMenu />
                     </div>
                 ) : (
-                    <div id="HeaderRightContainer">
+                    <>
                         <ul id="HeaderListContainer">
                             <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
                             <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
@@ -135,17 +87,18 @@ export default function Header() {
                                 </div>
                             </li>
                             <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
-                            <li className="HeaderListItem" onClick={getWishlistItems}><FaHeart style={{ color: "red" }}/></li>
+                            <li className="HeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}>
+                                <FaHeart style={{ color: "red" }}/>
+                            </li>
                         </ul>
                         {wishlistModalOpen && 
-                            <div id="HeaderWishlistModalContainer">
-                                <div id="HeaderWishlistCloseContainer" onClick={() => setWishlistModalOpen(false)}>
-                                    <IoClose id="HeaderWishlistClose" />
-                                </div>
-                                <WishlistModal wishlistItems={wishlistItems} requestWishlistItems={getWishlistItems} />
-                            </div>
+                            <WishlistModal 
+                                wishlistItems={wishlistItems}
+                                requestWishlistItems={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}
+                                closeWishlistModal={() => setWishlistModalOpen(false)}
+                            />
                         }
-                    </div>
+                    </>
                 )}
             </div>
 
@@ -159,6 +112,8 @@ export default function Header() {
                     left: 0;
                     width: 100vw;
                     height: 10vh;
+                    align-items: center;
+                    justify-content: center;
                     background-color: rgba(0, 0, 0, 0);
                     border-bottom: 1px solid black;
                     z-index: 3;
@@ -174,46 +129,32 @@ export default function Header() {
                     align-items: center;
                     background-color: rgba(0, 0, 0, 0);
                     transition: 0.5s;
-                    padding: 0 -10%;
                 }
 
                 #HeaderContainer.scrolled {
+                    width: 100%;
                     padding: 0 2.5%;
                     background-color: rgba(0, 0, 0, 0.85);
                 }
 
-                #HeaderLeftContainer {
+                #HeaderLogoContainer {
                     display: flex;
                     position: relative;
-                    width: 20%;
-                    height: 100%;
-                }
-
-                #LogoContainer {
-                    display: flex;
-                    position: relative;
-                    width: 100%;
+                    width: 300px;
                     height: 100%;
                     justify-content: center;
                     align-items: center;
                 }
 
-                #Logo {
+                #HeaderLogo {
                     width: 30px;
                     height: 30px;
-                }
-
-                #HeaderRightContainer {
-                    display: flex;
-                    position: relative;
-                    width: 40%;
-                    height: 100%;
                 }
 
                 #HeaderListContainer {
                     display: flex;
                     position: relative;
-                    width: 100%;
+                    width: 40%;
                     height: 100%;
                     flex-direction: row;
                     justify-content: space-between;
@@ -232,7 +173,7 @@ export default function Header() {
                 }
 
                 .HeaderListItem:hover {
-                    opacity: 0.1;
+                    opacity: 0.5;
                     cursor: pointer;
                 }
 
@@ -301,40 +242,44 @@ export default function Header() {
                     opacity: 0.5;
                 }
 
-                #HeaderWishlistModalContainer {
+                #MobileHeaderMenuContainer {
                     display: flex;
-                    position: fixed;
-                    top: 10vh;
-                    right: 5px;
-                    width: 30vw;
-                    height: 50vh;
-                    flex-direction: column;
+                    position: relative;
+                    width: 20%;
+                    height: 100%;
                     justify-content: center;
                     align-items: center;
-                    border: 1px solid black;
                 }
 
-                #HeaderWishlistCloseContainer {
+                #MobileHeaderListContainer {
+                    display: grid;
+                    position: relative;
+                    width: 100%;
+                    height: 25%;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .MobileHeaderListItem {
                     display: flex;
-                    position: absolute;
-                    top: 10px;
-                    right: 5px;
-                    width: 10%;
-                    height: 10%;
+                    height: 60%;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    font-size: 18px;
+                    border: 1px solid black;
+                    border-radius: 25px;
                 }
 
-                #HeaderWishlistCloseContainer:hover {
-                    opacity: 0.5;
+                .MobileHeaderListItem:hover {
                     cursor: pointer;
-                }
-
-                #HeaderWishlistClose {
-                    width: 80%;
-                    height: 80%;
+                    opacity: 0.5;
                 }
 
                 @media (max-width: 600px) {
-                    #HeaderContainer { display: none; }
+                    #HeaderLogo { width: 200px; height: 75px; margin-left: 10px; }
+                    #MenuContainer { display: none; }
                 }
 
             `}
