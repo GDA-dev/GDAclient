@@ -1,11 +1,11 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useLocation } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
 import { soldClothesQueries } from "../../graphql/soldClothes";
 import Header from "../global/header";
 import Footer from "../global/footer";
-import Clothes from "../containers/clothes";
+import ClothingOptions from "../containers/clothingOptions";
 
 export const meta: MetaFunction = () => {
     return [
@@ -25,14 +25,13 @@ export async function loader() {
 export default function ClothesPage() {
     
     const latestClothing = useLoaderData<typeof loader>();
+    const currentPath = useLocation().pathname;
     
-    return (
-        <html>
-            <body>
-                <Header />
-                <Clothes latestSale={latestClothing[0]} latestSold={latestClothing[1]} />
-                <Footer />
-            </body>
-        </html>
+    return (                
+        <>
+            <Header />
+            {currentPath === "/clothes" && <ClothingOptions latestSale={latestClothing[0]} latestSold={latestClothing[1]} />}
+            <Footer />
+        </>
     );
 };

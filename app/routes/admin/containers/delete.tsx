@@ -1,6 +1,6 @@
 import React from "react";
-import DeleteSale from "../componenets/deleteSale";
-import DeleteSold from "../componenets/deleteSold";
+import DeleteSale from "../components/deleteSale";
+import DeleteSold from "../components/deleteSold";
 
 export default function DeletePage() {
 

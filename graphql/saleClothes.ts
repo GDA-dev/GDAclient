@@ -244,7 +244,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        const latestSaleClothing = res.saleClothes[0]; 
+        const latestSaleClothing = res.saleClothes[0];
         return toArray(latestSaleClothing);
     };
 

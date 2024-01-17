@@ -1,9 +1,9 @@
-import { useNavigate } from '@remix-run/react';
+import { useNavigate, useLocation } from '@remix-run/react';
 
 export default function redirect(option: string) {
 
     const navigate = useNavigate();
-    const currentPath = window.location.pathname;
+    const currentPath = useLocation().pathname;
 
     const scrollToSection = (option: string) => {
         const section = document.getElementById(option);
@@ -20,5 +20,4 @@ export default function redirect(option: string) {
     } else {
         scrollToSection(option);
     };
-
 };

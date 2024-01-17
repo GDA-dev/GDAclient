@@ -1,6 +1,6 @@
 import React from "react";
-import UpdateSale from "../componenets/updateSale";
-import UpdateSold from "../componenets/updateSold";
+import UpdateSale from "../components/updateSale";
+import UpdateSold from "../components/updateSold";
 
 export default function UpdatePage() {
 
