@@ -61,8 +61,12 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     #WishlistModalHeaderContainer {
                         display: flex;
                         position: absolute;
-                        top: 20px;
-                        left: 15px;
+                        top: 0px;
+                        left: 0px;
+                        width: 25%;
+                        height: 15%;
+                        justify-content: center;
+                        align-items: center;
                     }
 
                     #WishlistModalHeader {
@@ -90,7 +94,15 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     }
 
                     #WishlistModalCardsContainer {
-
+                        display: flex;
+                        position: relative;
+                        width: 100%;
+                        height: 85%;
+                        flex-direction: column;
+                        margin-top: 10%;
+                        justify-content: flex-start;
+                        align-items: center;
+                        overflow-y: scroll;
                     }
 
                     #WishlistModalEmptyMessage {
@@ -98,7 +110,12 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     }
 
                     #WishlistModalCard {
-
+                        display: flex;
+                        position: relative;
+                        width: 95%;
+                        height: 200px;
+                        margin-top: 2%;
+                        border: 1px solid black;
                     }
 
                     @media (max-width: 900px) {

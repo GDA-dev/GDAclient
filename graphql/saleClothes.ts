@@ -54,7 +54,7 @@ export class saleClothesQueries {
         return toArray(res.saleClothes);
     };
 
-    async getSaleClothingByCaterogy(category: string) {
+    async getSaleClothingByCategory(category: string) {
 
         const query = gql`
             {
