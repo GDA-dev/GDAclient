@@ -8,6 +8,24 @@ export const getWishlistItems = () => {
     
 };
 
+export const checkInWishlist = (id: number | undefined) => {
+
+    const wishlistString = localStorage.getItem('wishlist');
+    const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
+
+    if (wishlist.length === 0) {
+        return false;
+    } else {
+        const found = wishlist.find((item: Clothing) => item.id === id);
+        if (found) {
+            return true;
+        } else {
+            return false;
+        };
+    };
+
+};
+
 export const addToWishlist = (clothing: Clothing) => {
 
     const wishlistString = localStorage.getItem("wishlist");
@@ -20,16 +38,13 @@ export const addToWishlist = (clothing: Clothing) => {
         return true;
 
     } else {
-
-        const found = wishlist.find((item: Clothing) => item === clothing);
-
+        const found = checkInWishlist(clothing.id);
         if (found) {
             return true;
         } else {
             const updatedWishlist = wishlist.append(clothing);
             localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
             return true;
-
         };
     };
 };

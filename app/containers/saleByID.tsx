@@ -1,8 +1,8 @@
 import React from "react";
-import { Sale } from "../../utils/types";
+import { Clothing } from "../../utils/types";
 
 interface SaleByIDProps {
-    saleCard: Sale;
+    saleCard: Clothing;
 };
 
 const SaleByID: React.FC<SaleByIDProps> = ({ saleCard }) => {

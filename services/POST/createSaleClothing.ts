@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Sale } from "../../utils/types";
+import { Clothing } from "../../utils/types";
 
-export default function createSaleClothing(data: Sale) {
+export default function createSaleClothing(data: Clothing) {
     try {
 
         axios.post(`${process.env.API_URL}/sale_clothes/new/`, data);

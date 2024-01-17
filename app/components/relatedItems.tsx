@@ -1,9 +1,9 @@
 import React from "react";
-import { Sale, Sold } from "../../utils/types";
+import { Clothing } from "../../utils/types";
 
 interface RelatedItemsProps {
-    saleClothing: Sale[];
-    soldClothing: Sold[];
+    saleClothing: Clothing[];
+    soldClothing: Clothing[];
 };
 
 const RelatedItems: React.FC<RelatedItemsProps> = ({ saleClothing, soldClothing }) => {

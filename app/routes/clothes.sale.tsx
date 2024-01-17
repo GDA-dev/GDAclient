@@ -2,6 +2,7 @@ import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
+import AllSale from "../containers/allSale";
 
 export const meta: MetaFunction = () => {
     return [
@@ -12,7 +13,7 @@ export const meta: MetaFunction = () => {
 
 export async function loader() {
     const gql = new saleClothesQueries();
-    const res = await gql.getAllSaleClothes();
+    const res: any = await gql.getAllSaleClothes();
     return res;
 };
 
@@ -22,6 +23,7 @@ export default function AllSalePage() {
     
     return (
         <>
+            <AllSale saleClothes={allSaleClothes} />
         </>
     );
 };

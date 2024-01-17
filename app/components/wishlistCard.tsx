@@ -40,7 +40,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({ clothing, deleteClothing })
                     </CardBody>
                     <CardFooter>
                         <Button variant='solid' colorScheme='blue' onClick={checkClothingType}>View Clothing</Button>
-                        <Button variant='solid' colorScheme='red' onClick={deleteClothing}>Delete From Wishlist</Button>
+                        <Button variant='solid' colorScheme='red' onClick={deleteClothing}>Delete</Button>
                     </CardFooter>
                 </Stack>
             </Card>

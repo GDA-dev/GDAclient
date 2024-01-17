@@ -1,10 +1,10 @@
 import React from "react";
 import ClothingCard from "../components/clothingCard";
-import { Sale, Sold } from "../../utils/types";
+import { Clothing } from "../../utils/types";
 
 interface ClothingOptionsProps {
-    latestSale: Sale;
-    latestSold: Sold; 
+    latestSale: Clothing;
+    latestSold: Clothing; 
 };
 
 const ClothingOptions: React.FC<ClothingOptionsProps> = ({ latestSale, latestSold }) => {
