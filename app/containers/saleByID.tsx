@@ -10,8 +10,10 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleCard }) => {
     
     
     return (
-        <div>
-
+        <div id="SaleById">
+            <div id="SaleByIdContainer">
+                
+            </div>
         </div>
     );
 };

@@ -11,6 +11,7 @@ export const meta: MetaFunction = () => {
         { name: "description", content: "Welcome to Genet Design's and Alterations!" },
     ];
 };
+
 export default function HomePage() {
     
     const currentPath = useLocation().pathname;

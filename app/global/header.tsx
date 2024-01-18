@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MobileMenu from "./mobileMenu";
 import WishlistModal from "../containers/wishlistModal";
-import redirect from "../../utils/redirectWithoutReload";
+import { redirect } from "../../utils/redirectWithoutReload";
 import { getWishlistItems } from "../../utils/localStorage";
 import { FaHeart } from 'react-icons/fa';
 

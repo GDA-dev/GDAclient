@@ -1,9 +1,10 @@
 import axios from "axios";
+import { env } from '../../utils/env';
 
 export default function deleteSaleClothingByID(id: string) {
    try {
 
-        axios.delete(`${process.env.API_URL}/sale_clothes/delete/${id}/`);
+        axios.delete(`${env.API_URL}/sale_clothes/delete/${id}/`);
 
    } catch (error) {
 
