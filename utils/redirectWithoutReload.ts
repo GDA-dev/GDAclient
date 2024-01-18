@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from '@remix-run/react';
 
-export default function redirect(option: string) {
+export const redirect = (option: string) => {
 
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
@@ -19,5 +19,16 @@ export default function redirect(option: string) {
         }, 1);
     } else {
         scrollToSection(option);
+    };
+};
+
+export const redirectById = (id: number | undefined, clothingType: string) => {
+
+    const navigate = useNavigate();
+
+    if (clothingType === "sale") {
+        navigate(`clothes/sale/${id}`);
+    } else if (clothingType === "sold") {
+        navigate(`clothes/sold/${id}`);
     };
 };

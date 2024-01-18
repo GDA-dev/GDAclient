@@ -10,8 +10,22 @@ import {
   ScrollRestoration,
 } from '@remix-run/react'
 import { MetaFunction, LinksFunction } from '@remix-run/node' // Depends on the runtime you choose
-
+import { useLoaderData, json } from "@remix-run/react";
 import { ServerStyleContext, ClientStyleContext } from './context'
+
+export async function loader() {
+
+  return json({
+    ENV: {
+      API_URL: process.env.API_URL,
+      GRAPHQL_URL: process.env.GRAPHQL_URL,
+      CLOUDINARY_URL: process.env.CLOUDINARY_URL,
+      CLOUDINARY_PRESET: process.env.CLOUDINARY_PRESET
+    },
+  });
+
+};
+
 
 export const meta: MetaFunction = () => {
   return [
@@ -40,6 +54,8 @@ const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
     const serverStyleData = useContext(ServerStyleContext);
     const clientStyleData = useContext(ClientStyleContext);
+
+    const data = useLoaderData<typeof loader>();
 
     // Only executed on client
     useEffect(() => {
@@ -71,6 +87,11 @@ const Document = withEmotionCache(
         <body>
           {children}
           <ScrollRestoration />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+            }}
+          />
           <Scripts />
           <LiveReload />
         </body>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ClothingCard from "../components/clothingCard";
+import React, { useState, Suspense, lazy } from "react";
+import SkeletonCard from "../components/skeletonCard"
 import CategoryFilter from "../components/categoryFilter";
 import SizeFilter from "../components/sizeFilter";
 import GenderFilter from "../components/genderFilter";
@@ -11,27 +11,32 @@ interface AllSaleProps {
     saleClothes: Clothing[];
 };
 
+const ClothingCard = lazy(() => import("../components/clothingCard"));
+
 const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
     
-    const [displayedClothes, setDisplayedClothes] = useState<Clothing[] | []>(saleClothes);
+    const [displayedClothes, setDisplayedClothes] = useState<any>(saleClothes);
     const [filterSelection, setFilterSelection] = useState({ category: "", size: "", gender: "" });
 
-    const handleFilterSelection = (filter: string, filterType: string) => {
+    const handleFilterSelection = async (filter: string, filterType: string) => {
 
         if (filterType === "category") {
 
+            const res = await fetchFilter(filterSelection, "sale")
             setFilterSelection(prevSelection => ({...prevSelection, category: filter}));
-            setDisplayedClothes(fetchFilter(filterSelection, "sale"));
+            setDisplayedClothes(res);
 
         } else if (filterType === "size") {
 
+            const res = await fetchFilter(filterSelection, "sale")
             setFilterSelection(prevSelection => ({...prevSelection, size: filter}));
-            setDisplayedClothes(fetchFilter(filterSelection, "sale"));
+            setDisplayedClothes(res);
 
         } else if (filterType === "gender") {
 
+            const res = await fetchFilter(filterSelection, "sale")
             setFilterSelection(prevSelection => ({...prevSelection, gender: filter}));
-            setDisplayedClothes(fetchFilter(filterSelection, "sale"));
+            setDisplayedClothes(res);
 
         } else if (filterType === "clear") {
 
@@ -45,7 +50,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
         <div id="AllSale">
             <div id="AllSaleContainer">
                 <div id="AllSaleTitleContainer">
-                    <p id="AllSaleTitle">Clothes on Sale</p>
+                    <p id="AllSaleTitle">Sale Clothing</p>
                 </div>
                 <div id="AllSaleFiltersContainer">
                     <div id="AllSaleCategoryFilterContainer">
@@ -64,11 +69,29 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                 <div id="AllSaleCardContainer">
                     {displayedClothes.map((clothing: Clothing, index: number) => (
                         <div id="AllSaleCard" key={index}>
-                            <ClothingCard clothing={clothing} inWishlist={checkInWishlist(clothing.id)}/>
+                            <Suspense fallback={<SkeletonCard />}>
+                                <ClothingCard clothing={clothing} inWishlist={checkInWishlist(clothing.id)}/>
+                            </Suspense>
                         </div>
                     ))}
                 </div>
             </div>
+            <style>
+                {`
+                    #AllSale {
+                        display: flex;
+                        position: relative;
+                        width: 100vw:
+                        height: 100%;
+                        margin-top: 10vh;
+                        border: 1px solid blue;
+                    }
+
+                    #AllSaleContainer {
+
+                    }
+                `}
+            </style>
         </div>
     );
 };

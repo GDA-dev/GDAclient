@@ -1,8 +1,9 @@
 import { GraphQLClient, gql } from 'graphql-request';
 import toArray from '../utils/toArray';
+import { env } from '../utils/env';
 import { Clothing } from '../utils/types';
 
-const client = new GraphQLClient(`${process.env.GRAPHQL_URL}`);
+const client = new GraphQLClient(`${env.GRAPHQL_URL}`);
 
 export class soldClothesQueries {
 
@@ -52,7 +53,7 @@ export class soldClothesQueries {
         return toArray(res.soldClothes);
     };
 
-    async getSoldClothingByCaterogy(category: string) {
+    async getSoldClothingByCategory(category: string) {
 
         const query = gql`
             {

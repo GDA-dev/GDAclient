@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from '@remix-run/react';
 import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
+import { redirectById } from "../../utils/redirectWithoutReload";
 import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Clothing } from "../../utils/types";
@@ -13,11 +13,7 @@ interface SaleCardProps {
 const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
 
     const [wishlist, setWishlist] = useState(inWishlist);
-    const navigate = useNavigate();
-    
-    const redirectByID = (id: number | undefined) => {
-        navigate(`/clothes/sale/${id}`);
-    };
+    const clothingType = clothing.price ? "sale" : "sold";
     
     return (
         <>
@@ -41,7 +37,7 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
-                        <Button variant='solid' colorScheme='blue' onClick={() => redirectByID(clothing.id)}>View</Button>
+                        <Button variant='solid' colorScheme='blue' onClick={() => redirectById(clothing.id, clothingType)}>View</Button>
                         <Button variant='ghost' colorScheme='blue'>
                             {wishlist ? (
                                 <FaHeart onClick={() => setWishlist(deleteFromWishlist(clothing))} style={{ color: "red" }} /> 
