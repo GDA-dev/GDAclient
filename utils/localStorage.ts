@@ -10,20 +10,21 @@ export const getWishlistItems = () => {
 
 export const checkInWishlist = (id: number | undefined) => {
 
-    const wishlistString = localStorage.getItem('wishlist');
-    const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
+    if (typeof window !== 'undefined') {
+        const wishlistString = localStorage.getItem('wishlist');
+        const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
 
-    if (wishlist.length === 0) {
-        return false;
-    } else {
-        const found = wishlist.find((item: Clothing) => item.id === id);
-        if (found) {
-            return true;
-        } else {
+        if (wishlist.length === 0) {
             return false;
+        } else {
+            const found = wishlist.find((item: Clothing) => item.id === id);
+            if (found) {
+                return true;
+            } else {
+                return false;
+            };
         };
     };
-
 };
 
 export const addToWishlist = (clothing: Clothing) => {

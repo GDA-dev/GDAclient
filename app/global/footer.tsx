@@ -5,7 +5,7 @@ export default function Footer() {
     
     
     return (
-        <div>
+        <div id="Footer">
 
         </div>
     );

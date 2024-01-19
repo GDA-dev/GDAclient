@@ -3,6 +3,7 @@ import MobileMenu from "./mobileMenu";
 import WishlistModal from "../containers/wishlistModal";
 import { redirect } from "../../utils/redirectWithoutReload";
 import { getWishlistItems } from "../../utils/localStorage";
+import headerLogo from "../../public/headerLogo.jpg"
 import { FaHeart } from 'react-icons/fa';
 
 export default function Header() {
@@ -62,7 +63,7 @@ export default function Header() {
         <div id="Header">
             <div id="HeaderContainer" className={scrolled ? 'scrolled' : ''}>
                 <div id="HeaderLogoContainer">
-                    <a href="/"><img id="HeaderLogo" src="" alt="Genet Design's and Alterations Logo" /></a>
+                    <a href="/"><img id="HeaderLogo" src={headerLogo} alt="Genet Design's and Alterations Logo" /></a>
                 </div>
                 {showMobileView ? (
                     <div id="MobileHeaderMenuContainer">
@@ -75,7 +76,7 @@ export default function Header() {
                             <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
                             <li id="HeaderListClothingItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
                                 <div id="HeaderListClothing">
-                                    <a id="HeaderListClothingLink" href="/clothes">Clothing</a>
+                                    <div id="HeaderListClothingButton">Clothing</div>
                                     <div id="ClothingOptionsContainer" style={{ display: clothingOptions ? "flex" : "none" }} className={ clothingOptions ? "down" : "" }>
                                         <div id="ClothingOptionsSale">
                                             <a id="ClothingOptionsSaleButton" href="/clothes/sale">Sale Clothing</a>
@@ -146,10 +147,13 @@ export default function Header() {
                     align-items: center;
                 }
 
-                #HeaderLogo {
-                    width: 30px;
-                    height: 30px;
+                #HeaderLogoContainer a {
+                    display: flex;
+                    height: 100%;
+                    align-items: center;
                 }
+
+                #HeaderLogo { height: 100%; }
 
                 #HeaderListContainer {
                     display: flex;
@@ -188,7 +192,7 @@ export default function Header() {
                     text-decoration: none;
                 }
 
-                #HeaderListClothingLink {
+                #HeaderListClothingButton {
                     display: flex;
                     position: relative;
                     width: 100%;
@@ -198,9 +202,8 @@ export default function Header() {
                     color: black;
                 }
 
-                #HeaderListClothingLink:hover {
+                #HeaderListClothingButton:hover {
                     opacity: 0.5;
-                    cursor: pointer;
                 }                
 
                 #ClothingOptionsContainer {
@@ -220,7 +223,7 @@ export default function Header() {
 
                 @keyframes slide-down {
                     from { transform: translateY(-7vh); opacity: 0; }
-                    to { transform: transalateY(0vh); opacity: 1; }
+                    to { transform: transalateY(0vh); opacity: 1; cursor: pointer; }
                 }
 
                 #ClothingOptionsContainer.down {
@@ -234,6 +237,7 @@ export default function Header() {
                     height: 50%;
                     justify-content: center;
                     align-items: center;
+                    cursor: none;
                 }
 
                 #ClothingOptionsSale { border-bottom: 1px solid black; } 

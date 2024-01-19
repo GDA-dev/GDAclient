@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Select } from '@chakra-ui/react';
 import { Clothing } from "../../utils/types";
 
@@ -41,20 +41,24 @@ const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelecte
         };
     };
 
-    detectValidOptions();
+    useEffect(() => {
+        detectValidOptions();
+    }, [currentOptions]);
     
     return (
         <>
-            <Select placeholder='Clothing Genders'>
+            <Select placeholder='Clothing Genders'  borderColor="pink">
                 {genders.map((gender: string) => {
 
                     const key = Object.keys(genderObj).find(k => genderObj[k] === gender);
                     
                     if (validOptions[key as ValidOptionKeys] === 0) {
-                        const option = document.getElementById(`${key}`);
-                        if (option) { 
-                            option.style.opacity = '0.3';
-                            option.style.cursor = 'not-allowed';
+                        if (typeof document !== 'undefined') {
+                            const option = document.getElementById(`${key}`);
+                            if (option) { 
+                                option.style.opacity = '0.3';
+                                option.style.cursor = 'not-allowed';
+                            };
                         };
                     };
 
