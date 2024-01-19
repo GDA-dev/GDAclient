@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button } from '@chakra-ui/react';
 import WishlistModal from "../containers/wishlistModal";
 import { redirect } from "../../utils/redirectWithoutReload";
 import { getWishlistItems } from "utils/localStorage";
-import { useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button } from '@chakra-ui/react';
 import { FaBars, FaHeart } from 'react-icons/fa';
 
 export default function MobileMenu() {

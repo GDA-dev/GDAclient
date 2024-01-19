@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Select } from '@chakra-ui/react';
 import { Clothing } from "../../utils/types";
 
@@ -56,20 +56,24 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
         };
     };
 
-    detectValidOptions();
+    useEffect(() => {
+        detectValidOptions();
+    }, [currentOptions]);
     
     return (
         <>
-            <Select placeholder='Clothing Sizes'>
+            <Select placeholder='Clothing Sizes'  borderColor="pink">
                 {sizes.map((size: string) => {
 
                     const key = Object.keys(sizeObj).find(k => sizeObj[k] === size);
                     
                     if (validOptions[key as ValidOptionKeys] === 0) {
-                        const option = document.getElementById(`${key}`);
-                        if (option) { 
-                            option.style.opacity = '0.3';
-                            option.style.cursor = 'not-allowed';
+                        if (typeof document !== 'undefined') {
+                            const option = document.getElementById(`${key}`);
+                            if (option) { 
+                                option.style.opacity = '0.3';
+                                option.style.cursor = 'not-allowed';
+                            };
                         };
                     };
 

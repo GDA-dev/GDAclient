@@ -50,11 +50,12 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                         position: fixed;
                         top: 10vh;
                         right: 5px;
-                        width: 30vw;
+                        width: 35vw;
                         height: 50vh;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
+                        background-color: white;
                         border: 1px solid black;
                     }
 
@@ -63,10 +64,11 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                         position: absolute;
                         top: 0px;
                         left: 0px;
-                        width: 25%;
+                        width: 100%;
                         height: 15%;
-                        justify-content: center;
+                        justify-content: flex-start;
                         align-items: center;
+                        padding-left: 2.5%;
                     }
 
                     #WishlistModalHeader {
@@ -77,10 +79,13 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     #WishlistModalCloseContainer {
                         display: flex;
                         position: absolute;
-                        top: 10px;
-                        right: 5px;
-                        width: 10%;
-                        height: 10%;
+                        top: 0;
+                        right: 0;
+                        width: 100%;
+                        height: 15%;
+                        justify-content: flex-end;
+                        align-items: center;
+                        padding-right: 2.5%;
                     }
 
                     #WishlistModalCloseContainer:hover {
@@ -89,8 +94,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     }
 
                     #WishlistModalClose {
-                        width: 80%;
-                        height: 80%;
+                        font-size: 30px;
                     }
 
                     #WishlistModalCardsContainer {

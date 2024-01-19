@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
 import Header from "../global/header";
 import Footer from "../global/footer";
@@ -13,13 +12,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function HomePage() {
-    
-    const currentPath = useLocation().pathname;
 
     return (
         <>
             <Header />
-            {currentPath === "/" && <Home />} 
+            <Home />
             <Footer /> 
         </>
     );

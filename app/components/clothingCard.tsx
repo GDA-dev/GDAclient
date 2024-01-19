@@ -7,7 +7,7 @@ import { Clothing } from "../../utils/types";
 
 interface SaleCardProps {
     clothing: Clothing;
-    inWishlist: boolean;
+    inWishlist?: boolean;
 };
 
 const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {

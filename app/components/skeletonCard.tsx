@@ -1,4 +1,5 @@
 import React from "react";
+import skeletonImage from "../../public/skeletonImage.gif";
 import { SkeletonText, Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
 import { FaRegHeart } from "react-icons/fa";
 
@@ -9,7 +10,7 @@ export default function SkeletonCard() {
             <Card maxW='sm'>
                 <CardBody>
                     <Image
-                        src="<Skeleton />"
+                        src={skeletonImage}
                         alt='Image of Clothing'
                         borderRadius='lg'
                     />

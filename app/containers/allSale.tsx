@@ -1,9 +1,6 @@
 import React, { useState, Suspense, lazy } from "react";
-import SkeletonCard from "../components/skeletonCard"
-import CategoryFilter from "../components/categoryFilter";
-import SizeFilter from "../components/sizeFilter";
-import GenderFilter from "../components/genderFilter";
-import fetchFilter from "../../utils/fetchFilter";
+import SkeletonCard from "../components/skeletonCard";
+import FilterBar from "../components/filterBar";
 import { checkInWishlist } from "../../utils/localStorage";
 import { Clothing } from "../../utils/types";
 
@@ -16,61 +13,23 @@ const ClothingCard = lazy(() => import("../components/clothingCard"));
 const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
     
     const [displayedClothes, setDisplayedClothes] = useState<any>(saleClothes);
-    const [filterSelection, setFilterSelection] = useState({ category: "", size: "", gender: "" });
-
-    const handleFilterSelection = async (filter: string, filterType: string) => {
-
-        if (filterType === "category") {
-
-            const res = await fetchFilter(filterSelection, "sale")
-            setFilterSelection(prevSelection => ({...prevSelection, category: filter}));
-            setDisplayedClothes(res);
-
-        } else if (filterType === "size") {
-
-            const res = await fetchFilter(filterSelection, "sale")
-            setFilterSelection(prevSelection => ({...prevSelection, size: filter}));
-            setDisplayedClothes(res);
-
-        } else if (filterType === "gender") {
-
-            const res = await fetchFilter(filterSelection, "sale")
-            setFilterSelection(prevSelection => ({...prevSelection, gender: filter}));
-            setDisplayedClothes(res);
-
-        } else if (filterType === "clear") {
-
-            setFilterSelection({ category: "", size: "", gender: "" });
-            setDisplayedClothes(saleClothes);
-
-        };
-    };
     
     return (
         <div id="AllSale">
             <div id="AllSaleContainer">
-                <div id="AllSaleTitleContainer">
-                    <p id="AllSaleTitle">Sale Clothing</p>
-                </div>
-                <div id="AllSaleFiltersContainer">
-                    <div id="AllSaleCategoryFilterContainer">
-                        <CategoryFilter currentOptions={saleClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "category")} />
+                <div id="AllSaleHeaderContainer">
+                    <div id="AllSaleTitleContainer">
+                        <p id="AllSaleTitle">Sale Clothing</p>
                     </div>
-                    <div id="AllSaleSizeFilterContainer">
-                        <SizeFilter currentOptions={saleClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "size")} />
-                    </div>
-                    <div id="AllSaleGenderfilterContainer">
-                        <GenderFilter currentOptions={saleClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "gender")} />
-                    </div>
-                    <div id="AllSaleClearFilterContainer">
-                        <div id="AllSaleClearFilterButton" onClick={() => handleFilterSelection("clear", "clear")}></div>
+                    <div id="AllSaleFiltersContainer">
+                        <FilterBar saleClothes={saleClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
                     </div>
                 </div>
                 <div id="AllSaleCardContainer">
                     {displayedClothes.map((clothing: Clothing, index: number) => (
                         <div id="AllSaleCard" key={index}>
                             <Suspense fallback={<SkeletonCard />}>
-                                <ClothingCard clothing={clothing} inWishlist={checkInWishlist(clothing.id)}/>
+                                <ClothingCard clothing={clothing} inWishlist={checkInWishlist(clothing.id)} />
                             </Suspense>
                         </div>
                     ))}
@@ -78,18 +37,80 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
             </div>
             <style>
                 {`
+                
                     #AllSale {
                         display: flex;
                         position: relative;
-                        width: 100vw:
-                        height: 100%;
+                        width: 100vw;
+                        height: 90vh;
                         margin-top: 10vh;
-                        border: 1px solid blue;
                     }
 
                     #AllSaleContainer {
-
+                        display: flex;
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        flex-direction: column;
                     }
+
+                    #AllSaleHeaderContainer {
+                        display: flex;
+                        position: relative;
+                        width: 100%;
+                        height: 25%;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    #AllSaleTitleContainer {
+                        display: flex;
+                        position: relative;
+                        width: 60%;
+                        height: 50%;
+                        align-items: center;
+                        padding-left: 3%;
+                    }
+
+                    #AllSaleTitle {
+                        font-size: 50px;
+                        font-weight: 700;
+                    }
+
+                    #AllSaleFiltersContainer {
+                        display: flex;
+                        position: relative;
+                        width: 100%;
+                        height: 50%;
+                        justify-content: flex-end;
+                        align-items: center;
+                        padding-right: 3%;
+                    }
+
+                    #AllSaleClearFilterButtonContainer {
+                        display: flex;
+                        position: relative;
+                    }
+
+                    #AllSaleCardContainer {
+                        display: grid;
+                        position: relative;
+                        width: 90%;
+                        height: 85%;
+                        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                        grid-gap: 25px;
+                    }
+
+                    #AllSaleCard {
+                        border: 1px solid black;
+                        border-radius: 5px;
+                    }
+                    
+                    @media (max-width: 900px) {
+                        
+                    }
+
                 `}
             </style>
         </div>

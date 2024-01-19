@@ -14,7 +14,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({ clothing, deleteClothing })
 
     return (
         <>
-            <Card direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline'>
+            <Card direction={{ base: 'column', sm: 'row' }} overflow='hidden' variant='outline' style={{ width: "100%" }}>
                 <Image
                     objectFit='cover'
                     maxW={{ base: '100%', sm: '200px' }}
@@ -24,11 +24,10 @@ const WishlistCard: React.FC<WishlistCardProps> = ({ clothing, deleteClothing })
                 <Stack>
                     <CardBody>
                         <Heading size='md'>{clothing.title}</Heading>
-                        <Text py='2'>{clothing.description}</Text>
                     </CardBody>
-                    <CardFooter>
+                    <CardFooter style={{ flexDirection: "column" }}>
                         <Button variant='solid' colorScheme='blue' onClick={() => redirectById(clothing.id, clothingType)}>View Clothing</Button>
-                        <Button variant='solid' colorScheme='red' onClick={deleteClothing}>Delete</Button>
+                        <Button variant='solid' colorScheme='red' style={{ marginTop: "10px" }} onClick={deleteClothing}>Delete</Button>
                     </CardFooter>
                 </Stack>
             </Card>
