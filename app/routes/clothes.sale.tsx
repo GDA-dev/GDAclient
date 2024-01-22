@@ -25,10 +25,10 @@ export default function AllSalePage() {
     const allSaleClothes = useLoaderData<typeof loader>();
     
     return (
-        <>
+        <div>
             <Header />
             <AllSale saleClothes={allSaleClothes} />
             <Footer />
-        </>
+        </div>
     );
 };

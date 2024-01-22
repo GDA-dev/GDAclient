@@ -8,11 +8,11 @@ import { IoFilterCircleSharp } from "react-icons/io5";
 import { Clothing } from "../../utils/types";
 
 interface FilterBarProps {
-    saleClothes: Clothing[];
+    clothes: Clothing[];
     sendFilteredClothes: (filteredClothes?: Clothing[]) => void;
 };
 
-const FilterBar: React.FC<FilterBarProps> = ({ saleClothes, sendFilteredClothes }) => {
+const FilterBar: React.FC<FilterBarProps> = ({ clothes, sendFilteredClothes }) => {
 
     const [filterSelection, setFilterSelection] = useState({ category: "", size: "", gender: "" });
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,7 +40,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ saleClothes, sendFilteredClothes 
         } else if (filterType === "clear") {
 
             setFilterSelection({ category: "", size: "", gender: "" });
-            sendFilteredClothes(saleClothes);
+            sendFilteredClothes(clothes);
 
         };
     };
@@ -57,13 +57,13 @@ const FilterBar: React.FC<FilterBarProps> = ({ saleClothes, sendFilteredClothes 
                         <DrawerHeader>Filter</DrawerHeader>
                         <DrawerBody>
                             <div id="AllSaleCategoryFilterContainer" style={{ margin: "15px 0" }}>
-                                <CategoryFilter currentOptions={saleClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "category")} />
+                                <CategoryFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "category")} />
                             </div>
                             <div id="AllSaleSizeFilterContainer" style={{ margin: "15px 0" }}>
-                                <SizeFilter currentOptions={saleClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "size")} />
+                                <SizeFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "size")} />
                             </div>
                             <div id="AllSaleGenderfilterContainer" style={{ margin: "15px 0" }}>
-                                <GenderFilter currentOptions={saleClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "gender")} />
+                                <GenderFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "gender")} />
                             </div>
                             <div id="AllSaleClearFilterContainer" style={{ margin: "15px 0" }}>
                                 <Button colorScheme="pink" variant="solid" onClick={() => handleFilterSelection("clear", "clear")}>Clear</Button>

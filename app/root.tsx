@@ -94,6 +94,19 @@ const Document = withEmotionCache(
           />
           <Scripts />
           <LiveReload />
+          <style>
+            {`
+              body::-webkit-scrollbar {
+                width: 0.5em;
+                background-color: white;
+              }
+              
+              body::-webkit-scrollbar-thumb {
+                background-color: #ccc;
+                border-radius: 25px;
+              }
+            `}
+          </style>
         </body>
       </html>
     );

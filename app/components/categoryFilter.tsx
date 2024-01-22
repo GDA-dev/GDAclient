@@ -53,7 +53,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSel
     
     return (
         <>
-            <Select placeholder='Clothing Categories' borderColor="pink">
+            <Select placeholder='Clothing Type Filter' borderColor="pink">
                 {categories.map((category: string) => {
 
                     const key = Object.keys(categoryObj).find(k => categoryObj[k] === category);

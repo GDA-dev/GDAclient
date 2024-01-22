@@ -74,7 +74,7 @@ export default function Header() {
                         <ul id="HeaderListContainer">
                             <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
                             <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
-                            <li id="HeaderListClothingItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
+                            <li id="HeaderClothingListItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
                                 <div id="HeaderListClothing">
                                     <div id="HeaderListClothingButton">Clothing</div>
                                     <div id="ClothingOptionsContainer" style={{ display: clothingOptions ? "flex" : "none" }} className={ clothingOptions ? "down" : "" }>
@@ -115,7 +115,7 @@ export default function Header() {
                     height: 10vh;
                     align-items: center;
                     justify-content: center;
-                    background-color: rgba(0, 0, 0, 0);
+                    backdrop-filter: blur(0px);
                     border-bottom: 1px solid black;
                     z-index: 3;
                 }
@@ -128,14 +128,14 @@ export default function Header() {
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
-                    background-color: rgba(0, 0, 0, 0);
+                    backdrop-filter: blur(0px);
                     transition: 0.5s;
                 }
 
                 #HeaderContainer.scrolled {
                     width: 100%;
                     padding: 0 2.5%;
-                    background-color: rgba(0, 0, 0, 0.85);
+                    backdrop-filter: blur(5px);
                 }
 
                 #HeaderLogoContainer {
@@ -165,7 +165,7 @@ export default function Header() {
                     align-items: center;
                 }
 
-                .HeaderListItem {
+                .HeaderListItem, #HeaderClothingListItem {
                     display: flex;
                     position: relative;
                     width: 100%;
@@ -174,22 +174,13 @@ export default function Header() {
                     justify-content: center;
                     align-items: center;
                     text-decoration: none;
+                    font-size: 17px;
+                    cursor: default;
                 }
 
                 .HeaderListItem:hover {
                     opacity: 0.5;
                     cursor: pointer;
-                }
-
-                #HeaderListClothingItem {
-                    display: flex;
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    text-decoration: none;
                 }
 
                 #HeaderListClothingButton {
@@ -200,11 +191,7 @@ export default function Header() {
                     justify-content: center;
                     align-items: center;
                     color: black;
-                }
-
-                #HeaderListClothingButton:hover {
-                    opacity: 0.5;
-                }                
+                }             
 
                 #ClothingOptionsContainer {
                     display: flex;
@@ -216,7 +203,9 @@ export default function Header() {
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
+                    font-size: 16px;
                     border: 1px solid black;
+                    border-top: none;
                     border-radius: 0 0 25px 25px;
                     z-index: 2;
                 }

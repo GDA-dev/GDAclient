@@ -18,6 +18,7 @@ export const checkInWishlist = (id: number | undefined) => {
             return false;
         } else {
             const found = wishlist.find((item: Clothing) => item.id === id);
+            console.log(found);
             if (found) {
                 return true;
             } else {
@@ -43,7 +44,7 @@ export const addToWishlist = (clothing: Clothing) => {
         if (found) {
             return true;
         } else {
-            const updatedWishlist = wishlist.append(clothing);
+            const updatedWishlist = wishlist.push(clothing);
             localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
             return true;
         };
@@ -56,18 +57,18 @@ export const deleteFromWishlist = (clothing: Clothing) => {
     const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
 
     if (wishlist.length !== 0) {
-        const found = wishlist.find((item: Clothing, index: number) => {
-            if (item === clothing) {
-                return index;
-            };
-        });
-        if (found) {
+
+        const found = checkInWishlist(clothing.id);
+        if (found && wishlist.length < 1) {
             const updatedWishlist = wishlist.splice(found, 1);
             localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+            return false;
+        } else if (found && wishlist.length === 1) {
+            localStorage.removeItem("wishlist");
             return false;
         };
     };
 
-    return false;
+    return true;
 
 };

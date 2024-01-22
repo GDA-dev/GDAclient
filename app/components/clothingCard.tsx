@@ -38,13 +38,18 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 <CardFooter>
                     <ButtonGroup spacing='2'>
                         <Button variant='solid' colorScheme='blue' onClick={() => redirectById(clothing.id, clothingType)}>View</Button>
-                        <Button variant='ghost' colorScheme='blue'>
+                        <Button variant='ghost' colorScheme='blue' style={{ display: "flex", flexDirection: "column",  }}>
                             {wishlist ? (
-                                <FaHeart onClick={() => setWishlist(deleteFromWishlist(clothing))} style={{ color: "red" }} /> 
+                                <>
+                                    <FaHeart onClick={() => setWishlist(deleteFromWishlist(clothing))} style={{ color: "red", marginBottom: "3px" }} /> 
+                                    <p>Added to Wishlist</p>
+                                </>
                             ) : (
-                                <FaRegHeart onClick={() => setWishlist(addToWishlist(clothing))} /> 
+                                <>
+                                    <FaRegHeart onClick={() => setWishlist(addToWishlist(clothing))} style={{ marginBottom: "3px" }} />
+                                    <p>Add to Wishlist</p>
+                                </>
                             )}
-                            Add to wishlist 
                         </Button>
                     </ButtonGroup>
                 </CardFooter>
