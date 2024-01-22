@@ -1,7 +1,8 @@
 import React from "react";
 import WishlistCard from "../components/wishlistCard";
-import { Clothing } from '../../utils/types';
+import { deleteFromWishlist } from "../../utils/localStorage";
 import { IoClose } from "react-icons/io5";
+import { Clothing } from '../../utils/types';
 
 interface WishlistModalProps {
     wishlistItems: Clothing[];
@@ -10,16 +11,6 @@ interface WishlistModalProps {
 };
 
 const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWishlistItems, closeWishlistModal }) => {
-        
-    const deleteWishlistItem = (index: number) => {
-        const wishlistString = localStorage.getItem("wishlist");
-        const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
-        if (wishlist.length !== 0) {
-            const updatedWishlist = wishlist.splice(index, 1);
-            localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-            requestWishlistItems();
-        };
-    };
     
     return (
         <div id="WishlistModal">
@@ -36,7 +27,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     <>
                         {wishlistItems.map((item: Clothing, index: number) => (
                             <div id="WishlistModalCard" key={index}>
-                                <WishlistCard clothing={item} deleteClothing={() => deleteWishlistItem(index)} />
+                                <WishlistCard clothing={item} deleteClothing={() => { deleteFromWishlist(wishlistItems[index]); requestWishlistItems(); }} />
                             </div>
                         ))}
                     </>
@@ -107,6 +98,16 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                         justify-content: flex-start;
                         align-items: center;
                         overflow-y: scroll;
+                    }
+
+                    #WishlistModalCardsContainer::-webkit-scrollbar {
+                        width: 0.5em;
+                        background-color: white;
+                    }
+                    
+                    #WishlistModalCardsContainer::-webkit-scrollbar-thumb {
+                        background-color: #ccc;
+                        border-radius: 25px;
                     }
 
                     #WishlistModalEmptyMessage {

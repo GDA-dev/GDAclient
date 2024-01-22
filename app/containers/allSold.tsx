@@ -1,9 +1,6 @@
 import React, { useState, Suspense, lazy } from "react";
-import SkeletonCard from "../components/skeletonCard"
-import CategoryFilter from "~/components/categoryFilter";
-import GenderFilter from "~/components/genderFilter";
-import SizeFilter from "~/components/sizeFilter";
-import fetchFilter from "../../utils/fetchFilter";
+import SkeletonCard from "../components/skeletonCard";
+import FilterBar from "../components/filterBar";
 import { checkInWishlist } from "../../utils/localStorage";
 import { Clothing } from "../../utils/types";
 
@@ -15,58 +12,17 @@ const ClothingCard = lazy(() => import("../components/clothingCard"));
 
 const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
     
-    
     const [displayedClothes, setDisplayedClothes] = useState<any>(soldClothes);
-    const [filterSelection, setFilterSelection] = useState({ category: "", size: "", gender: "" });
-
-    const handleFilterSelection = async (filter: string, filterType: string) => {
-
-        if (filterType === "category") {
-
-            const res = await fetchFilter(filterSelection, "sold");
-            setFilterSelection(prevSelection => ({...prevSelection, category: filter}));
-            setDisplayedClothes(res);
-
-        } else if (filterType === "size") {
-
-            const res = await fetchFilter(filterSelection, "sold");
-            setFilterSelection(prevSelection => ({...prevSelection, category: filter}));
-            setDisplayedClothes(res);
-
-        } else if (filterType === "gender") {
-
-            const res = await fetchFilter(filterSelection, "sold");
-            setFilterSelection(prevSelection => ({...prevSelection, gender: filter}));
-            setDisplayedClothes(res);
-
-        } else if (filterType === "clear") {
-
-            setFilterSelection({ category: "", size: "", gender: "" });
-            setDisplayedClothes(soldClothes);
-
-        };
-    };
     
     return (
         <div id="AllSold">
             <div id="AllSoldContainer">
                 <div id="AllSoldHeaderContainer">
                     <div id="AllSoldTitleContainer">
-                        <p id="AllSoldTitle">Sold Clothes</p>
+                        <p id="AllSoldTitle">Sold Clothing</p>
                     </div>
                     <div id="AllSoldFiltersContainer">
-                        <div id="AllSoldCategoryFilterContainer">
-                            <CategoryFilter currentOptions={soldClothes} sendSelectedFilter={(filter:string) => handleFilterSelection(filter, "category")} />
-                        </div>
-                        <div id="AllSoldSizeFilterContainer">
-                            <SizeFilter currentOptions={soldClothes} sendSelectedFilter={(filter:string) => handleFilterSelection(filter, "size")} />
-                        </div>
-                        <div id="AllSoldGenderFilterContainer">
-                            <GenderFilter currentOptions={soldClothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "gender")} />
-                        </div>
-                        <div id="AllSoldClearFilterContainer">
-                            <div id="AllSoldClearFilterButton" style={{ filter: "brightness(130%)" }} onClick={() => handleFilterSelection("clear", "clear")}></div>
-                        </div>
+                        <FilterBar clothes={soldClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
                     </div>
                 </div>
                 <div id="AllSoldCardContainer">
@@ -81,6 +37,7 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
             </div>
             <style>
                 {`
+                
                     #AllSold {
                         display: flex;
                         position: relative;
@@ -101,23 +58,24 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         display: flex;
                         position: relative;
                         width: 100%;
-                        height: 20%;
+                        height: 25%;
                         flex-direction: row;
-
-                        border: 1px solid pink;
+                        justify-content: center;
+                        align-items: center;
                     }
 
                     #AllSoldTitleContainer {
                         display: flex;
                         position: relative;
-                        width: 25%;
+                        width: 60%;
                         height: 50%;
-                        border: 1px solid green;
-
+                        align-items: center;
+                        padding-left: 3%;
                     }
 
                     #AllSoldTitle {
-                        
+                        font-size: 50px;
+                        font-weight: 700;
                     }
 
                     #AllSoldFiltersContainer {
@@ -125,27 +83,9 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         position: relative;
                         width: 100%;
                         height: 50%;
-                        border: 1px solid blue;
-                    }
-
-                    #AllSoldCategoryFilterContainer {
-                        display: flex;
-                        position: relative;
-                    }
-
-                    #AllSoldSizeFilterContainer {
-                        display: flex;
-                        position: relative;
-                    }
-
-                    #AllSoldGenderFilterContainer {
-                        display: flex;
-                        position: relative;
-                    }
-
-                    #AllSoldClearFilterContainer {
-                        display: flex;
-                        position: relative;
+                        justify-content: flex-end;
+                        align-items: center;
+                        padding-right: 3%;
                     }
 
                     #AllSoldClearFilterButtonContainer {
@@ -158,16 +98,30 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         position: relative;
                         width: 90%;
                         height: 85%;
+                        padding: 0 3%;
                         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                         grid-gap: 25px;
-                        border: 1px solid red;
+                    }
+
+                    #AllSoldCardContainer::-webkit-scrollbar {
+                        width: 0.5em;
+                        background-color: white;
+                    }
+                    
+                    #AllSoldCardContainer::-webkit-scrollbar-thumb {
+                        background-color: #ccc;
+                        border-radius: 25px;
                     }
 
                     #AllSoldCard {
                         border: 1px solid black;
                         border-radius: 5px;
                     }
-                
+                    
+                    @media (max-width: 900px) {
+                        
+                    }
+
                 `}
             </style>
         </div>

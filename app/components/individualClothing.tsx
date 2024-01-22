@@ -1,5 +1,5 @@
 import React from "react";
-import { Textarea, Heading, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
+import { Textarea, Text, Heading, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
 import { Clothing } from "../../utils/types";
 
 interface IndividualClothingProps {
@@ -23,19 +23,25 @@ const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing }) => 
                     </div>
                     <div id="IndividualClothingRightContainer">
                         <div id="IndividualClothingTextContainer">
-                            <Heading size='xl'>{clothing.title}</Heading>
-                            <Textarea value={clothing.description} placeholder="Description" />
-                            {clothing.price ? (
-                                <Stat>
-                                    <StatLabel fontSize='25px'>Clothing Price</StatLabel>
-                                    <StatNumber>${clothing.price}</StatNumber>
-                                </Stat>
-                            ) : (
-                                <Stat>
-                                    <StatLabel fontSize='25px'>Clothing Price</StatLabel>
-                                    <StatNumber>Sold Out</StatNumber>
-                                </Stat>
-                            )}
+                            <div id="IndividualClothingTitle">
+                                <Heading size='xl'>{clothing.title}</Heading>
+                            </div>
+                            <div id="IndividualClothingDescription">
+                                <Textarea value={clothing.description} placeholder="Description" />
+                            </div>
+                            <div id="IndividualClothingPrice">
+                                {clothing.price ? (
+                                    <Stat>
+                                        <StatLabel fontSize='25px'>Clothing Price</StatLabel>
+                                        <StatNumber>${clothing.price}</StatNumber>
+                                    </Stat>
+                                ) : (
+                                    <Stat>
+                                        <StatLabel fontSize='25px'>Clothing Price</StatLabel>
+                                        <StatNumber>Sold Out</StatNumber>
+                                    </Stat>
+                                )}
+                            </div>
                         </div>
                         <div id="IndividualClothingInformationContainer">
                             <p id="IndividualClothingCategory">{clothing.category}</p>

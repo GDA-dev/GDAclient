@@ -15,18 +15,16 @@ export default function SkeletonCard() {
                         borderRadius='lg'
                     />
                     <Stack mt='6' spacing='3'>
-                        <Heading size='md'><SkeletonText /></Heading>
-                        <Text><SkeletonText /></Text>
-                        <Text color='blue.600' fontSize='2xl'><SkeletonText /></Text>
+                        <SkeletonText />
+                        <SkeletonText />
                     </Stack>
                 </CardBody>
                 <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
                         <Button variant='solid' colorScheme='blue'><SkeletonText /></Button>
-                        <Button variant='ghost' colorScheme='blue'>
-                            <FaRegHeart />
-                            Add to Wishlist                       
+                        <Button variant='ghost' colorScheme='blue' style={{ display: "flex", flexDirection: "column" }}>
+                            <FaRegHeart style={{ marginBottom: "3px" }} />
                         </Button>
                     </ButtonGroup>
                 </CardFooter>

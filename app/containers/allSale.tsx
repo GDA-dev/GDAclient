@@ -22,7 +22,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         <p id="AllSaleTitle">Sale Clothing</p>
                     </div>
                     <div id="AllSaleFiltersContainer">
-                        <FilterBar saleClothes={saleClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
+                        <FilterBar clothes={saleClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
                     </div>
                 </div>
                 <div id="AllSaleCardContainer">
@@ -98,8 +98,21 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         position: relative;
                         width: 90%;
                         height: 85%;
+                        padding: 0 3%;
                         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                         grid-gap: 25px;
+                    }
+
+                    #AllSaleCardContainer::-webkit-scrollbar {
+                        display: block;
+                        width: 0.5em;
+                        background-color: white;
+                        border: 1px solid blue;
+                    }
+                    
+                    #AllSaleCardContainer::-webkit-scrollbar-thumb {
+                        background-color: #ccc;
+                        border-radius: 25px;
                     }
 
                     #AllSaleCard {

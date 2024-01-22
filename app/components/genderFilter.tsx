@@ -47,7 +47,7 @@ const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelecte
     
     return (
         <>
-            <Select placeholder='Clothing Genders'  borderColor="pink">
+            <Select placeholder='Gender Filter'  borderColor="pink">
                 {genders.map((gender: string) => {
 
                     const key = Object.keys(genderObj).find(k => genderObj[k] === gender);
