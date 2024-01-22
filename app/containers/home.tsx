@@ -6,7 +6,26 @@ export default function Home() {
     
     return (
         <div id="Home" style={{ height: "130vh", marginTop: 100 }}>
-hi
+            <div id="HomeContainer">
+                <div id="Hero">
+
+                </div>
+                
+            </div>
+            <style>
+                {`
+
+                    #Home {
+
+                    }
+
+                    #HomeContainer {
+
+                    }
+
+                    
+                `}
+            </style>
         </div>
     );
 };

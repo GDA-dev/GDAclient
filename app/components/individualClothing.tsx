@@ -60,3 +60,5 @@ const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing }) => 
         </>
     );
 };
+
+export default IndividualClothing;

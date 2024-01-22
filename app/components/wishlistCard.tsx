@@ -1,5 +1,5 @@
 import React from 'react';
-import { redirectById } from '../../utils/redirectWithoutReload';
+import { useNavigate } from '@remix-run/react';
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Button } from '@chakra-ui/react';
 import { Clothing } from '../../utils/types';
 
@@ -11,6 +11,18 @@ interface WishlistCardProps {
 const WishlistCard: React.FC<WishlistCardProps> = ({ clothing, deleteClothing }) => {
 
     const clothingType = clothing.price ? "sale" : "sold";
+    const navigate = useNavigate();
+
+    const redirectById = (id: number | undefined, clothingType: string) => {
+    
+        if (clothingType === "sale") {
+            console.log(1)
+            navigate(`clothes/sale/${id}`);
+        } else if (clothingType === "sold") {
+            console.log(2)
+            navigate(`clothes/sold/${id}`);
+        };
+    };
 
     return (
         <>

@@ -2,10 +2,10 @@ import React from "react";
 import { Clothing } from "../../utils/types";
 
  interface SoldByIDProps {
-    soldCard: Clothing;
+    soldClothing: Clothing;
  };
 
- const SoldByID: React.FC<SoldByIDProps> = ({ soldCard }) => {
+ const SoldByID: React.FC<SoldByIDProps> = ({ soldClothing }) => {
     
     
     

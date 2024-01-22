@@ -63,7 +63,7 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
     return (
         <>
             <Select placeholder='Size Filter'  borderColor="pink">
-                {sizes.map((size: string) => {
+                {sizes.map((size: string, index: number) => {
 
                     const key = Object.keys(sizeObj).find(k => sizeObj[k] === size);
                     
@@ -78,7 +78,7 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
                     };
 
                     return (
-                        <option id={key} value={size} onClick={() => sendSelectedFilter(size)}>{size}</option>
+                        <option id={key} key={index} value={size} onClick={() => sendSelectedFilter(size)}>{size}</option>
                     )
                 })}
             </Select>

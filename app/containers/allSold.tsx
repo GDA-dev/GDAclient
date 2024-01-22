@@ -44,6 +44,7 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         width: 100vw;
                         height: 90vh;
                         margin-top: 10vh;
+                        overflow-x: hidden;
                     }
 
                     #AllSoldContainer {

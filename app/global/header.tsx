@@ -1,18 +1,40 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from '@remix-run/react';
 import MobileMenu from "./mobileMenu";
 import WishlistModal from "../containers/wishlistModal";
-import { redirect } from "../../utils/redirectWithoutReload";
 import { getWishlistItems } from "../../utils/localStorage";
 import headerLogo from "../../public/headerLogo.jpg"
 import { FaHeart } from 'react-icons/fa';
+import { Clothing } from "../../utils/types";
 
 export default function Header() {
     
     const [clothingOptions, setClothingOptions] = useState(false);
     const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
-    const [wishlistItems, setWishlistItems] = useState([]);
+    const [wishlistItems, setWishlistItems] = useState<Clothing[]>([]);
     const [scrolled, setScrolled] = useState(false);
     const [showMobileView, setShowMobileView] = useState(false);
+    const navigate = useNavigate();
+    const currentPath = useLocation().pathname;
+
+    const redirect = (option: string) => {
+    
+        const scrollToSection = (option: string) => {
+            const section = document.getElementById(option);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+        };
+    
+        if (currentPath !== '/') {
+            navigate('/');
+            setTimeout(() => {
+                scrollToSection(option);
+            }, 1);
+        } else {
+            scrollToSection(option);
+        };
+    };
 
     const handleClothingOptions = () => {
         setClothingOptions(!clothingOptions);
@@ -89,7 +111,7 @@ export default function Header() {
                             </li>
                             <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
                             <li className="HeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}>
-                                <FaHeart style={{ color: "red" }}/>
+                                <FaHeart style={{ color: "red", fontSize: "25px" }} />
                             </li>
                         </ul>
                         {wishlistModalOpen && 

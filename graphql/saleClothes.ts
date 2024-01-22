@@ -28,7 +28,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
 
     async getSaleClothingByID(id: string) {
@@ -76,7 +76,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);  
+        return toArray(res.saleClothes).reverse();  
     };
 
     async getSaleClothingByGender(gender: string) {
@@ -100,7 +100,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
 
     async getSaleClothingBySize(size: string) {
@@ -124,7 +124,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
     
     async getSaleClothingByCategoryAndGender(category: string, gender: string) {
@@ -148,7 +148,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
 
 
@@ -173,7 +173,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
     
     async getSaleClothingBySizeAndGender(size: string, gender: string) {
@@ -197,7 +197,7 @@ export class saleClothesQueries {
         `;
 
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
     
     async getSaleClothingByAllFilters(category: string, gender: string, size: string) {
@@ -221,7 +221,7 @@ export class saleClothesQueries {
         `;
         
         const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes);
+        return toArray(res.saleClothes).reverse();
     };
 
     async getLatestSaleClothing() {

@@ -44,6 +44,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         width: 100vw;
                         height: 90vh;
                         margin-top: 10vh;
+                        overflow-x: hidden;
                     }
 
                     #AllSaleContainer {
@@ -104,10 +105,8 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                     }
 
                     #AllSaleCardContainer::-webkit-scrollbar {
-                        display: block;
                         width: 0.5em;
                         background-color: white;
-                        border: 1px solid blue;
                     }
                     
                     #AllSaleCardContainer::-webkit-scrollbar-thumb {
