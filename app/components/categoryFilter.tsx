@@ -54,7 +54,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSel
     return (
         <>
             <Select placeholder='Clothing Type Filter' borderColor="pink">
-                {categories.map((category: string) => {
+                {categories.map((category: string, index: number) => {
 
                     const key = Object.keys(categoryObj).find(k => categoryObj[k] === category);
                     
@@ -69,7 +69,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSel
                     };
 
                     return (
-                        <option id={key} value={category} onClick={() => sendSelectedFilter(category)}>{category}</option>
+                        <option id={key} key={index} value={category} onClick={() => sendSelectedFilter(category)}>{category}</option>
                     )
                 })}
             </Select>

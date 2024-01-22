@@ -1,7 +1,7 @@
 import React from "react";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { saleClothesQueries } from "../../graphql/saleClothes";
+import getSaleClothingByID from "../../services/GET/getSaleClothingByID";
 import Header from "../global/header";
 import Footer from "../global/footer";
 import SaleByID from "../containers/saleByID";
@@ -15,8 +15,7 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ params }: LoaderFunctionArgs) {
-    const gql = new saleClothesQueries();
-    const res: any = await gql.getSaleClothingByID(String(params.id));
+    const res: any = await getSaleClothingByID(String(params.id));
     return res;
 };
 
@@ -27,7 +26,7 @@ export default function SaleByIDPage() {
     return (
         <>
             <Header />
-            <SaleByID saleCard={saleClothingByID[0]}/>
+            <SaleByID saleClothing={saleClothingByID[0]}/>
             <Footer />
         </>
     );

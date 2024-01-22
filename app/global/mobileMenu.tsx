@@ -1,15 +1,37 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation } from '@remix-run/react';
 import { useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Button } from '@chakra-ui/react';
 import WishlistModal from "../containers/wishlistModal";
-import { redirect } from "../../utils/redirectWithoutReload";
 import { getWishlistItems } from "utils/localStorage";
 import { FaBars, FaHeart } from 'react-icons/fa';
+import { Clothing } from "../../utils/types";
 
 export default function MobileMenu() {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
-    const [wishlistItems, setWishlistItems] = useState([]);
+    const [wishlistItems, setWishlistItems] = useState<Clothing[]>([]);
+    const navigate = useNavigate();
+    const currentPath = useLocation().pathname;
+
+    const redirect = (option: string) => {
+    
+        const scrollToSection = (option: string) => {
+            const section = document.getElementById(option);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+        };
+    
+        if (currentPath !== '/') {
+            navigate('/');
+            setTimeout(() => {
+                scrollToSection(option);
+            }, 1);
+        } else {
+            scrollToSection(option);
+        };
+    };
   
     return (
         <>

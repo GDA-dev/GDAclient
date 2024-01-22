@@ -3,7 +3,7 @@ import { Clothing } from "./types";
 export const getWishlistItems = () => {
 
     const wishlistString = localStorage.getItem('wishlist');
-    const wishlist = wishlistString ? JSON.parse(wishlistString) : []; 
+    const wishlist: Clothing[] = wishlistString ? JSON.parse(wishlistString) : []; 
     return wishlist;
     
 };
@@ -12,18 +12,20 @@ export const checkInWishlist = (id: number | undefined) => {
 
     if (typeof window !== 'undefined') {
         const wishlistString = localStorage.getItem('wishlist');
-        const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
+        const wishlist: Clothing[] = wishlistString ? JSON.parse(wishlistString) : [];
 
         if (wishlist.length === 0) {
             return false;
         } else {
-            const found = wishlist.find((item: Clothing) => item.id === id);
-            console.log(found);
-            if (found) {
-                return true;
-            } else {
-                return false;
+
+            for (let i = 0; i < wishlist.length; i++) {
+                if (wishlist[i].id === id) {
+                    return true;
+                };
             };
+
+            return false;
+
         };
     };
 };
@@ -31,7 +33,7 @@ export const checkInWishlist = (id: number | undefined) => {
 export const addToWishlist = (clothing: Clothing) => {
 
     const wishlistString = localStorage.getItem("wishlist");
-    const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
+    const wishlist: Clothing[] = wishlistString ? JSON.parse(wishlistString) : [];
     const clothingString = JSON.stringify(clothing);
 
     if (wishlist.length === 0) {
@@ -44,7 +46,7 @@ export const addToWishlist = (clothing: Clothing) => {
         if (found) {
             return true;
         } else {
-            const updatedWishlist = wishlist.push(clothing);
+            const updatedWishlist = [...wishlist, clothing];
             localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
             return true;
         };
@@ -54,17 +56,29 @@ export const addToWishlist = (clothing: Clothing) => {
 export const deleteFromWishlist = (clothing: Clothing) => {
 
     const wishlistString = localStorage.getItem("wishlist");
-    const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
+    const wishlist: Clothing[] = wishlistString ? JSON.parse(wishlistString) : [];
 
     if (wishlist.length !== 0) {
 
-        const found = checkInWishlist(clothing.id);
-        if (found && wishlist.length < 1) {
-            const updatedWishlist = wishlist.splice(found, 1);
-            localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        let found;
+
+        for (let i = 0; i < wishlist.length; i++) {
+            if (wishlist[i].id === clothing.id) {
+                found = i;
+                break;
+            } else {
+                found = undefined;
+            };
+        };
+
+        if (found !== undefined && wishlist.length > 1) {
+            wishlist.splice(found, 1);
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
             return false;
-        } else if (found && wishlist.length === 1) {
+        } else if (found !== undefined && wishlist.length === 1) {
             localStorage.removeItem("wishlist");
+            return false;
+        } else {
             return false;
         };
     };

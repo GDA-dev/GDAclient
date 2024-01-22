@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from '@remix-run/react';
 import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
-import { redirectById } from "../../utils/redirectWithoutReload";
 import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Clothing } from "../../utils/types";
@@ -14,6 +14,7 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
 
     const [wishlist, setWishlist] = useState(inWishlist);
     const clothingType = clothing.price ? "sale" : "sold";
+    const navigate = useNavigate();
     
     return (
         <>
@@ -23,12 +24,13 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                         src={clothing.thumbnail}
                         alt='Image of Clothing'
                         borderRadius='lg'
+                        fit="cover"
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{clothing.title}</Heading>
                         <Text>{clothing.description}</Text>
                         {clothing.price ? (
-                            <Text color='blue.600' fontSize='2xl'>{clothing.price}</Text>
+                            <Text color='blue.600' fontSize='2xl'>${clothing.price}</Text>
                         ) : (
                             <Text color='blue.600' fontSize='2xl'>Sold Out</Text>
                         )}
@@ -36,8 +38,8 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 </CardBody>
                 <Divider />
                 <CardFooter>
-                    <ButtonGroup spacing='2'>
-                        <Button variant='solid' colorScheme='blue' onClick={() => redirectById(clothing.id, clothingType)}>View</Button>
+                    <ButtonGroup spacing="50px">
+                        <Button variant='solid' colorScheme='blue' onClick={() => navigate(`${clothing.id}`)}>View</Button>
                         <Button variant='ghost' colorScheme='blue' style={{ display: "flex", flexDirection: "column",  }}>
                             {wishlist ? (
                                 <>
@@ -46,7 +48,7 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                                 </>
                             ) : (
                                 <>
-                                    <FaRegHeart onClick={() => setWishlist(addToWishlist(clothing))} style={{ marginBottom: "3px" }} />
+                                    <FaRegHeart onClick={() => setWishlist(addToWishlist(clothing))} style={{ marginBottom: "3px"}} />
                                     <p>Add to Wishlist</p>
                                 </>
                             )}
