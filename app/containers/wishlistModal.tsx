@@ -111,7 +111,15 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     }
 
                     #WishlistModalEmptyMessage {
-                        
+                        display: flex;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 90%;
+                        padding-left: 2.5%;
+                        justify-content: center;
+                        align-items: center;
                     }
 
                     #WishlistModalCard {
@@ -124,6 +132,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     }
 
                     @media (max-width: 900px) {
+
                         #WishlistModal {  
                             display: flex;
                             position: fixed;
@@ -136,6 +145,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                             align-items: center;
                             border: 1px solid black;
                         }
+                        
                     }
 
                 `}

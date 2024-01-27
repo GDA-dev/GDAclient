@@ -1,6 +1,6 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
 import Header from "../global/header";
 import Footer from "~/global/footer";
@@ -28,6 +28,7 @@ export default function AllSalePage() {
         <>
             <Header />
             <AllSale saleClothes={allSaleClothes} />
+            <Outlet />
             <Footer />
         </>
     );

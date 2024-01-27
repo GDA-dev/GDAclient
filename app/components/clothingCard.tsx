@@ -13,12 +13,11 @@ interface SaleCardProps {
 const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
 
     const [wishlist, setWishlist] = useState(inWishlist);
-    const clothingType = clothing.price ? "sale" : "sold";
     const navigate = useNavigate();
     
     return (
         <>
-            <Card maxW='sm'>
+            <Card maxW='sm' style={{ border: "1px solid black", borderRadius: "5px"}}>
                 <CardBody>
                     <Image
                         src={clothing.thumbnail}
@@ -28,7 +27,7 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{clothing.title}</Heading>
-                        <Text>{clothing.description}</Text>
+                        <Text style={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{clothing.description}</Text>
                         {clothing.price ? (
                             <Text color='blue.600' fontSize='2xl'>${clothing.price}</Text>
                         ) : (
@@ -38,8 +37,8 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 </CardBody>
                 <Divider />
                 <CardFooter>
-                    <ButtonGroup spacing="50px">
-                        <Button variant='solid' colorScheme='blue' onClick={() => navigate(`${clothing.id}`)}>View</Button>
+                    <ButtonGroup style={{ width: "100%", justifyContent: "space-around" }}>
+                        <Button variant='solid' colorScheme='blue' style={{ display: "flex" }} onClick={() => navigate(`${clothing.id}`)}>View</Button>
                         <Button variant='ghost' colorScheme='blue' style={{ display: "flex", flexDirection: "column",  }}>
                             {wishlist ? (
                                 <>

@@ -82,7 +82,7 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                     #AllSoldFiltersContainer {
                         display: flex;
                         position: relative;
-                        width: 100%;
+                        width: 40%;
                         height: 50%;
                         justify-content: flex-end;
                         align-items: center;
@@ -106,21 +106,26 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
 
                     #AllSoldCardContainer::-webkit-scrollbar {
                         width: 0.5em;
-                        background-color: white;
+                        background-color: transparent;
                     }
                     
                     #AllSoldCardContainer::-webkit-scrollbar-thumb {
                         background-color: #ccc;
                         border-radius: 25px;
                     }
-
-                    #AllSoldCard {
-                        border: 1px solid black;
-                        border-radius: 5px;
-                    }
                     
                     @media (max-width: 900px) {
+
+                        #AllSoldTitleContainer {
+                            width: 100%;
+                            padding-left: 5%;
+                        }
                         
+                        #AllSoldCardContainer {
+                            width: 100%;
+                            padding: 0 12%;
+                        }
+    
                     }
 
                 `}

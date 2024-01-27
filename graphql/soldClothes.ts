@@ -30,29 +30,6 @@ export class soldClothesQueries {
         return toArray(res.soldClothes).reverse();
     };
 
-    async getSoldClothingByID(id: string) {
-
-        const query = gql`
-            {
-                soldClothes(id: ${id}) {
-                    id
-                    title
-                    description
-                    category
-                    size
-                    measurements
-                    gender
-                    notes
-                    thumbnail
-                    gallery
-                }
-            }
-        `;
-
-        const res: Clothing = await client.request(query);
-        return toArray(res.soldClothes);
-    };
-
     async getSoldClothingByCategory(category: string) {
 
         const query = gql`

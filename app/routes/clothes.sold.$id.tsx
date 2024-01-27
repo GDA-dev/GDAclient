@@ -27,7 +27,7 @@ export default function SoldByIDPage() {
     return (
         <>
             <Header />
-            <SoldByID soldClothing={soldClothingByID} />
+            <SoldByID soldClothing={soldClothingByID[0]} />
             <Footer />
         </>
     );
