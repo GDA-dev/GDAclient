@@ -226,10 +226,11 @@ export default function Header() {
                     justify-content: center;
                     align-items: center;
                     font-size: 16px;
+                    background-color: white;
                     border: 1px solid black;
                     border-top: none;
                     border-radius: 0 0 25px 25px;
-                    z-index: 2;
+                    z-index: 4;
                 }
 
                 @keyframes slide-down {
@@ -293,7 +294,7 @@ export default function Header() {
                 }
 
                 @media (max-width: 600px) {
-                    #HeaderLogo { width: 200px; height: 75px; margin-left: 10px; }
+                    #HeaderLogoContainer { justify-content: flex-start; }
                     #MenuContainer { display: none; }
                 }
 

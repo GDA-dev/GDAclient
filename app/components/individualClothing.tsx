@@ -1,59 +1,50 @@
 import React from "react";
-import { Textarea, Text, Heading, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
+import { Heading, Text, Stack } from '@chakra-ui/react'
 import { Clothing } from "../../utils/types";
 
 interface IndividualClothingProps {
     clothing: Clothing;
+    category: string;
+    size: string;
+    gender: string;
 };
 
-const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing }) => {
+const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, category, size, gender }) => {
 
-    const gallery = clothing.gallery;
+    
 
     return (
         <>
             <div id="IndividualClothing">
                 <div id="IndividualClothingContainer">
                     <div id="IndividualClothingLeftContainer">
-                            {gallery.map((gallery: any) => (
+                            {/* {clothing.gallery.map((gallery: any) => (
                                 <div id="IndividualClothingGalleryContainer">
                                     <img src={gallery} alt="Gallery of Clothing Item" id="IndividualClothingGallery" />
                                 </div>
-                            ))}
+                            ))} */}
+                            <img id="IndividualClothingThumbnail" src={clothing.thumbnail} alt="Clothing Item Picture" />
                     </div>
                     <div id="IndividualClothingRightContainer">
-                        <div id="IndividualClothingTextContainer">
-                            <div id="IndividualClothingTitle">
-                                <Heading size='xl'>{clothing.title}</Heading>
-                            </div>
-                            <div id="IndividualClothingDescription">
-                                <Textarea value={clothing.description} placeholder="Description" />
-                            </div>
-                            <div id="IndividualClothingPrice">
-                                {clothing.price ? (
-                                    <Stat>
-                                        <StatLabel fontSize='25px'>Clothing Price</StatLabel>
-                                        <StatNumber>${clothing.price}</StatNumber>
-                                    </Stat>
-                                ) : (
-                                    <Stat>
-                                        <StatLabel fontSize='25px'>Clothing Price</StatLabel>
-                                        <StatNumber>Sold Out</StatNumber>
-                                    </Stat>
-                                )}
-                            </div>
-                        </div>
-                        <div id="IndividualClothingInformationContainer">
-                            <p id="IndividualClothingCategory">{clothing.category}</p>
-                            <p id="IndividualClothingGender">{clothing.gender}</p>
-                            <p id="IndividualClothingSize">{clothing.size}</p>
-                            <p id="IndividualClothingMeasurements">{clothing.measurements}</p>
-                            {clothing.notes ? (
-                                <Textarea value={clothing.notes} placeholder="Extra Notes" />
+                        <div id="IndividualClothingStackBackground" />
+                        <Stack id="IndividualClothingStack" spacing={10}>
+                            <Heading size='4xl'>{clothing.title}</Heading>
+                            {clothing.price ? (
+                                <Text fontSize='3xl'>${clothing.price}</Text>
                             ) : (
-                                <Textarea placeholder='No Extra Information' />
+                                <Text>Sold Out</Text>
                             )}
-                        </div>
+                            <Text fontSize='2xl'>{clothing.description}</Text>
+                            <Text fontSize='lg'>Category: {category}</Text>
+                            <Text fontSize='lg'>Size: {size}</Text>
+                            <Text fontSize='lg'>Gender: {gender}</Text>
+                            <Text fontSize='lg'>Measurements: {clothing.measurements}</Text>
+                            {clothing.notes ? (
+                                <Text fontSize='md'>Notes: {clothing.notes}</Text>
+                            ) : (
+                                <Text>No Notes</Text>
+                            )}
+                        </Stack>
                     </div>
                 </div>
             </div>
