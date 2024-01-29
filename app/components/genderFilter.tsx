@@ -9,6 +9,8 @@ interface GenderFilterProps {
 
 const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelectedFilter }) => {
     
+    type ValidOptionKeys = keyof typeof validOptions;
+    
     const genders = [
         "Male",
         "Female", 
@@ -21,7 +23,6 @@ const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelecte
         U: "Unisex"
     };
     
-    type ValidOptionKeys = keyof typeof validOptions;
     const [validOptions, setValidOptions] = useState({
         M: 0,
         F: 0,
@@ -30,6 +31,7 @@ const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelecte
 
     const detectValidOptions = () => {
         for (let i = 0; i < currentOptions.length; i++) {
+            
             const gender = currentOptions[i].gender;
 
             if (gender in validOptions) {
@@ -47,23 +49,14 @@ const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelecte
     
     return (
         <>
-            <Select placeholder='Gender Filter'  borderColor="pink">
+            <Select borderColor="pink" defaultValue="" onChange={(e) => sendSelectedFilter(e.target.value)}>
+                <option value="" disabled>Gender Filter</option>
                 {genders.map((gender: string, index: number) => {
 
                     const key = Object.keys(genderObj).find(k => genderObj[k] === gender);
-                    
-                    if (validOptions[key as ValidOptionKeys] === 0) {
-                        if (typeof document !== 'undefined') {
-                            const option = document.getElementById(`${key}`);
-                            if (option) { 
-                                option.style.opacity = '0.3';
-                                option.style.cursor = 'not-allowed';
-                            };
-                        };
-                    };
 
                     return (
-                        <option id={key} key={index} value={gender} onClick={() => sendSelectedFilter(gender)}>{gender}</option>
+                        <option id={key} key={index} value={gender} disabled={validOptions[key as ValidOptionKeys] === 0}>{gender}</option>
                     )
                 })}
             </Select>

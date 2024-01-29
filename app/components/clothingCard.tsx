@@ -38,18 +38,18 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 <Divider />
                 <CardFooter>
                     <ButtonGroup style={{ width: "100%", justifyContent: "space-around" }}>
-                        <Button variant='solid' colorScheme='blue' style={{ display: "flex" }} onClick={() => navigate(`${clothing.id}`)}>View</Button>
-                        <Button variant='ghost' colorScheme='blue' style={{ display: "flex", flexDirection: "column",  }}>
+                        <Button variant='solid' colorScheme='blue' onClick={() => navigate(`${clothing.id}`)}>View</Button>
+                        <Button variant='ghost' colorScheme='blue'>
                             {wishlist ? (
-                                <>
-                                    <FaHeart onClick={() => setWishlist(deleteFromWishlist(clothing))} style={{ color: "red", marginBottom: "3px" }} /> 
+                                <div style={{ display: "flex", width: "100%", height: "100%", flexDirection: "column", justifyContent: "center", alignItems: "center" }} onClick={() => setWishlist(deleteFromWishlist(clothing))}>
+                                    <FaHeart style={{ color: "red", marginBottom: "3px" }} /> 
                                     <p>Added to Wishlist</p>
-                                </>
+                                </div>
                             ) : (
-                                <>
-                                    <FaRegHeart onClick={() => setWishlist(addToWishlist(clothing))} style={{ marginBottom: "3px"}} />
+                                <div style={{ display: "flex", width: "100%", height: "100%", flexDirection: "column", justifyContent: "center", alignItems: "center" }} onClick={() => setWishlist(addToWishlist(clothing))}>
+                                    <FaRegHeart style={{ marginBottom: "3px"}} />
                                     <p>Add to Wishlist</p>
-                                </>
+                                </div>
                             )}
                         </Button>
                     </ButtonGroup>

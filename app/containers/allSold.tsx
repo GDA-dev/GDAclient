@@ -53,13 +53,14 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         width: 100%;
                         height: 100%;
                         flex-direction: column;
+                        overflow-y: hidden;
                     }
 
                     #AllSoldHeaderContainer {
                         display: flex;
                         position: relative;
                         width: 100%;
-                        height: 25%;
+                        height: 20%;
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
@@ -69,7 +70,7 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         display: flex;
                         position: relative;
                         width: 60%;
-                        height: 50%;
+                        height: 100%;
                         align-items: center;
                         padding-left: 3%;
                     }
@@ -83,7 +84,7 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         display: flex;
                         position: relative;
                         width: 40%;
-                        height: 50%;
+                        height: 100%;
                         justify-content: flex-end;
                         align-items: center;
                         padding-right: 3%;
@@ -97,11 +98,13 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                     #AllSoldCardContainer {
                         display: grid;
                         position: relative;
-                        width: 90%;
-                        height: 85%;
-                        padding: 0 3%;
+                        width: 100%;
+                        height: 80%;
+                        padding: 2% 3%;
                         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                         grid-gap: 25px;
+                        overflow-y: scroll;
+                        border-top: 1px solid black;
                     }
 
                     #AllSoldCardContainer::-webkit-scrollbar {
@@ -115,6 +118,10 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                     }
                     
                     @media (max-width: 900px) {
+
+                        #AllSoldHeaderContainer {
+                            height: 15%;
+                        }
 
                         #AllSoldTitleContainer {
                             width: 100%;

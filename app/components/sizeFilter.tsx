@@ -9,6 +9,8 @@ interface SizeFilterProps {
 
 const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFilter }) => {
     
+    type ValidOptionKeys = keyof typeof validOptions;
+    
     const sizes = [
         "Extra Extra Small",
         "Extra Small",
@@ -31,7 +33,6 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
         OS: "One Size"
     };
 
-    type ValidOptionKeys = keyof typeof validOptions;
     const [validOptions, setValidOptions] = useState({
         XXS: 0,
         XS: 0, 
@@ -45,12 +46,13 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
 
     const detectValidOptions = () => {
         for (let i = 0; i < currentOptions.length; i++) {
-            const category = currentOptions[i].category;
+            
+            const size = currentOptions[i].size;
 
-            if (category in validOptions) {
+            if (size in validOptions) {
                 setValidOptions(prevOptions => ({
                     ...prevOptions,
-                    [category]: prevOptions[category as ValidOptionKeys] + 1
+                    [size]: prevOptions[size as ValidOptionKeys] + 1
                 }));
             };
         };
@@ -62,23 +64,14 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
     
     return (
         <>
-            <Select placeholder='Size Filter'  borderColor="pink">
+            <Select borderColor="pink" defaultValue="" onChange={(e) => sendSelectedFilter(e.target.value)}>
+                <option value="" disabled>Size Filter</option>
                 {sizes.map((size: string, index: number) => {
 
                     const key = Object.keys(sizeObj).find(k => sizeObj[k] === size);
-                    
-                    if (validOptions[key as ValidOptionKeys] === 0) {
-                        if (typeof document !== 'undefined') {
-                            const option = document.getElementById(`${key}`);
-                            if (option) { 
-                                option.style.opacity = '0.3';
-                                option.style.cursor = 'not-allowed';
-                            };
-                        };
-                    };
 
                     return (
-                        <option id={key} key={index} value={size} onClick={() => sendSelectedFilter(size)}>{size}</option>
+                        <option id={key} key={index} value={size} disabled={validOptions[key as ValidOptionKeys] === 0}>{size}</option>
                     )
                 })}
             </Select>

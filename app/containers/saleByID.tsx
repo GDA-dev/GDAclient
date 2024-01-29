@@ -135,14 +135,15 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
                         display: flex;
                         position: relative;
                         width: 50%;
-                        height 100%;
-                        padding: 0 2.5%;
+                        height: 100%;
+                        padding-left: 5%;
                         justify-content: flex-start;
                         align-items: center;
                     }
 
                     #IndividualClothingThumbnail {
-                        width: 80%;
+                        object-fit: contain;
+                        height: 90%;
                     }
 
                     #IndividualClothingRightContainer {
@@ -186,6 +187,15 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
                         background-color: rgba(0, 0, 0, 0.75);
                         border-radius: 25px;
                         z-index: 0;
+                    }
+
+                    @media (max-width: 1250px) {
+
+                        #IndividualClothingThumbnail {
+                            height: auto;
+                            width: 80%;
+                        }
+
                     }
 
                     @media (max-width: 900px) {
