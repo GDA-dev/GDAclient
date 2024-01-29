@@ -9,6 +9,8 @@ interface CategoryFilterProps {
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSelectedFilter }) => {
     
+    type ValidOptionKeys = keyof typeof validOptions;
+
     const categories = [
         "Clothing, Top",
         "Clothing, Bottom", 
@@ -25,7 +27,6 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSel
         O: "Other"
     };
     
-    type ValidOptionKeys = keyof typeof validOptions;
     const [validOptions, setValidOptions] = useState({
         CT: 0,
         CB: 0,
@@ -36,6 +37,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSel
 
     const detectValidOptions = () => {
         for (let i = 0; i < currentOptions.length; i++) {
+
             const category = currentOptions[i].category;
 
             if (category in validOptions) {
@@ -53,23 +55,14 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSel
     
     return (
         <>
-            <Select placeholder='Clothing Type Filter' borderColor="pink">
+            <Select borderColor="pink" defaultValue="" onChange={(e) => sendSelectedFilter(e.target.value)}>
+                <option value="" disabled>Clothing Type Filter</option>
                 {categories.map((category: string, index: number) => {
 
                     const key = Object.keys(categoryObj).find(k => categoryObj[k] === category);
-                    
-                    if (validOptions[key as ValidOptionKeys] === 0) {
-                        if (typeof document !== 'undefined') {
-                            const option = document.getElementById(`${key}`);
-                            if (option) { 
-                                option.style.opacity = '0.3';
-                                option.style.cursor = 'not-allowed';
-                            };
-                        };
-                    };
 
                     return (
-                        <option id={key} key={index} value={category} onClick={() => sendSelectedFilter(category)}>{category}</option>
+                        <option id={key} key={index} value={key} disabled={validOptions[key as ValidOptionKeys] === 0}>{category}</option>
                     )
                 })}
             </Select>

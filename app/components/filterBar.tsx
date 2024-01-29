@@ -19,22 +19,27 @@ const FilterBar: React.FC<FilterBarProps> = ({ clothes, sendFilteredClothes }) =
    
     const handleFilterSelection = async (filter: string, filterType: string) => {
 
+        const clothingType = clothes[0].price ? "sale" : "sold";
+
         if (filterType === "category") {
 
-            const res = await fetchFilter(filterSelection, "sale");
-            setFilterSelection(prevSelection => ({...prevSelection, category: filter}));
+            const newFilterSelection = { ...filterSelection, category: filter };
+            const res = await fetchFilter(newFilterSelection, clothingType);
+            setFilterSelection(prevSelection => ({ ...prevSelection, category: filter }));
             sendFilteredClothes(res);
 
         } else if (filterType === "size") {
             
-            const res = await fetchFilter(filterSelection, "sale");
-            setFilterSelection(prevSelection => ({...prevSelection, size: filter}));
+            const newFilterSelection = { ...filterSelection, size: filter };
+            const res = await fetchFilter(newFilterSelection, clothingType);
+            setFilterSelection(prevSelection => ({ ...prevSelection, size: filter }));
             sendFilteredClothes(res);
             
         } else if (filterType === "gender") {
 
-            const res = await fetchFilter(filterSelection, "sale");
-            setFilterSelection(prevSelection => ({...prevSelection, gender: filter}));
+            const newFilterSelection = { ...filterSelection, gender: filter };
+            setFilterSelection(prevSelection => ({ ...prevSelection, gender: filter }));
+            const res = await fetchFilter(newFilterSelection, clothingType);
             sendFilteredClothes(res);
             
         } else if (filterType === "clear") {

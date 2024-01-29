@@ -34,7 +34,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(category: ${category}) {
+                soldClothes(category: "${category}") {
                     id
                     title
                     description
@@ -57,7 +57,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(gender: ${gender}) {
+                soldClothes(gender: "${gender}") {
                     id
                     title
                     description
@@ -80,7 +80,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(size: ${size}) {
+                soldClothes(size: "${size}") {
                     id
                     title
                     description
@@ -103,7 +103,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(category: ${category}, gender: ${gender}) {
+                soldClothes(category: "${category}", gender: "${gender}") {
                     id
                     title
                     description
@@ -127,7 +127,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(category: ${category}, size: ${size}) {
+                soldClothes(category: "${category}", size: "${size}") {
                     id
                     title
                     description
@@ -150,7 +150,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(size: ${size}, gender: ${gender}) {
+                soldClothes(size: "${size}", gender: "${gender}") {
                     id
                     title
                     description
@@ -173,7 +173,7 @@ export class soldClothesQueries {
 
         const query = gql`
             {
-                soldClothes(category: ${category}, gender: ${gender}, size: ${size}) {
+                soldClothes(category: "${category}", gender: "${gender}", size: "${size}") {
                     id
                     title
                     description

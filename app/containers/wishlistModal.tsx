@@ -27,7 +27,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                     <>
                         {wishlistItems.map((item: Clothing, index: number) => (
                             <div id="WishlistModalCard" key={index}>
-                                <WishlistCard clothing={item} deleteClothing={() => { deleteFromWishlist(wishlistItems[index]); requestWishlistItems(); }} />
+                                <WishlistCard clothing={item} deleteClothing={() => { deleteFromWishlist(wishlistItems[index]); requestWishlistItems(); }} closeWishlistModal={closeWishlistModal} />
                             </div>
                         ))}
                     </>
@@ -59,7 +59,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                         height: 15%;
                         justify-content: flex-start;
                         align-items: center;
-                        padding-left: 2.5%;
+                        padding-left: 5%;
                     }
 
                     #WishlistModalHeader {
@@ -72,11 +72,11 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                         position: absolute;
                         top: 0;
                         right: 0;
-                        width: 100%;
+                        width: 15%;
                         height: 15%;
                         justify-content: flex-end;
                         align-items: center;
-                        padding-right: 2.5%;
+                        padding-right: 5%;
                     }
 
                     #WishlistModalCloseContainer:hover {
