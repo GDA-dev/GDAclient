@@ -71,7 +71,7 @@ const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFil
                     const key = Object.keys(sizeObj).find(k => sizeObj[k] === size);
 
                     return (
-                        <option id={key} key={index} value={size} disabled={validOptions[key as ValidOptionKeys] === 0}>{size}</option>
+                        <option id={key} key={index} value={key} disabled={validOptions[key as ValidOptionKeys] === 0}>{size}</option>
                     )
                 })}
             </Select>

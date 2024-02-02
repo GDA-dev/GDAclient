@@ -8,53 +8,48 @@ export default async function fetchFilter(filter: Filter, clothingType: string) 
 
         const gql = new saleClothesQueries();
 
-        if (filter.category !== "" && filter.size !== "" && filter.gender !== "") {
-            
-            const res: Clothing[] =  await gql.getSaleClothingByAllFilters(filter.category, filter.size, filter.gender);
-            return res;
+        if (filter.category !== "" && filter.size === "" && filter.gender === "") {
 
-        } else if (filter.category !== "" && filter.size === "" && filter.gender === "") {
-
-            const res: Clothing[] =  await gql.getSaleClothingByCategory(filter.category);
+            const res: Clothing[] = await gql.getSaleClothingByCategory(filter.category);
             return res;
             
         } else if (filter.category === "" && filter.size === "" && filter.gender !== "") {
 
             const res: Clothing[] =  await gql.getSaleClothingByGender(filter.gender);
             return res;
-            
-        } else if (filter.category === "" && filter.size !== "" && filter.gender === ""){
 
-            const res: Clothing[] =  await gql.getSaleClothingBySize(filter.size);
-            return res;
+        } else if (filter.category === "" && filter.size !== "" && filter.gender === "") {
 
-        } else if (filter.category !== "" && filter.size === "" && filter.gender !== "") {
-
-            const res: Clothing[] =  await gql.getSaleClothingByCategoryAndGender(filter.category, filter.gender);
+            const res: Clothing[] = await gql.getSaleClothingBySize(filter.size);
             return res;
 
         } else if (filter.category !== "" && filter.size !== "" && filter.gender === "") {
-
-            const res: Clothing[] =  await gql.getSaleClothingByCategoryAndSize(filter.category, filter.size);
+            
+            const res: Clothing[] = await gql.getSaleClothingByCategoryAndSize(filter.category, filter.size);
             return res;
             
-        }  else if (filter.category === "" && filter.size !== "" && filter.gender !== "") {
+        } else if (filter.category !== "" && filter.size === "" && filter.gender !== "") {
 
-            const res: Clothing[] =  await gql.getSaleClothingBySizeAndGender(filter.size, filter.gender);
+            const res: Clothing[] = await gql.getSaleClothingByCategoryAndGender(filter.category, filter.gender);
             return res;
 
-        };  
+        } else if (filter.category === "" && filter.size !== "" && filter.gender !== "") {
+            
+            const res: Clothing[] = await gql.getSaleClothingBySizeAndGender(filter.size, filter.gender);
+            return res;
+            
+        } else if (filter.category !== "" && filter.size !== "" && filter.gender !== "") {
+
+            const res: Clothing[] = await gql.getSaleClothingByAllFilters(filter.category, filter.size, filter.gender);
+            return res;
+            
+        };
 
     } else if (clothingType === "sold") {
 
         const gql = new soldClothesQueries();
 
-        if (filter.category !== "" && filter.size !== "" && filter.gender !== "") {
-            
-            const res: Clothing[] = await gql.getSoldClothingByAllFilters(filter.category, filter.size, filter.gender);
-            return res;
-            
-        } else if (filter.category !== "" && filter.size === "" && filter.gender === "") {
+        if (filter.category !== "" && filter.size === "" && filter.gender === "") {
 
             const res: Clothing[] = await gql.getSoldClothingByCategory(filter.category);
             return res;
@@ -69,21 +64,26 @@ export default async function fetchFilter(filter: Filter, clothingType: string) 
             const res: Clothing[] = await gql.getSoldClothingBySize(filter.size);
             return res;
 
-        } else if (filter.category !== "" && filter.size === "" && filter.gender !== "") {
-
-            const res: Clothing[] = await gql.getSoldClothingByCategoryAndGender(filter.category, filter.gender);
-            return res;
-
         } else if (filter.category !== "" && filter.size !== "" && filter.gender === "") {
             
             const res: Clothing[] = await gql.getSoldClothingByCategoryAndSize(filter.category, filter.size);
             return res;
             
-        }  else if (filter.category === "" && filter.size !== "" && filter.gender !== "") {
+        } else if (filter.category !== "" && filter.size === "" && filter.gender !== "") {
+
+            const res: Clothing[] = await gql.getSoldClothingByCategoryAndGender(filter.category, filter.gender);
+            return res;
+
+        } else if (filter.category === "" && filter.size !== "" && filter.gender !== "") {
             
             const res: Clothing[] = await gql.getSoldClothingBySizeAndGender(filter.size, filter.gender);
             return res;
             
-        };        
+        } else if (filter.category !== "" && filter.size !== "" && filter.gender !== "") {
+            
+            const res: Clothing[] = await gql.getSoldClothingByAllFilters(filter.category, filter.size, filter.gender);
+            return res;
+            
+        };
     };
 };

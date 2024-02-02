@@ -35,7 +35,7 @@ export class saleClothesQueries {
 
         const query = gql`
             {
-                saleClothes(category: ""${category}"") {
+                saleClothes(category: "${category}") {
                     id
                     title
                     description
@@ -176,11 +176,11 @@ export class saleClothesQueries {
         return toArray(res.saleClothes).reverse();
     };
     
-    async getSaleClothingByAllFilters(category: string, gender: string, size: string) {
+    async getSaleClothingByAllFilters(category: string, size: string, gender: string) {
 
         const query = gql`
             {
-                saleClothes(category: "${category}", gender: "${gender}", size: "${size}") {
+                saleClothes(category: "${category}", size: "${size}", gender: "${gender}") {
                     id
                     title
                     description

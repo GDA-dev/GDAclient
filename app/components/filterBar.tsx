@@ -46,6 +46,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ clothes, sendFilteredClothes }) =
 
             setFilterSelection({ category: "", size: "", gender: "" });
             sendFilteredClothes(clothes);
+            onClose();
 
         };
     };
