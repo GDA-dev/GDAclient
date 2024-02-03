@@ -56,7 +56,7 @@ const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelecte
                     const key = Object.keys(genderObj).find(k => genderObj[k] === gender);
 
                     return (
-                        <option id={key} key={index} value={gender} disabled={validOptions[key as ValidOptionKeys] === 0}>{gender}</option>
+                        <option id={key} key={index} value={key} disabled={validOptions[key as ValidOptionKeys] === 0}>{gender}</option>
                     )
                 })}
             </Select>
