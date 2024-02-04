@@ -137,7 +137,6 @@ export default function Header() {
                     height: 10vh;
                     align-items: center;
                     justify-content: center;
-                    backdrop-filter: blur(0px);
                     border-bottom: 1px solid black;
                     z-index: 3;
                 }
@@ -157,7 +156,7 @@ export default function Header() {
                 #HeaderContainer.scrolled {
                     width: 100%;
                     padding: 0 2.5%;
-                    backdrop-filter: blur(5px);
+                    backdrop-filter: blur(50px);
                 }
 
                 #HeaderLogoContainer {
