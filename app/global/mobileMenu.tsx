@@ -27,9 +27,11 @@ export default function MobileMenu() {
             navigate('/');
             setTimeout(() => {
                 scrollToSection(option);
+                onClose();
             }, 1);
         } else {
             scrollToSection(option);
+            onClose();
         };
     };
   
