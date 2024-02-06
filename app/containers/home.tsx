@@ -6,21 +6,23 @@ import { MdEmail } from "react-icons/md";
 export default function Home() {
 
     const [initialLoad, setInitialLoad] = useState(false);
-    const [lastScroll, setLastScroll] = useState(0);
-    const [scrollCount, setScrollCount] = useState(0);
     const [selectedSection, setSelectedSection] = useState(0);
     const [sectionArray, setSectionArray] = useState<number[]>([]);
 
     const handleIntialLoad = (isMobile: boolean) => {
 
-        if (!isMobile) {
-            document.body.style.overflow = 'hidden';
-        } else {
+        if (isMobile) {
+            
             document.body.style.overflowX = 'hidden';
-        };
 
-        if (!initialLoad) {
+        } else if (!isMobile && !initialLoad) {
+
+            document.body.style.overflow = 'hidden';
             setSectionArray([0, window.innerHeight, window.innerHeight * 2]);
+            setSelectedSection(Math.floor(window.scrollY / window.innerHeight));
+            sessionStorage.setItem("lastScrollTime", "0");
+            sessionStorage.setItem("lastScrollAttempt", "0");
+
         };
 
         setInitialLoad(true);
@@ -46,35 +48,65 @@ export default function Home() {
 
     const handleSectionScroll = (event: any) => {
 
-        if (event.deltaY != 0) {
+        const positionFraction = window.scrollY / window.innerHeight;
+        // edge case where user scrolls up on index 1 section and should go to 0 but it stays at 1 because positionFraction is 1.0000...1
+        const roundDownCase = positionFraction <= 1.1 && positionFraction >= 1 && event.deltaY < 0 ? true : false;
+        const sectionIndex = roundDownCase ? 0 : Math.floor(positionFraction);
 
-            const positionFraction = window.scrollY / window.innerHeight;
-            // edge case where user scrolls up on index 1 section and should go to 0 but it stays at 1 because positionFraction is 1.0000...1
-            const roundDownCase = positionFraction <= 1.1 && positionFraction >= 1 && event.deltaY < 0 ? true : false;
-            const sectionIndex = roundDownCase ? 0 : Math.floor(positionFraction);
+        if (event.deltaY < 0) {
 
-            if (event.deltaY < 0) {
+            if (sectionArray[sectionIndex - 1]) {
 
-                if (sectionArray[sectionIndex - 1]) {
-                    setLastScroll(Date.now());
-                    setSelectedSection(sectionIndex - 1);
-                    scrollEffect(sectionArray[sectionIndex - 1]);
-                } else if (sectionIndex === 0) {
-                    setSelectedSection(0);
-                    scrollEffect(sectionArray[0]);
-                };
+                sessionStorage.setItem("lastScrollTime", Date.now().toString());
+                sessionStorage.setItem("lastScrollAttempt", "0");
+                setSelectedSection(sectionIndex - 1);
+                scrollEffect(sectionArray[sectionIndex - 1]);
 
-            } else {         
+            } else if (sectionIndex === 0) {
 
-                if (sectionArray[sectionIndex + 1]) {
-                    setLastScroll(Date.now());
-                    setSelectedSection(sectionIndex + 1);
-                    scrollEffect(sectionArray[sectionIndex + 1]);
-                };
+                sessionStorage.setItem("lastScrollTime", Date.now().toString());
+                sessionStorage.setItem("lastScrollAttempt", "0");
+                setSelectedSection(0);
+                scrollEffect(0);
 
             };
+
+        } else {         
+
+            if (sectionArray[sectionIndex + 1]) {
+
+                sessionStorage.setItem("lastScrollTime", Date.now().toString());
+                sessionStorage.setItem("lastScrollAttempt", "0");
+                setSelectedSection(sectionIndex + 1);
+                scrollEffect(sectionArray[sectionIndex + 1]);
+
+            };
+
         };
 
+    };
+
+    const checkDelay = (event: any) => {
+            
+        const lastScrollTime = sessionStorage.getItem("lastScrollTime");
+        const lastScrollAttempt = sessionStorage.getItem("lastScrollAttempt");
+        const delay = 500;
+        console.log("lastScrollTime", lastScrollTime)
+        console.log("lastScrollAttempt", lastScrollAttempt)
+        console.log("outside of delay? ",`${Date.now()} - ${Number(lastScrollTime)} > ${delay}`, Date.now() - Number(lastScrollTime) > delay)
+
+        if (lastScrollTime && lastScrollAttempt) {
+
+            sessionStorage.setItem("lastScrollAttempt", `${Number(lastScrollAttempt) + 1}`);
+            
+            if (Date.now() - Number(lastScrollTime) > delay && Number(lastScrollAttempt) === 1) {
+                handleSectionScroll(event);
+            } else if (Date.now() - Number(lastScrollTime) > delay && Number(lastScrollAttempt) > 1) {
+                sessionStorage.setItem("lastScrollTime", "0");
+                sessionStorage.setItem("lastScrollAttempt", "0");
+            };
+
+        };
     };
 
     useEffect(() => {
@@ -84,27 +116,26 @@ export default function Home() {
         if (window.innerWidth > 1100) {
 
             window.addEventListener("wheel", (event) => {
-
-                event.preventDefault();
-
-                // console.log(`${Date.now()} - ${lastScroll} > 1000`, Date.now() - lastScroll > 1000)
                 
-                if (Date.now() - lastScroll > 1000) {
-                    setScrollCount(scrollCount + 1);
-                    if (scrollCount === 1) {
-                        handleSectionScroll(event);
-                        setTimeout(() => { setScrollCount(0); }, 1000);
-                    };
+                if (event.deltaY !== 0) {
+                    checkDelay(event);
                 };
 
             }, { passive: false });
 
             return () => {
-                window.removeEventListener("wheel", (event) => { handleSectionScroll(event); });
+
+                window.removeEventListener("wheel", (event) => {
+                
+                    if (event.deltaY !== 0) {
+                        checkDelay(event);
+                    };
+
+                });
             };
         };
 
-    }, [initialLoad, setInitialLoad, sectionArray, setSectionArray, lastScroll, setLastScroll, scrollCount, setScrollCount]);
+    }, [initialLoad, setInitialLoad, sectionArray, setSectionArray]);
     
     return (
         <div id="Home">
@@ -191,9 +222,9 @@ export default function Home() {
                     #HomeContainer {
                         display: flex;
                         position: relative;
-                        width: 94%;
+                        width: 95%;
                         height: 100%;
-                        margin: 0 6%;
+                        margin: 0 5%;
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
@@ -461,7 +492,7 @@ export default function Home() {
                         position: fixed;
                         top: 10vh;
                         right: 0;
-                        width: 3%;
+                        width: 5%;
                         height: 90%;
                         flex-direction: column;
                         justify-content: center;
@@ -470,9 +501,9 @@ export default function Home() {
 
                     #SideSectionSelectionContainer {
                         display: flex;
-                        width: 95%;
-                        height: 30%;
-                        margin-right: 5%;
+                        position: relative;
+                        width: 45px;
+                        height: 200px;
                         flex-direction: column;
                         justify-content: space-around;
                         align-items: center;
