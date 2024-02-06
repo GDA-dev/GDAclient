@@ -11,12 +11,18 @@ export default function Home() {
     const [selectedSection, setSelectedSection] = useState(0);
     const [sectionArray, setSectionArray] = useState<number[]>([]);
 
-    const handleIntialLoad = () => {
+    const handleIntialLoad = (isMobile: boolean) => {
 
-        document.body.style.overflow = 'hidden';
+        if (!isMobile) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflowX = 'hidden';
+        };
+
         if (!initialLoad) {
             setSectionArray([0, window.innerHeight, window.innerHeight * 2]);
         };
+
         setInitialLoad(true);
 
     };
@@ -46,14 +52,15 @@ export default function Home() {
             // edge case where user scrolls up on index 1 section and should go to 0 but it stays at 1 because positionFraction is 1.0000...1
             const roundDownCase = positionFraction <= 1.1 && positionFraction >= 1 && event.deltaY < 0 ? true : false;
             const sectionIndex = roundDownCase ? 0 : Math.floor(positionFraction);
-            setSelectedSection(sectionIndex);
 
             if (event.deltaY < 0) {
 
                 if (sectionArray[sectionIndex - 1]) {
                     setLastScroll(Date.now());
+                    setSelectedSection(sectionIndex - 1);
                     scrollEffect(sectionArray[sectionIndex - 1]);
                 } else if (sectionIndex === 0) {
+                    setSelectedSection(0);
                     scrollEffect(sectionArray[0]);
                 };
 
@@ -61,6 +68,7 @@ export default function Home() {
 
                 if (sectionArray[sectionIndex + 1]) {
                     setLastScroll(Date.now());
+                    setSelectedSection(sectionIndex + 1);
                     scrollEffect(sectionArray[sectionIndex + 1]);
                 };
 
@@ -71,26 +79,29 @@ export default function Home() {
 
     useEffect(() => {
         
-        handleIntialLoad();
+        handleIntialLoad(window.innerWidth < 1100);
 
-        window.addEventListener("wheel", (event) => {
+        if (window.innerWidth > 1100) {
 
-            event.preventDefault();
+            window.addEventListener("wheel", (event) => {
 
-            // console.log(`${Date.now()} - ${lastScroll} > 1000`, Date.now() - lastScroll > 1000)
-            
-            if (Date.now() - lastScroll > 1000) {
-                setScrollCount(scrollCount + 1);
-                if (scrollCount === 1) {
-                    handleSectionScroll(event);
-                    setTimeout(() => { setScrollCount(0); }, 1000);
+                event.preventDefault();
+
+                // console.log(`${Date.now()} - ${lastScroll} > 1000`, Date.now() - lastScroll > 1000)
+                
+                if (Date.now() - lastScroll > 1000) {
+                    setScrollCount(scrollCount + 1);
+                    if (scrollCount === 1) {
+                        handleSectionScroll(event);
+                        setTimeout(() => { setScrollCount(0); }, 1000);
+                    };
                 };
+
+            }, { passive: false });
+
+            return () => {
+                window.removeEventListener("wheel", (event) => { handleSectionScroll(event); });
             };
-
-        }, { passive: false });
-
-        return () => {
-            window.removeEventListener("wheel", (event) => { handleSectionScroll(event); });
         };
 
     }, [initialLoad, setInitialLoad, sectionArray, setSectionArray, lastScroll, setLastScroll, scrollCount, setScrollCount]);
@@ -159,9 +170,9 @@ export default function Home() {
             </div>
             <div id="SideSectionSelection">
                 <div id="SideSectionSelectionContainer">
-                    <div id="SideSectionSelectionOption" className={ selectedSection === 0 ? "selected" : "" } onClick={() => { handleSectionClick(0) }}></div>
-                    <div id="SideSectionSelectionOption" className={ selectedSection === 1 ? "selected" : "" } onClick={() => { handleSectionClick(1) }}></div>
-                    <div id="SideSectionSelectionOption" className={ selectedSection === 2 ? "selected" : "" } onClick={() => { handleSectionClick(2) }}></div>
+                    <div id="SideSectionSelectionOption" className={ selectedSection === 0 ? "selected" : "" } onClick={() => { handleSectionClick(0); }}></div>
+                    <div id="SideSectionSelectionOption" className={ selectedSection === 1 ? "selected" : "" } onClick={() => { handleSectionClick(1); }}></div>
+                    <div id="SideSectionSelectionOption" className={ selectedSection === 2 ? "selected" : "" } onClick={() => { handleSectionClick(2); }}></div>
                 </div>
             </div>
             <style>
@@ -175,7 +186,6 @@ export default function Home() {
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
-                        overflow: hidden;
                     }
 
                     #HomeContainer {
@@ -246,7 +256,7 @@ export default function Home() {
                         position: relative;
                         width: 100%;
                         height: 20%;
-                        padding-top: 5%;
+                        padding-top: 100px;
                         justify-content: flex-start;
                         align-items: center;
                     }
@@ -490,6 +500,14 @@ export default function Home() {
                     #SideSectionSelectionOption.selected {
                         background-color: white;
                         transition: background-color 0.5s ease-in-out;
+                    }
+
+                    @media (max-width: 1100px) {
+                        
+                        #SideSectionSelectionContainer {
+                            display: none;
+                        }
+                        
                     }
                     
                 `}
