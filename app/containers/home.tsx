@@ -186,7 +186,7 @@ export default function Home() {
                                 <p id="ContactInfoHours">Open times: 9:00am - 5:00pm</p>
                             </div>
                             <div id="ContactInfoPhoneContainer">
-                                <p id="ContactInfoPhone">Phone number: 123-456-7890</p>
+                                <p id="ContactInfoPhone">Phone number: 202-597-6466</p>
                             </div>
                             <div id="ContactInfoLinksContainer">
                                 <div id="ContactInfoLinks">
@@ -534,10 +534,143 @@ export default function Home() {
                     }
 
                     @media (max-width: 1100px) {
+
+                        #Hero {
+                            height: 110vh;
+                            flex-direction: column;
+                            justify-content: space-around;
+                        }
+
+                        #HeroVideoContainer {
+                            width: 100%;
+                            height: 50%;
+                        }
+
+                        #HeroTextContainer {
+                            width: 100%;
+                            text-align: center
+                        }
+
+                        #HeroSubtitleContainer {
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        #HeroSubtitle {
+                            font-size: 40px;
+                        }
+
+                        #About {
+                            width: 100%;
+                            height: 100vh;
+                            padding-top: 0;
+                            flex-direction: column;
+                            margin-top: 5%;
+                        }
+
+                        #AboutTextContainer {
+                            width: 100%;
+                            height: 50%;
+                            text-align: center;
+                        }
+
+                        #AboutTitleContainer {
+                            height: 50%;
+                        }
+
+                        #AboutTitle {
+                            font-size: 100px;
+                        }
+
+                        #AboutParagraphContainer {
+                            width: 90%;
+                            height: 50%;
+                            justify-content: center;
+                            align-items: flex-start;
+                        }
+
+                        #AboutParagraph {
+                            font-size: 30px;
+                        }
+
+                        #AboutHeaderImageContainer {
+                            width: 100%;
+                            height: 60%;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        #AboutHeaderImage {
+                            height: 70%
+                        }
+
+                        #Contact {
+                            height: 100vh;
+                            padding-top: 0;
+                            justify-content: space-around;
+                            margin-top: 5%;
+                        }
+
+                        #ContactHeaderContainer {
+                            height: 20%;
+                            justify-content: center;
+                            align-itmes: center;
+                        }
+
+                        #ContactHeader {
+                            font-size: 100px;
+                        }
+
+                        #ContactInformationContainer {
+                            height: 80%;
+                            flex-direction: column;
+                        }
+
+                        #ContactLocationContainer {
+                            width: 100%;
+                            height: 40%;
+                            justify-content: space-between;
+                        }
+
+                        #ContactLocationImageContainer {
+                            height: 100%;
+                        }
+
+                        #ContactInfoContainer {
+                            width: 100%;
+                            height: 40%;
+                            margin-top: 7%;
+                            justify-content: space-around;
+                        }
                         
+                        #ContactInfoHoursContainer {
+                            height: 30%;
+                        }
+    
+                        #ContactInfoHours {
+                            font-size: 40px;
+                        }
+    
+                        #ContactInfoPhoneContainer {
+                            height: 30%;
+                        }
+    
+                        #ContactInfoPhone {
+                            font-size: 40px;
+                        }
+    
+                        #ContactInfoLinksContainer {
+                            height: 30%;
+                        }
+    
+                        #ContactInfoLinks {
+                            font-size: 50px;
+                        }
+
                         #SideSectionSelectionContainer {
                             display: none;
                         }
+
                         
                     }
                     
