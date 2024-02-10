@@ -7,7 +7,6 @@ export default function Home() {
 
     const [initialLoad, setInitialLoad] = useState(false);
     const [selectedSection, setSelectedSection] = useState(0);
-    const [sectionArray, setSectionArray] = useState<number[]>([]);
 
     const handleIntialLoad = (isMobile: boolean) => {
 
@@ -18,7 +17,6 @@ export default function Home() {
         } else if (!isMobile && !initialLoad) {
 
             document.body.style.overflow = 'hidden';
-            setSectionArray([0, window.innerHeight, window.innerHeight * 2]);
             setSelectedSection(Math.floor(window.scrollY / window.innerHeight));
             sessionStorage.setItem("lastScrollTime", "0");
             sessionStorage.setItem("lastScrollAttempt", "0");
@@ -36,11 +34,11 @@ export default function Home() {
             left: 0,
             behavior: 'smooth'
         });
-
     };
     
     const handleSectionClick = (sectionIndex: number) => {
         
+        const sectionArray = [0, window.innerHeight, window.innerHeight * 2];
         setSelectedSection(sectionIndex);
         scrollEffect(sectionArray[sectionIndex]);
             
@@ -48,6 +46,7 @@ export default function Home() {
 
     const handleSectionScroll = (event: any) => {
 
+        const sectionArray = [0, window.innerHeight, window.innerHeight * 2];
         const positionFraction = window.scrollY / window.innerHeight;
         // edge case where user scrolls up on index 1 section and should go to 0 but it stays at 1 because positionFraction is 1.0000...1
         const roundDownCase = positionFraction <= 1.1 && positionFraction >= 1 && event.deltaY < 0 ? true : false;
@@ -81,31 +80,32 @@ export default function Home() {
                 scrollEffect(sectionArray[sectionIndex + 1]);
 
             };
-
         };
-
     };
 
     const checkDelay = (event: any) => {
-            
+
         const lastScrollTime = sessionStorage.getItem("lastScrollTime");
         const lastScrollAttempt = sessionStorage.getItem("lastScrollAttempt");
-        const delay = 500;
-        console.log("lastScrollTime", lastScrollTime)
-        console.log("lastScrollAttempt", lastScrollAttempt)
-        console.log("outside of delay? ",`${Date.now()} - ${Number(lastScrollTime)} > ${delay}`, Date.now() - Number(lastScrollTime) > delay)
+        const delay = 1500;
 
         if (lastScrollTime && lastScrollAttempt) {
 
-            sessionStorage.setItem("lastScrollAttempt", `${Number(lastScrollAttempt) + 1}`);
-            
-            if (Date.now() - Number(lastScrollTime) > delay && Number(lastScrollAttempt) === 1) {
-                handleSectionScroll(event);
-            } else if (Date.now() - Number(lastScrollTime) > delay && Number(lastScrollAttempt) > 1) {
-                sessionStorage.setItem("lastScrollTime", "0");
-                sessionStorage.setItem("lastScrollAttempt", "0");
-            };
+            sessionStorage.setItem("lastScrollAttempt", `${lastScrollAttempt + 1}`);
 
+            if (Date.now() - Number(lastScrollTime) > delay) {
+
+                if (Number(lastScrollAttempt) === 1) {
+
+                    handleSectionScroll(event);
+
+                } else if (Number(lastScrollAttempt) > 1) {
+
+                    sessionStorage.setItem("lastScrollTime", "0");
+                    sessionStorage.setItem("lastScrollAttempt", "0");
+
+                };
+            };
         };
     };
 
@@ -135,7 +135,7 @@ export default function Home() {
             };
         };
 
-    }, [initialLoad, setInitialLoad, sectionArray, setSectionArray]);
+    }, [initialLoad, setInitialLoad]);
     
     return (
         <div id="Home">

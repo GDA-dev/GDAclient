@@ -137,6 +137,7 @@ export default function Header() {
                     height: 10vh;
                     align-items: center;
                     justify-content: center;
+                    backdrop-filter: blur(5px);
                     border-bottom: 1px solid black;
                     z-index: 3;
                 }
@@ -149,7 +150,7 @@ export default function Header() {
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
-                    backdrop-filter: blur(0px);
+                    backdrop-filter: blur(5px);
                     transition: 0.5s;
                 }
 
