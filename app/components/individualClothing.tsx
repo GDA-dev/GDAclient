@@ -1,5 +1,6 @@
 import React from "react";
-import { Heading, Text, Stack } from '@chakra-ui/react'
+import { Heading, Text, Stack } from '@chakra-ui/react';
+import { unstable_useViewTransitionState } from '@remix-run/react';
 import { Clothing } from "../../utils/types";
 
 interface IndividualClothingProps {
@@ -11,7 +12,7 @@ interface IndividualClothingProps {
 
 const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, category, size, gender }) => {
 
-    
+    const isTransitioning = unstable_useViewTransitionState(`${clothing.id}`);
 
     return (
         <>
@@ -23,7 +24,12 @@ const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, categ
                                     <img src={gallery} alt="Gallery of Clothing Item" id="IndividualClothingGallery" />
                                 </div>
                             ))} */}
-                            <img id="IndividualClothingThumbnail" src={clothing.thumbnail} alt="Clothing Item Picture" />
+                            <img 
+                                id="IndividualClothingThumbnail" 
+                                src={clothing.thumbnail} 
+                                alt="Clothing Item Picture" 
+                                style={{ viewTransitionName: isTransitioning ? "clothingThumbnailTransition" : "" }} 
+                            />
                     </div>
                     <div id="IndividualClothingRightContainer">
                         <div id="IndividualClothingStackBackground" />

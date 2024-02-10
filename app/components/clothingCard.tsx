@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from '@remix-run/react';
+import { NavLink, unstable_useViewTransitionState } from '@remix-run/react';
 import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
 import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -13,7 +13,7 @@ interface SaleCardProps {
 const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
 
     const [wishlist, setWishlist] = useState(inWishlist);
-    const navigate = useNavigate();
+    const isTransitioning = unstable_useViewTransitionState(`${clothing.id}`);
     
     return (
         <>
@@ -21,9 +21,10 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 <CardBody>
                     <Image
                         src={clothing.thumbnail}
-                        alt='Image of Clothing'
+                        alt='Clothing Card Thumbnail'
                         borderRadius='lg'
                         fit="cover"
+                        style={{ viewTransitionName: isTransitioning ? "clothingThumbnailTransition" : "" }}
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{clothing.title}</Heading>
@@ -38,7 +39,13 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 <Divider />
                 <CardFooter>
                     <ButtonGroup style={{ width: "100%", justifyContent: "space-around" }}>
-                        <Button variant='solid' colorScheme='blue' onClick={() => navigate(`${clothing.id}`)}>View</Button>
+                        <Button variant='solid' colorScheme='blue'>
+                            <NavLink to={`${clothing.id}`} unstable_viewTransition>
+                                <div style={{ width: "100%", height: "100%" }}>
+                                    View
+                                </div>
+                            </NavLink> 
+                        </Button>
                         <Button variant='ghost' colorScheme='blue'>
                             {wishlist ? (
                                 <div style={{ display: "flex", width: "100%", height: "100%", flexDirection: "column", justifyContent: "center", alignItems: "center" }} onClick={() => setWishlist(deleteFromWishlist(clothing))}>

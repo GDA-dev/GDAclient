@@ -50,6 +50,11 @@ export interface Filter {
     gender: string;
 };
 
+export interface Credentials {
+    username: string;
+    password: string;
+};
+
 
 // export interface Sale {
 //     id?: string;

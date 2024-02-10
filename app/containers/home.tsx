@@ -7,7 +7,6 @@ export default function Home() {
 
     const [initialLoad, setInitialLoad] = useState(false);
     const [selectedSection, setSelectedSection] = useState(0);
-    const [sectionArray, setSectionArray] = useState<number[]>([]);
 
     const handleIntialLoad = (isMobile: boolean) => {
 
@@ -18,7 +17,6 @@ export default function Home() {
         } else if (!isMobile && !initialLoad) {
 
             document.body.style.overflow = 'hidden';
-            setSectionArray([0, window.innerHeight, window.innerHeight * 2]);
             setSelectedSection(Math.floor(window.scrollY / window.innerHeight));
             sessionStorage.setItem("lastScrollTime", "0");
             sessionStorage.setItem("lastScrollAttempt", "0");
@@ -36,11 +34,11 @@ export default function Home() {
             left: 0,
             behavior: 'smooth'
         });
-
     };
     
     const handleSectionClick = (sectionIndex: number) => {
         
+        const sectionArray = [0, window.innerHeight, window.innerHeight * 2];
         setSelectedSection(sectionIndex);
         scrollEffect(sectionArray[sectionIndex]);
             
@@ -48,6 +46,7 @@ export default function Home() {
 
     const handleSectionScroll = (event: any) => {
 
+        const sectionArray = [0, window.innerHeight, window.innerHeight * 2];
         const positionFraction = window.scrollY / window.innerHeight;
         // edge case where user scrolls up on index 1 section and should go to 0 but it stays at 1 because positionFraction is 1.0000...1
         const roundDownCase = positionFraction <= 1.1 && positionFraction >= 1 && event.deltaY < 0 ? true : false;
@@ -81,31 +80,32 @@ export default function Home() {
                 scrollEffect(sectionArray[sectionIndex + 1]);
 
             };
-
         };
-
     };
 
     const checkDelay = (event: any) => {
-            
+
         const lastScrollTime = sessionStorage.getItem("lastScrollTime");
         const lastScrollAttempt = sessionStorage.getItem("lastScrollAttempt");
-        const delay = 500;
-        console.log("lastScrollTime", lastScrollTime)
-        console.log("lastScrollAttempt", lastScrollAttempt)
-        console.log("outside of delay? ",`${Date.now()} - ${Number(lastScrollTime)} > ${delay}`, Date.now() - Number(lastScrollTime) > delay)
+        const delay = 1500;
 
         if (lastScrollTime && lastScrollAttempt) {
 
-            sessionStorage.setItem("lastScrollAttempt", `${Number(lastScrollAttempt) + 1}`);
-            
-            if (Date.now() - Number(lastScrollTime) > delay && Number(lastScrollAttempt) === 1) {
-                handleSectionScroll(event);
-            } else if (Date.now() - Number(lastScrollTime) > delay && Number(lastScrollAttempt) > 1) {
-                sessionStorage.setItem("lastScrollTime", "0");
-                sessionStorage.setItem("lastScrollAttempt", "0");
-            };
+            sessionStorage.setItem("lastScrollAttempt", `${lastScrollAttempt + 1}`);
 
+            if (Date.now() - Number(lastScrollTime) > delay) {
+
+                if (Number(lastScrollAttempt) === 1) {
+
+                    handleSectionScroll(event);
+
+                } else if (Number(lastScrollAttempt) > 1) {
+
+                    sessionStorage.setItem("lastScrollTime", "0");
+                    sessionStorage.setItem("lastScrollAttempt", "0");
+
+                };
+            };
         };
     };
 
@@ -135,7 +135,7 @@ export default function Home() {
             };
         };
 
-    }, [initialLoad, setInitialLoad, sectionArray, setSectionArray]);
+    }, [initialLoad, setInitialLoad]);
     
     return (
         <div id="Home">
@@ -186,7 +186,7 @@ export default function Home() {
                                 <p id="ContactInfoHours">Open times: 9:00am - 5:00pm</p>
                             </div>
                             <div id="ContactInfoPhoneContainer">
-                                <p id="ContactInfoPhone">Phone number: 123-456-7890</p>
+                                <p id="ContactInfoPhone">Phone number: 202-597-6466</p>
                             </div>
                             <div id="ContactInfoLinksContainer">
                                 <div id="ContactInfoLinks">
@@ -534,10 +534,143 @@ export default function Home() {
                     }
 
                     @media (max-width: 1100px) {
+
+                        #Hero {
+                            height: 110vh;
+                            flex-direction: column;
+                            justify-content: space-around;
+                        }
+
+                        #HeroVideoContainer {
+                            width: 100%;
+                            height: 50%;
+                        }
+
+                        #HeroTextContainer {
+                            width: 100%;
+                            text-align: center
+                        }
+
+                        #HeroSubtitleContainer {
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        #HeroSubtitle {
+                            font-size: 40px;
+                        }
+
+                        #About {
+                            width: 100%;
+                            height: 100vh;
+                            padding-top: 0;
+                            flex-direction: column;
+                            margin-top: 5%;
+                        }
+
+                        #AboutTextContainer {
+                            width: 100%;
+                            height: 50%;
+                            text-align: center;
+                        }
+
+                        #AboutTitleContainer {
+                            height: 50%;
+                        }
+
+                        #AboutTitle {
+                            font-size: 100px;
+                        }
+
+                        #AboutParagraphContainer {
+                            width: 90%;
+                            height: 50%;
+                            justify-content: center;
+                            align-items: flex-start;
+                        }
+
+                        #AboutParagraph {
+                            font-size: 30px;
+                        }
+
+                        #AboutHeaderImageContainer {
+                            width: 100%;
+                            height: 60%;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        #AboutHeaderImage {
+                            height: 70%
+                        }
+
+                        #Contact {
+                            height: 100vh;
+                            padding-top: 0;
+                            justify-content: space-around;
+                            margin-top: 5%;
+                        }
+
+                        #ContactHeaderContainer {
+                            height: 20%;
+                            justify-content: center;
+                            align-itmes: center;
+                        }
+
+                        #ContactHeader {
+                            font-size: 100px;
+                        }
+
+                        #ContactInformationContainer {
+                            height: 80%;
+                            flex-direction: column;
+                        }
+
+                        #ContactLocationContainer {
+                            width: 100%;
+                            height: 40%;
+                            justify-content: space-between;
+                        }
+
+                        #ContactLocationImageContainer {
+                            height: 100%;
+                        }
+
+                        #ContactInfoContainer {
+                            width: 100%;
+                            height: 40%;
+                            margin-top: 7%;
+                            justify-content: space-around;
+                        }
                         
+                        #ContactInfoHoursContainer {
+                            height: 30%;
+                        }
+    
+                        #ContactInfoHours {
+                            font-size: 40px;
+                        }
+    
+                        #ContactInfoPhoneContainer {
+                            height: 30%;
+                        }
+    
+                        #ContactInfoPhone {
+                            font-size: 40px;
+                        }
+    
+                        #ContactInfoLinksContainer {
+                            height: 30%;
+                        }
+    
+                        #ContactInfoLinks {
+                            font-size: 50px;
+                        }
+
                         #SideSectionSelectionContainer {
                             display: none;
                         }
+
                         
                     }
                     
