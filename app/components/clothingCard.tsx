@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, unstable_useViewTransitionState } from '@remix-run/react';
 import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
-import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
+import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Clothing } from "../../utils/types";
 
@@ -17,14 +17,13 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
     
     return (
         <>
-            <Card maxW='sm' style={{ border: "1px solid black", borderRadius: "5px"}}>
+            <Card maxW='sm' style={{ border: "1px solid black", borderRadius: "5px" }}>
                 <CardBody>
-                    <Image
+                    <img
+                        id="ClothingCardThumbnail"
                         src={clothing.thumbnail}
                         alt='Clothing Card Thumbnail'
-                        borderRadius='lg'
-                        fit="cover"
-                        style={{ viewTransitionName: isTransitioning ? "clothingThumbnailTransition" : "" }}
+                        style={{ viewTransitionName: isTransitioning ? "clothingThumbnailTransition" : undefined, borderRadius: "10px" }}
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{clothing.title}</Heading>
@@ -40,11 +39,7 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                 <CardFooter>
                     <ButtonGroup style={{ width: "100%", justifyContent: "space-around" }}>
                         <Button variant='solid' colorScheme='blue'>
-                            <NavLink to={`${clothing.id}`} unstable_viewTransition>
-                                <div style={{ width: "100%", height: "100%" }}>
-                                    View
-                                </div>
-                            </NavLink> 
+                            <NavLink to={`${clothing.id}`} unstable_viewTransition>View</NavLink> 
                         </Button>
                         <Button variant='ghost' colorScheme='blue'>
                             {wishlist ? (

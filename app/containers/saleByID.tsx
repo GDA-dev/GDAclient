@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from '@remix-run/react';
 import IndividualClothing from "../components/individualClothing";
 import { IoClose } from "react-icons/io5";
 import { Clothing } from "../../utils/types";
@@ -73,7 +74,7 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
     return (
         <div id="SaleByID">
             <div id="SaleByIDContainer">
-                <a id="SaleByIDCloseButton" href="/clothes/sale"><IoClose /></a>
+                <NavLink id="SaleByIDCloseButton" to="/clothes/sale" unstable_viewTransition><IoClose /></NavLink>
                 <IndividualClothing clothing={saleClothing} category={category} size={size} gender={gender} />
             </div>
             <style>
@@ -142,8 +143,8 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
                     }
 
                     #IndividualClothingThumbnail {
-                        object-fit: contain;
                         height: 90%;
+                        object-fit: contain;
                     }
 
                     #IndividualClothingRightContainer {
