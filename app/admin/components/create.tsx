@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import cloudinaryUpload from "../../../../services/POST/cloudinaryUpload";
+import createSaleClothing from "../../../services/POST/createSaleClothing";
+import createSoldClothing from "../../../services/POST/createSoldClothing";
+import cloudinaryUpload from "../../../services/POST/cloudinaryUpload";
 
-export default function CreateImage() {
+export default function Create(clothingType: any) {
     
     const [imageURLArray, setImageURLArray] = useState<string[]>([]);
 
@@ -15,7 +17,7 @@ export default function CreateImage() {
             <input id="UploadFile" type="file" accept="image/*" onChange={(value) => sendImage(value)} />
             {imageURLArray.map((image: string, index: number) => (
                 <div id='ImagePreview' key={index}>
-                    <img src={image} alt="" />
+                    <img src={image} alt="Gallery Image" />
                 </div>
             ))}
         </div>
