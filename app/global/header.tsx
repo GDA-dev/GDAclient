@@ -9,7 +9,8 @@ import { Clothing } from "../../utils/types";
 
 export default function Header() {
     
-    const [clothingOptions, setClothingOptions] = useState(false);
+    const [clothingOptionsView, setClothingOptionsView] = useState(false);
+    const [clothingOptionsAnimation, setClothingOptionsAnimation] = useState(false);
     const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
     const [wishlistItems, setWishlistItems] = useState<Clothing[]>([]);
     const [scrolled, setScrolled] = useState(false);
@@ -30,14 +31,22 @@ export default function Header() {
             navigate('/');
             setTimeout(() => {
                 scrollToSection(option);
-            }, 1);
+            }, 1000);
         } else {
             scrollToSection(option);
         };
     };
 
-    const handleClothingOptions = () => {
-        setClothingOptions(!clothingOptions);
+    const openClothingOptions = () => {
+        setClothingOptionsView(true);
+        setClothingOptionsAnimation(true);
+    };
+
+    const closeClothingOptions = () => {
+        setClothingOptionsAnimation(false);
+        setTimeout(() => {
+            setClothingOptionsView(false);
+        }, 500);
     };
 
     const handleScroll = () => {
@@ -96,10 +105,11 @@ export default function Header() {
                         <ul id="HeaderListContainer">
                             <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
                             <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
-                            <li id="HeaderClothingListItem" onMouseEnter={handleClothingOptions} onMouseLeave={handleClothingOptions}>
+                            <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
+                            <li id="HeaderClothingListItem" onMouseEnter={openClothingOptions} onMouseLeave={closeClothingOptions}>
                                 <div id="HeaderListClothing">
                                     <div id="HeaderListClothingButton">Clothing</div>
-                                    <div id="ClothingOptionsContainer" style={{ display: clothingOptions ? "flex" : "none" }} className={ clothingOptions ? "down" : "" }>
+                                    <div id="ClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" }>
                                         <div id="ClothingOptionsSale">
                                             <a id="ClothingOptionsSaleButton" href="/clothes/sale">Sale Clothing</a>
                                         </div>
@@ -109,7 +119,6 @@ export default function Header() {
                                     </div>
                                 </div>
                             </li>
-                            <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
                             <li className="HeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}>
                                 <FaHeart style={{ color: "red", fontSize: "25px" }} />
                             </li>
@@ -240,6 +249,15 @@ export default function Header() {
 
                 #ClothingOptionsContainer.down {
                     animation: slide-down 0.5s ease-in-out;
+                }
+
+                @keyframes slide-up {
+                    from { transform: translateY(0vh); opacity: 1; cursor: pointer; }
+                    to { transform: translateY(-7vh); opacity: 0; }
+                }
+
+                #ClothingOptionsContainer.up {
+                    animation: slide-up 0.5s ease-in-out;
                 }
 
                 #ClothingOptionsSale, #ClothingOptionsSold {

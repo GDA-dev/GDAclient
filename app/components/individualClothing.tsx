@@ -1,5 +1,4 @@
 import React from "react";
-import { unstable_useViewTransitionState } from "@remix-run/react";
 import { Heading, Text, Stack } from '@chakra-ui/react';
 import { Clothing } from "../../utils/types";
 
@@ -11,16 +10,13 @@ interface IndividualClothingProps {
 };
 
 const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, category, size, gender }) => {
-
-    const clothingType = clothing.price ? "sale" : "sold";
-    const isTransitioning = unstable_useViewTransitionState(`/clothes/${clothingType}/${clothing.id}`);
-
+    
     return (
         <>
             <div id="IndividualClothing">
                 <div id="IndividualClothingContainer">
                     <div id="IndividualClothingLeftContainer">
-                            {/* {clothing.gallery.map((gallery: any) => (
+                            {/* {clothing.gallery.map((gallery: string) => (
                                 <div id="IndividualClothingGalleryContainer">
                                     <img src={gallery} alt="Gallery of Clothing Item" id="IndividualClothingGallery" />
                                 </div>
@@ -29,7 +25,7 @@ const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, categ
                                 id="IndividualClothingThumbnail" 
                                 src={clothing.thumbnail} 
                                 alt="Clothing Item Picture"
-                                style={{ viewTransitionName: "clothingThumbnailTransition" }}
+                                style={{ viewTransitionName: "clothing-image" }}
                             />
                     </div>
                     <div id="IndividualClothingRightContainer">
