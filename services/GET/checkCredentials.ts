@@ -1,12 +1,12 @@
 import axios from "axios";
 import { env } from '../../utils/env';
 
-export default function checkCredentials(username: string, password: string) {
+export default async function checkCredentials(username: string, password: string) {
     try {
 
-        const creds: any = axios.get(`${env.API_URL}/auth/${username}/${password}/`);
+        const res: any = await axios.get(`${env.API_URL}/auth/${username}/${password}/`);
 
-        if (creds.data.res === 'true') {
+        if (res.data.res === 'true' && res.status === 200) {
             return true;
         } else {
             return false;
@@ -15,7 +15,7 @@ export default function checkCredentials(username: string, password: string) {
     } catch (error) {
         
         console.log(error);
-        return error;
+        return false;
 
     };
 };
