@@ -11,6 +11,9 @@ export default function Header() {
     
     const [clothingOptionsView, setClothingOptionsView] = useState(false);
     const [clothingOptionsAnimation, setClothingOptionsAnimation] = useState(false);
+    const [showItemBackground, setShowItemBackground] = useState("none");
+    const [horizontalPercentage, setHorizontalPercentage] = useState("0%");
+    const [verticalPercentage, setVerticalPercentage] = useState("0%");
     const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
     const [wishlistItems, setWishlistItems] = useState<Clothing[]>([]);
     const [scrolled, setScrolled] = useState(false);
@@ -35,6 +38,24 @@ export default function Header() {
         } else {
             scrollToSection(option);
         };
+    };
+
+    const updateItemBackgroundPercentage = (percentage: string, direction: string) => {
+        if (direction === "horizontal") {
+            setShowItemBackground("flex");
+            setVerticalPercentage("22.5%");
+            setHorizontalPercentage(percentage);
+        } else if (direction === "vertical") {
+            setShowItemBackground("flex");
+            setVerticalPercentage(percentage);
+            setHorizontalPercentage("60%");
+        };
+    };
+
+    const hideItemBackground = () => {
+        setShowItemBackground("none");
+        setHorizontalPercentage("0%");
+        setVerticalPercentage("-50%");
     };
 
     const openClothingOptions = () => {
@@ -92,7 +113,7 @@ export default function Header() {
     
     return (
         <div id="Header">
-            <div id="HeaderContainer" className={scrolled ? 'scrolled' : ''}>
+            <div id="HeaderContainer" className={ scrolled ? 'scrolled' : '' }>
                 <div id="HeaderLogoContainer">
                     <a href="/"><img id="HeaderLogo" src={headerLogo} alt="Genet Design's and Alterations Logo" /></a>
                 </div>
@@ -102,31 +123,32 @@ export default function Header() {
                     </div>
                 ) : (
                     <>
-                        <ul id="HeaderListContainer">
-                            <li className="HeaderListItem" onClick={() => redirect("Hero")}>Home</li>
-                            <li className="HeaderListItem" onClick={() => redirect("About")}>About</li>
-                            <li className="HeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
-                            <li id="HeaderClothingListItem" onMouseEnter={openClothingOptions} onMouseLeave={closeClothingOptions}>
+                        <ul id="HeaderListContainer" onMouseLeave={hideItemBackground}>
+                            <div id="HeaderListBackground"></div>
+                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("0%", "horizontal")} onClick={() => redirect("Hero")}><p>Home</p></li>
+                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("20%", "horizontal")} onClick={() => redirect("About")}><p>About</p></li>
+                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("40%", "horizontal")} onClick={() => redirect("Contact")}><p>Contact</p></li>
+                            <li id="HeaderClothingListItem" onMouseEnter={() => { openClothingOptions(); updateItemBackgroundPercentage("60%", "horizontal"); }} onMouseLeave={closeClothingOptions}>
                                 <div id="HeaderListClothing">
                                     <div id="HeaderListClothingButton">Clothing</div>
                                     <div id="ClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" }>
-                                        <div id="ClothingOptionsSale">
+                                        <div id="ClothingOptionsSale" onMouseEnter={() => updateItemBackgroundPercentage("100%", "vertical")}>
                                             <a id="ClothingOptionsSaleButton" href="/clothes/sale">Sale Clothing</a>
                                         </div>
-                                        <div id="ClothingOptionsSold">
+                                        <div id="ClothingOptionsSold" onMouseEnter={() => updateItemBackgroundPercentage("150%", "vertical")}>
                                             <a id="ClothingOptionsSoldButton" href="/clothes/sold">Sold Clothing</a>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li className="HeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}>
+                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
                                 <FaHeart style={{ color: "red", fontSize: "25px" }} />
                             </li>
                         </ul>
                         {wishlistModalOpen && 
                             <WishlistModal 
                                 wishlistItems={wishlistItems}
-                                requestWishlistItems={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}
+                                requestWishlistItems={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}
                                 closeWishlistModal={() => setWishlistModalOpen(false)}
                             />
                         }
@@ -196,6 +218,18 @@ export default function Header() {
                     align-items: center;
                 }
 
+                #HeaderListBackground {
+                    display: ${showItemBackground};
+                    position: absolute;
+                    top: ${verticalPercentage};
+                    left: ${horizontalPercentage};
+                    width: 20%;
+                    height: 55%;
+                    border-radius: 25px;
+                    background-color: rgba(0, 0, 0, 0.75);
+                    transition: 0.5s;
+                }
+
                 .HeaderListItem, #HeaderClothingListItem {
                     display: flex;
                     position: relative;
@@ -206,13 +240,15 @@ export default function Header() {
                     align-items: center;
                     text-decoration: none;
                     font-size: 17px;
-                    cursor: default;
+                    cursor: pointer;
+                    transition: 0.5s;
                 }
 
-                .HeaderListItem:hover {
-                    opacity: 0.5;
-                    cursor: pointer;
+                .HeaderListItem:hover, #HeaderClothingListItem:hover {
+                    color: white;
                 }
+
+                #HeaderListClothing { border: 1px solid red; }
 
                 #HeaderListClothingButton {
                     display: flex;
@@ -221,7 +257,7 @@ export default function Header() {
                     height: 100%;
                     justify-content: center;
                     align-items: center;
-                    color: black;
+                    border: 1px solid blue;
                 }             
 
                 #ClothingOptionsContainer {
@@ -240,6 +276,7 @@ export default function Header() {
                     border-top: none;
                     border-radius: 0 0 25px 25px;
                     z-index: 4;
+                    transition: 0.5s;
                 }
 
                 @keyframes slide-down {
@@ -268,12 +305,13 @@ export default function Header() {
                     justify-content: center;
                     align-items: center;
                     cursor: none;
+                    z-index: 4;
                 }
 
                 #ClothingOptionsSale { border-bottom: 1px solid black; } 
 
                 #ClothingOptionsSaleButton:hover, #ClothingOptionsSoldButton:hover {
-                    opacity: 0.5;
+                    color: white;
                 }
 
                 #MobileHeaderMenuContainer {

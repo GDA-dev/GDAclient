@@ -1,7 +1,6 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import Header from "../global/header";
-import Footer from "../global/footer";
 import Home from "../containers/home";
 
 export const meta: MetaFunction = () => {
@@ -17,7 +16,6 @@ export default function HomePage() {
         <>
             <Header />
             <Home />
-            <Footer /> 
         </>
     );
 };

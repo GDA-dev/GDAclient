@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Text, Stack } from '@chakra-ui/react';
+import { Heading, Text, Image, Stack } from '@chakra-ui/react';
 import { Clothing } from "../../utils/types";
 
 interface IndividualClothingProps {
@@ -18,10 +18,10 @@ const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, categ
                     <div id="IndividualClothingLeftContainer">
                             {/* {clothing.gallery.map((gallery: string) => (
                                 <div id="IndividualClothingGalleryContainer">
-                                    <img src={gallery} alt="Gallery of Clothing Item" id="IndividualClothingGallery" />
+                                    <Image id="IndividualClothingGalleryImage" src={gallery} alt="Gallery Clothing Item Picture" />
                                 </div>
                             ))} */}
-                            <img 
+                            <Image 
                                 id="IndividualClothingThumbnail" 
                                 src={clothing.thumbnail} 
                                 alt="Clothing Item Picture"
@@ -43,9 +43,19 @@ const IndividualClothing: React.FC<IndividualClothingProps> = ({ clothing, categ
                             <Text fontSize='lg'>Gender: {gender}</Text>
                             <Text fontSize='lg'>Measurements: {clothing.measurements}</Text>
                             {clothing.notes ? (
-                                <Text fontSize='md'>Notes: {clothing.notes}</Text>
+                                <Text fontSize='md'>
+                                    Notes: {clothing.notes}
+                                    <br/>
+                                    <br/>
+                                    Contact Genet to purchase or request a custom order! (202-597-6466)
+                                </Text>
                             ) : (
-                                <Text>No Notes</Text>
+                                <Text>
+                                    No Notes
+                                    <br/>
+                                    <br/>
+                                    Contact Genet to purchase or request a custom order! (202-597-6466)
+                                </Text>
                             )}
                         </Stack>
                     </div>
