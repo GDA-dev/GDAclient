@@ -116,6 +116,19 @@ const AllSold: React.FC<AllSoldProps> = ({ soldClothes }) => {
                         background-color: #ccc;
                         border-radius: 25px;
                     }
+
+                    #AllSoldCard {
+                        height: 450px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        box-shadow: 0px 0px 0px grey;
+                        transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+                    }
+
+                    #AllSoldCard:hover {
+                        box-shadow: -3px 3px 7px grey;
+                        transform: scale(1.02);
+                    }
                     
                     @media (max-width: 900px) {
 

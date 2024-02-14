@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, unstable_useViewTransitionState, useLocation } from '@remix-run/react';
 import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
+import { Card, CardBody, Image, Stack, Heading, Text, Button } from "@chakra-ui/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Clothing } from "../../utils/types";
 
@@ -15,12 +15,20 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
     const [wishlist, setWishlist] = useState(inWishlist);
     const isTransitioning = unstable_useViewTransitionState(`${clothing.id}`);
     const location = useLocation();
+
+    const updateWishlistState = () => {
+        if (wishlist) {
+            setWishlist(deleteFromWishlist(clothing));
+        } else {
+            setWishlist(addToWishlist(clothing));
+        };
+    };
     
     return (
-        <>
-            <Card maxW='sm' style={{ border: "1px solid black", borderRadius: "5px" }}>
+        <Card style={{ display: "flex", height: "100%", alignItems: "flex-start" }}>
+            <NavLink to={`${clothing.id}`} unstable_viewTransition>
                 <CardBody>
-                    <img
+                    <Image
                         id={`ClothingCardThumbnail${clothing.id}`}
                         src={clothing.thumbnail}
                         alt='Clothing Card Thumbnail'
@@ -28,37 +36,22 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{clothing.title}</Heading>
-                        <Text style={{ overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{clothing.description}</Text>
                         {clothing.price ? (
-                            <Text color='blue.600' fontSize='2xl'>${clothing.price}</Text>
+                            <Text fontSize='lg'>${clothing.price}</Text>
                         ) : (
-                            <Text color='blue.600' fontSize='2xl'>Sold Out</Text>
+                            <Text fontSize='lg'>Sold Out</Text>
                         )}
                     </Stack>
                 </CardBody>
-                <Divider />
-                <CardFooter>
-                    <ButtonGroup style={{ width: "100%", justifyContent: "space-around" }}>
-                        <NavLink to={`${clothing.id}`} unstable_viewTransition>
-                            <Button variant='solid' colorScheme='blue'>View</Button>
-                        </NavLink> 
-                        <Button variant='ghost' colorScheme='blue'>
-                            {wishlist ? (
-                                <div style={{ display: "flex", width: "100%", height: "100%", flexDirection: "column", justifyContent: "center", alignItems: "center" }} onClick={() => setWishlist(deleteFromWishlist(clothing))}>
-                                    <FaHeart style={{ color: "red", marginBottom: "3px" }} /> 
-                                    <p>Added to Wishlist</p>
-                                </div>
-                            ) : (
-                                <div style={{ display: "flex", width: "100%", height: "100%", flexDirection: "column", justifyContent: "center", alignItems: "center" }} onClick={() => setWishlist(addToWishlist(clothing))}>
-                                    <FaRegHeart style={{ marginBottom: "3px"}} />
-                                    <p>Add to Wishlist</p>
-                                </div>
-                            )}
-                        </Button>
-                    </ButtonGroup>
-                </CardFooter>
-            </Card>
-        </>
+            </NavLink>
+            <Button variant='ghost' onClick={updateWishlistState} style={{ margin: "0 0 10px 10px" }}>
+                {wishlist ? (
+                    <FaHeart style={{ color: "red" }} /> 
+                ) : (
+                    <FaRegHeart />
+                )}
+            </Button>
+        </Card>
     );
 };
 

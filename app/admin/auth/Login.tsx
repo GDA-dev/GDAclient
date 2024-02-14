@@ -78,7 +78,7 @@ const Login: React.FC<LoginProps> = ({ updateLoginState }) => {
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;                    
-                        background-color: rgba(0, 0, 0, 0.8);
+                        background-color: rgba(0, 0, 0, 0.75);
                         border-radius: 25px;
                     }
 
