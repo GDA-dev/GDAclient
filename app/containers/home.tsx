@@ -536,138 +536,106 @@ export default function Home() {
                     @media (max-width: 1100px) {
 
                         #Hero {
-                            height: 110vh;
-                            flex-direction: column;
-                            justify-content: space-around;
+                            width: 111%;
                         }
 
                         #HeroVideoContainer {
                             width: 100%;
-                            height: 50%;
+                        }
+
+                        #HeroVideo {
+                            width: 100%;
+                            object-fit: cover;
                         }
 
                         #HeroTextContainer {
+                            position: absolute;
+                            bottom: 0;
                             width: 100%;
-                            text-align: center
+                            height: 25%;
+                            border-radius: 0;
+                        }
+
+                        #HeroTitleContainer {
+                            justify-content: center;
+                            align-items: flex-start;
+                            text-align: center;
+                        }
+
+                        #HeroTitle {
+                            font-size: 35px;
                         }
 
                         #HeroSubtitleContainer {
+                            padding-top: 85px;
                             justify-content: center;
                             align-items: center;
+                            text-align: center;
                         }
 
                         #HeroSubtitle {
-                            font-size: 40px;
+                            font-size: 20px;
                         }
 
                         #About {
-                            width: 100%;
-                            height: 100vh;
-                            padding-top: 0;
                             flex-direction: column;
-                            margin-top: 5%;
                         }
 
                         #AboutTextContainer {
                             width: 100%;
-                            height: 50%;
-                            text-align: center;
                         }
 
                         #AboutTitleContainer {
-                            height: 50%;
-                        }
-
-                        #AboutTitle {
-                            font-size: 100px;
+                            text-align: center;
                         }
 
                         #AboutParagraphContainer {
-                            width: 90%;
-                            height: 50%;
+                            width: 95%;
+                            margin-top: 50px;
                             justify-content: center;
-                            align-items: flex-start;
+                            text-align: center;
                         }
 
                         #AboutParagraph {
-                            font-size: 30px;
+                            font-size: 22px; 
                         }
 
                         #AboutHeaderImageContainer {
                             width: 100%;
-                            height: 60%;
-                            justify-content: center;
-                            align-items: center;
                         }
 
                         #AboutHeaderImage {
-                            height: 70%
-                        }
-
-                        #Contact {
-                            height: 100vh;
-                            padding-top: 0;
-                            justify-content: space-around;
-                            margin-top: 5%;
+                            height: 80%;
                         }
 
                         #ContactHeaderContainer {
-                            height: 20%;
-                            justify-content: center;
-                            align-itmes: center;
-                        }
-
-                        #ContactHeader {
-                            font-size: 100px;
+                            height: 15%;
                         }
 
                         #ContactInformationContainer {
-                            height: 80%;
+                            height: 85%;
                             flex-direction: column;
                         }
 
                         #ContactLocationContainer {
                             width: 100%;
-                            height: 40%;
-                            justify-content: space-between;
+                            height: 50%;
+                            padding-top: 5%;
+                        }
+                        ContactLocationImageContainer {
+                            height: 70%;
                         }
 
-                        #ContactLocationImageContainer {
-                            height: 100%;
-                        }
+                        #ContactLocationAddressContainer {
+                            height: 20%;
+                         }
 
                         #ContactInfoContainer {
                             width: 100%;
-                            height: 40%;
-                            margin-top: 7%;
-                            justify-content: space-around;
-                        }
-                        
-                        #ContactInfoHoursContainer {
-                            height: 30%;
-                        }
-    
-                        #ContactInfoHours {
-                            font-size: 40px;
-                        }
-    
-                        #ContactInfoPhoneContainer {
-                            height: 30%;
-                        }
-    
-                        #ContactInfoPhone {
-                            font-size: 40px;
-                        }
-    
-                        #ContactInfoLinksContainer {
-                            height: 30%;
-                        }
-    
-                        #ContactInfoLinks {
-                            font-size: 50px;
+                            height: 50%;
                         }
 
-                        #SideSectionSelectionContainer {
+                        #SideSectionSelection {
                             display: none;
                         }
 
