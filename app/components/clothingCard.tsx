@@ -29,7 +29,6 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
             <NavLink to={`${clothing.id}`} unstable_viewTransition>
                 <CardBody>
                     <Image
-                        id={`ClothingCardThumbnail${clothing.id}`}
                         src={clothing.thumbnail}
                         alt='Clothing Card Thumbnail'
                         style={ isTransitioning && (location.pathname === "/clothes/sale" || location.pathname === "/clothes/sale") ? { viewTransitionName: "clothing-image", borderRadius: "5px" } : { borderRadius: "5px" } }

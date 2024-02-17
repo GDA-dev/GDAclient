@@ -39,7 +39,7 @@ export interface Clothing {
     price?: number;
     notes?: string;
     thumbnail: string;
-    gallery: any;
+    gallery?: any;
     saleClothes?: any;
     soldClothes?: any;
 };
