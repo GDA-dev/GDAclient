@@ -118,7 +118,6 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                     }
 
                     #AllSaleCard {
-                        height: 450px;
                         border: 1px solid #ccc;
                         border-radius: 5px;
                         box-shadow: 0px 0px 0px grey;

@@ -5,7 +5,7 @@ export default function AdminSoldCreate() {
 
     return (
         <>
-            <Create clothingType={'sold'} />
+            <Create clothingType="sold" />
         </>
     );
 };
