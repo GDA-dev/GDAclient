@@ -59,8 +59,13 @@ export default function Header() {
     };
 
     const openClothingOptions = () => {
-        setClothingOptionsView(true);
-        setClothingOptionsAnimation(true);
+        if (verticalPercentage !== "0%") {
+            setClothingOptionsView(true);
+            setClothingOptionsAnimation(true);
+        } else {
+            closeClothingOptions();
+        };
+        updateItemBackgroundPercentage("60%", "horizontal");
     };
 
     const closeClothingOptions = () => {
@@ -123,27 +128,23 @@ export default function Header() {
                     </div>
                 ) : (
                     <>
-                        <ul id="HeaderListContainer" onMouseLeave={hideItemBackground}>
+                        <ul id="HeaderListContainer" onMouseLeave={() => { hideItemBackground(); closeClothingOptions(); }}>
                             <div id="HeaderListBackground"></div>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("0%", "horizontal")} onClick={() => redirect("Hero")}><p>Home</p></li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("20%", "horizontal")} onClick={() => redirect("About")}><p>About</p></li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("40%", "horizontal")} onClick={() => redirect("Contact")}><p>Contact</p></li>
-                            <li id="HeaderClothingListItem" onMouseEnter={() => { openClothingOptions(); updateItemBackgroundPercentage("60%", "horizontal"); }} onMouseLeave={closeClothingOptions}>
-                                <div id="HeaderListClothing">
-                                    <div id="HeaderListClothingButton">Clothing</div>
-                                    <div id="ClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" }>
-                                        <div id="ClothingOptionsSale" onMouseEnter={() => updateItemBackgroundPercentage("100%", "vertical")}>
-                                            <a id="ClothingOptionsSaleButton" href="/clothes/sale">Sale Clothing</a>
-                                        </div>
-                                        <div id="ClothingOptionsSold" onMouseEnter={() => updateItemBackgroundPercentage("150%", "vertical")}>
-                                            <a id="ClothingOptionsSoldButton" href="/clothes/sold">Sold Clothing</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            <li className="HeaderListItem" onMouseEnter={openClothingOptions}><p>Clothing</p></li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
-                                <FaHeart style={{ color: "red", fontSize: "25px" }} />
+                                <FaHeart className="text-red-600 text-2xl" />
                             </li>
+                            <div id="HeaderClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" } onMouseEnter={openClothingOptions} onMouseLeave={closeClothingOptions}>
+                                <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("102.5%", "vertical")}>
+                                    <a id="HeaderClothingOptionLink" href="/clothes/sale">Sale Clothing</a>
+                                </div>
+                                <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("162.5%", "vertical")}>
+                                    <a id="HeaderClothingOptionLink" href="/clothes/sold">Sold Clothing</a>
+                                </div>
+                            </div>
                         </ul>
                         {wishlistModalOpen && 
                             <WishlistModal 
@@ -228,9 +229,10 @@ export default function Header() {
                     border-radius: 25px;
                     background-color: rgba(0, 0, 0, 0.75);
                     transition: 0.5s;
+                    z-index: 2;
                 }
 
-                .HeaderListItem, #HeaderClothingListItem {
+                .HeaderListItem {
                     display: flex;
                     position: relative;
                     width: 100%;
@@ -242,75 +244,72 @@ export default function Header() {
                     font-size: 17px;
                     cursor: pointer;
                     transition: 0.5s;
+                    z-index: 3;
                 }
 
-                .HeaderListItem:hover, #HeaderClothingListItem:hover {
+                .HeaderListItem:hover {
                     color: white;
-                }
+                }       
 
-                #HeaderListClothing { border: 1px solid red; }
-
-                #HeaderListClothingButton {
+                #HeaderClothingOptionsContainer {
                     display: flex;
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    justify-content: center;
-                    align-items: center;
-                    border: 1px solid blue;
-                }             
-
-                #ClothingOptionsContainer {
-                    display: flex;
-                    positon: absolute;
-                    width: 170%;
-                    height: 10vh;
-                    margin-top: -1vh;
-                    margin-left: -35%;
+                    position: absolute;
+                    bottom: -12vh;
+                    right: 15%;
+                    width: 30%;
+                    height: 12vh;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
                     font-size: 16px;
-                    background-color: white;
                     border: 1px solid black;
                     border-top: none;
                     border-radius: 0 0 25px 25px;
-                    z-index: 4;
+                    z-index: 2;
                     transition: 0.5s;
                 }
 
                 @keyframes slide-down {
-                    from { transform: translateY(-7vh); opacity: 0; }
-                    to { transform: transalateY(0vh); opacity: 1; cursor: pointer; }
+                    from { transform: translateY(-12vh); }
+                    to { transform: transalateY(0vh); }
                 }
 
-                #ClothingOptionsContainer.down {
+                #HeaderClothingOptionsContainer.down {
                     animation: slide-down 0.5s ease-in-out;
                 }
 
                 @keyframes slide-up {
-                    from { transform: translateY(0vh); opacity: 1; cursor: pointer; }
-                    to { transform: translateY(-7vh); opacity: 0; }
+                    from { transform: translateY(0vh); }
+                    to { transform: translateY(-12vh); }
                 }
 
-                #ClothingOptionsContainer.up {
+                #HeaderClothingOptionsContainer.up {
                     animation: slide-up 0.5s ease-in-out;
                 }
 
-                #ClothingOptionsSale, #ClothingOptionsSold {
+                #HeaderClothingOptionsContainer div:first-child {
+                    border-bottom: 1px solid black;
+                }
+
+                #HeaderClothingOption {
                     display: flex;
                     position: relative;
                     width: 95%;
                     height: 50%;
                     justify-content: center;
                     align-items: center;
-                    cursor: none;
-                    z-index: 4;
+                    z-index: 2;
                 }
 
-                #ClothingOptionsSale { border-bottom: 1px solid black; } 
+                #HeaderClothingOptionLink {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                }
 
-                #ClothingOptionsSaleButton:hover, #ClothingOptionsSoldButton:hover {
+                #HeaderClothingOptionLink:hover {
                     color: white;
                 }
 

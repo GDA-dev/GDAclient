@@ -4,30 +4,31 @@ import FilterBar from "../components/filterBar";
 import { checkInWishlist } from "../../utils/localStorage";
 import { Clothing } from "../../utils/types";
 
-interface AllSaleProps {
-    saleClothes: Clothing[];
+interface AllClothesProps {
+    allClothes: Clothing[];
+    clothingType: string;
 };
 
 const ClothingCard = lazy(() => import("../components/clothingCard"));
 
-const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
+const AllClothes: React.FC<AllClothesProps> = ({ allClothes, clothingType }) => {
     
-    const [displayedClothes, setDisplayedClothes] = useState<any>(saleClothes);
+    const [displayedClothes, setDisplayedClothes] = useState<any>(allClothes);
     
     return (
-        <div id="AllSale">
-            <div id="AllSaleContainer">
-                <div id="AllSaleHeaderContainer">
-                    <div id="AllSaleTitleContainer">
-                        <p id="AllSaleTitle">Sale Clothing</p>
+        <div id="AllClothes">
+            <div id="AllClothesContainer">
+                <div id="AllClothesHeaderContainer">
+                    <div id="AllClothesTitleContainer">
+                        <p id="AllClothesTitle">{clothingType} Clothing</p>
                     </div>
-                    <div id="AllSaleFiltersContainer">
-                        <FilterBar clothes={saleClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
+                    <div id="AllClothesFiltersContainer">
+                        <FilterBar clothes={allClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
                     </div>
                 </div>
-                <div id="AllSaleCardContainer">
+                <div id="AllClothesCardContainer">
                     {displayedClothes.map((clothing: Clothing, index: number) => (
-                        <div id="AllSaleCard" key={index}>
+                        <div id="AllClothesCard" key={index}>
                             <Suspense fallback={<SkeletonCard />}>
                                 <ClothingCard clothing={clothing} inWishlist={checkInWishlist(clothing.id)} />
                             </Suspense>
@@ -38,7 +39,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
             <style>
                 {`
                 
-                    #AllSale {
+                    #AllClothes {
                         display: flex;
                         position: relative;
                         width: 100vw;
@@ -47,7 +48,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         overflow-x: hidden;
                     }
 
-                    #AllSaleContainer {
+                    #AllClothesContainer {
                         display: flex;
                         position: relative;
                         width: 100%;
@@ -56,7 +57,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         overflow-y: hidden;
                     }
 
-                    #AllSaleHeaderContainer {
+                    #AllClothesHeaderContainer {
                         display: flex;
                         position: relative;
                         width: 100%;
@@ -66,7 +67,7 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         align-items: center;
                     }
 
-                    #AllSaleTitleContainer {
+                    #AllClothesTitleContainer {
                         display: flex;
                         position: relative;
                         width: 60%;
@@ -75,12 +76,12 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         padding-left: 3%;
                     }
 
-                    #AllSaleTitle {
+                    #AllClothesTitle {
                         font-size: 50px;
                         font-weight: 700;
                     }
 
-                    #AllSaleFiltersContainer {
+                    #AllClothesFiltersContainer {
                         display: flex;
                         position: relative;
                         width: 40%;
@@ -90,12 +91,12 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         padding-right: 3%;
                     }
 
-                    #AllSaleClearFilterButtonContainer {
+                    #AllClothesClearFilterButtonContainer {
                         display: flex;
                         position: relative;
                     }
 
-                    #AllSaleCardContainer {
+                    #AllClothesCardContainer {
                         display: grid;
                         position: relative;
                         width: 100%;
@@ -107,40 +108,40 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
                         border-top: 1px solid black;
                     }
 
-                    #AllSaleCardContainer::-webkit-scrollbar {
+                    #AllClothesCardContainer::-webkit-scrollbar {
                         width: 0.5em;
                         background-color: transparent;
                     }
                     
-                    #AllSaleCardContainer::-webkit-scrollbar-thumb {
+                    #AllClothesCardContainer::-webkit-scrollbar-thumb {
                         background-color: #ccc;
                         border-radius: 25px;
                     }
 
-                    #AllSaleCard {
+                    #AllClothesCard {
                         border: 1px solid #ccc;
                         border-radius: 5px;
                         box-shadow: 0px 0px 0px grey;
                         transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
                     }
 
-                    #AllSaleCard:hover {
+                    #AllClothesCard:hover {
                         box-shadow: -3px 3px 7px grey;
                         transform: scale(1.02);
                     }
                     
                     @media (max-width: 900px) {
 
-                        #AllSaleHeaderContainer {
+                        #AllClothesHeaderContainer {
                             height: 15%;
                         }
 
-                        #AllSaleTitleContainer {
+                        #AllClothesTitleContainer {
                             width: 100%;
                             padding-left: 5%;
                         }
                         
-                        #AllSaleCardContainer {
+                        #AllClothesCardContainer {
                             width: 100%;
                             padding: 5% 12%;
                         }
@@ -153,4 +154,4 @@ const AllSale: React.FC<AllSaleProps> = ({ saleClothes }) => {
     );
 };
 
-export default AllSale;
+export default AllClothes;

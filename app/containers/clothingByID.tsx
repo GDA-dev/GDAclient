@@ -4,15 +4,16 @@ import IndividualClothing from "../components/individualClothing";
 import { IoClose } from "react-icons/io5";
 import { Clothing } from "../../utils/types";
 
-interface SaleByIDProps {
-    saleClothing: Clothing;
+interface ClothingByIDProps {
+    clothing: Clothing;
+    clothingType: string;
 };
 
-const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
+const ClothingByID: React.FC<ClothingByIDProps> = ({ clothing, clothingType }) => {
 
-    const [category, setCategory] = useState(saleClothing.category);
-    const [size, setSize] = useState(saleClothing.size);
-    const [gender, setGender] = useState(saleClothing.gender);
+    const [category, setCategory] = useState(clothing.category);
+    const [size, setSize] = useState(clothing.size);
+    const [gender, setGender] = useState(clothing.gender);
 
     const categoryOptions: { [key: string]: string; } = {
         "CT": "Clothing, Top",
@@ -57,30 +58,30 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
 
     useEffect(() => {
         
-        if (category === saleClothing.category) {
+        if (category === clothing.category) {
             updateFilterName(category);
         };
 
-        if (size === saleClothing.size) {
+        if (size === clothing.size) {
             updateFilterName(size);
         };
 
-        if (gender === saleClothing.gender) {
+        if (gender === clothing.gender) {
             updateFilterName(gender);
         };
 
     }, [category, size, gender]);
     
     return (
-        <div id="SaleByID">
-            <div id="SaleByIDContainer">
-                <NavLink id="SaleByIDCloseButton" to="/clothes/sale" unstable_viewTransition><IoClose /></NavLink>
-                <IndividualClothing clothing={saleClothing} category={category} size={size} gender={gender} />
+        <div id="ClothingByID">
+            <div id="ClothingByIDContainer">
+                <NavLink id="ClothingByIDCloseButton" to={`/clothes/${clothingType}`} unstable_viewTransition><IoClose /></NavLink>
+                <IndividualClothing clothing={clothing} category={category} size={size} gender={gender} />
             </div>
             <style>
                 {`
                     
-                    #SaleByID {
+                    #ClothingByID {
                         display: flex;
                         position: fixed;
                         top: 10vh;
@@ -93,14 +94,14 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
                         z-index: 2;
                     }
 
-                    #SaleByIDContainer {
+                    #ClothingByIDContainer {
                         display: fixed;
                         position: relative;
                         width: 100%;
                         height: 100%;
                     }
 
-                    #SaleByIDCloseButton {
+                    #ClothingByIDCloseButton {
                         display: flex;
                         position: fixed;
                         top: 0;
@@ -201,7 +202,7 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
 
                     @media (max-width: 900px) {
 
-                        #SaleByIDCloseButton {
+                        #ClothingByIDCloseButton {
                             display: none;
                         }
 
@@ -235,4 +236,4 @@ const SaleByID: React.FC<SaleByIDProps> = ({ saleClothing }) => {
     );
 };
 
-export default SaleByID;
+export default ClothingByID;

@@ -5,7 +5,7 @@ import { Clothing } from "../../utils/types";
 export default function createSaleClothing(data: Clothing) {
     try {
 
-        axios.post(`${env.API_URL}/sale_clothes/new/`, data);
+        axios.post(`${env.API_URL}/sale_clothes/new/`, JSON.stringify(data));
 
     } catch (error) {
 

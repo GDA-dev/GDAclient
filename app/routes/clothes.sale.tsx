@@ -3,8 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
 import Header from "../global/header";
-import Footer from "~/global/footer";
-import AllSale from "../containers/allSale";
+import AllClothes from "../containers/allClothes";
 import { Clothing } from "../../utils/types";
 
 export const meta: MetaFunction = () => {
@@ -27,9 +26,8 @@ export default function AllSalePage() {
     return (
         <>
             <Header />
-            <AllSale saleClothes={allSaleClothes} />
+            <AllClothes allClothes={allSaleClothes} clothingType="Sale" />
             <Outlet />
-            <Footer />
         </>
     );
 };

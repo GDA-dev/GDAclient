@@ -5,16 +5,16 @@ import { Heading, Button } from '@chakra-ui/react';
 export default function Sidebar() {
     
     return (
-        <div style={{ width: "20vw", height: "100vh", borderRight: "1px solid #ccc" }}>
-            <div style={{ display: "flex", width: "100%", height: "10%", alignItems: "center", paddingLeft: "5%" }}>
+        <div className="fixed top-0 left-0 w-[20vw] h-[100vh] border-[#ccc] border-r">
+            <div className="flex w-full h-[15%] pl-[5%] items-center">
                 <Heading>Admin Portal</Heading>
             </div>
-            <div style={{ display: "flex", width: "95%", flexDirection: "column", paddingLeft: "5%" }}>
-                <NavLink to="/admin/sale/view" style={{ height: "40px", marginBottom: "10px" }}>
-                    <Button variant="solid" style={{ display: "flex", width: "100%", height: "100%", justifyContent: "flex-start" }}>Sale</Button>
+            <div className="flex w-[95%] pl-[5%] flex-col">
+                <NavLink to="/admin/sale/view" className="h-[40px] mb-[10px]">
+                    <Button variant="solid" className="flex w-full h-full" style={{ justifyContent: "flex-start" }}>Sale</Button>
                 </NavLink>
-                <NavLink to="/admin/sold/view" style={{ height: "40px" }}>
-                    <Button variant="solid" style={{ display: "flex", width: "100%", height: "100%", justifyContent: "flex-start" }}>Sold</Button>
+                <NavLink to="/admin/sold/view" className="h-[40px]">
+                    <Button variant="solid" className="flex w-full h-full" style={{ justifyContent: "flex-start" }}>Sold</Button>
                 </NavLink>
             </div>
         </div>

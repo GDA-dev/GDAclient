@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Select } from '@chakra-ui/react';
+import filters from "../../utils/filters";
 import { Clothing } from "../../utils/types";
 
 interface GenderFilterProps {
@@ -10,18 +11,7 @@ interface GenderFilterProps {
 const GenderFilter: React.FC<GenderFilterProps> = ({ currentOptions, sendSelectedFilter }) => {
     
     type ValidOptionKeys = keyof typeof validOptions;
-    
-    const genders = [
-        "Male",
-        "Female", 
-        "Unisex"
-    ];
-
-    const genderObj: { [key: string]: string; } = {
-        M: "Male",
-        F: "Female", 
-        U: "Unisex"
-    };
+    const { genders, genderObj } = filters;
     
     const [validOptions, setValidOptions] = useState({
         M: 0,

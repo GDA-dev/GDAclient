@@ -54,7 +54,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ clothes, sendFilteredClothes }) =
     return (
         <>
             <Button colorScheme='white' onClick={onOpen}>
-                <IoFilterCircleSharp id='FilterOpen' style={{ color: "black", height: "7vh", width: "100%" }} />
+                <IoFilterCircleSharp id='FilterOpen'className="w-full h-[7vh] text-black" />
             </Button>
             <Drawer isOpen={isOpen} placement='right' onClose={onClose} size="sm">
                 <DrawerOverlay />
@@ -62,16 +62,16 @@ const FilterBar: React.FC<FilterBarProps> = ({ clothes, sendFilteredClothes }) =
                         <DrawerCloseButton size="lg" />
                         <DrawerHeader>Filter</DrawerHeader>
                         <DrawerBody>
-                            <div id="AllSaleCategoryFilterContainer" style={{ margin: "15px 0" }}>
+                            <div className="my-[15px]">
                                 <CategoryFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "category")} />
                             </div>
-                            <div id="AllSaleSizeFilterContainer" style={{ margin: "15px 0" }}>
+                            <div className="my-[15px]">
                                 <SizeFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "size")} />
                             </div>
-                            <div id="AllSaleGenderfilterContainer" style={{ margin: "15px 0" }}>
+                            <div className="my-[15px]">
                                 <GenderFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "gender")} />
                             </div>
-                            <div id="AllSaleClearFilterContainer" style={{ margin: "15px 0" }}>
+                            <div className="my-[15px]">
                                 <Button colorScheme="pink" variant="solid" onClick={() => handleFilterSelection("clear", "clear")}>Clear</Button>
                             </div>
                     </DrawerBody>

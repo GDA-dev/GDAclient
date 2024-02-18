@@ -1,6 +1,5 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
-import { Outlet } from "@remix-run/react";
 import Auth from "../admin/auth/Auth";
 
 export const meta: MetaFunction = () => {
@@ -15,7 +14,6 @@ export default function AdminPage() {
     return (
         <>
             <Auth />
-            <Outlet />
         </>
     );
 };

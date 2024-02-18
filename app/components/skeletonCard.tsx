@@ -1,13 +1,13 @@
 import React from "react";
-import skeletonImage from "../../public/skeletonImage.gif";
 import { SkeletonText, Card, CardBody, Image, Stack, Button } from "@chakra-ui/react";
+import skeletonImage from "../../public/skeletonImage.gif";
 import { FaRegHeart } from "react-icons/fa";
 
 export default function SkeletonCard() {
     
     return (
         <>
-            <Card style={{ display: "flex", alignItems: "flex-start" }}>
+            <Card className="flex h-full items-start">
                 <CardBody>
                     <Image
                         src={skeletonImage}
@@ -18,7 +18,7 @@ export default function SkeletonCard() {
                         <SkeletonText />
                     </Stack>
                 </CardBody>
-                <Button variant='ghost' style={{ margin: "0 0 10px 10px" }}>
+                <Button variant='ghost' className="ml-[10px] mb-[10px]">
                     <FaRegHeart />
                 </Button>
             </Card>
