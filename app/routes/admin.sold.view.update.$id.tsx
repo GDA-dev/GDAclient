@@ -22,7 +22,7 @@ export default function AdminSoldUpdate() {
 
     return (
         <>
-            <Update clothing={soldClothingByID} clothingType="sold" />
+            <Update clothing={soldClothingByID[0]} clothingType="sold" />
         </>
     );
 };

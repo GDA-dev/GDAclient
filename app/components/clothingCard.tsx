@@ -31,7 +31,7 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                     <Image
                         src={clothing.thumbnail}
                         alt='Clothing Card Thumbnail'
-                        style={ isTransitioning && (location.pathname === "/clothes/sale" || location.pathname === "/clothes/sale") ? { viewTransitionName: "clothing-image"} : undefined }
+                        style={ isTransitioning && (location.pathname === "/clothes/sale" || location.pathname === "/clothes/sold") ? { viewTransitionName: "clothing-image" } : undefined }
                         className="rounded-[5px]"
                     />
                     <Stack mt='6' spacing='3'>

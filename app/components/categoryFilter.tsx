@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Select } from '@chakra-ui/react';
+import filters from "../../utils/filters";
 import { Clothing } from "../../utils/types";
 
 interface CategoryFilterProps {
@@ -10,22 +11,7 @@ interface CategoryFilterProps {
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ currentOptions, sendSelectedFilter }) => {
     
     type ValidOptionKeys = keyof typeof validOptions;
-
-    const categories = [
-        "Clothing, Top",
-        "Clothing, Bottom", 
-        "Clothing, Other",
-        "Accessories",
-        "Other"
-    ];
-
-    const categoryObj: { [key: string]: string; } = {
-        CT: "Clothing, Top",
-        CB: "Clothing, Bottom", 
-        CO: "Clothing, Other",
-        A: "Accessories",
-        O: "Other"
-    };
+    const { categories, categoryObj } = filters;
     
     const [validOptions, setValidOptions] = useState({
         CT: 0,

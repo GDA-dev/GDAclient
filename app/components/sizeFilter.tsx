@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Select } from '@chakra-ui/react';
+import filters from "../../utils/filters";
 import { Clothing } from "../../utils/types";
 
 interface SizeFilterProps {
@@ -10,28 +11,7 @@ interface SizeFilterProps {
 const SizeFilter: React.FC<SizeFilterProps> = ({ currentOptions, sendSelectedFilter }) => {
     
     type ValidOptionKeys = keyof typeof validOptions;
-    
-    const sizes = [
-        "Extra Extra Small",
-        "Extra Small",
-        "Small",
-        "Medium",
-        "Large",
-        "Extra Large",
-        "Extra Extra Large",
-        "One Size"
-    ];
-
-    const sizeObj: { [key: string]: string; } = {
-        XXS: "Extra Extra Small",
-        XS: "Extra Small", 
-        S: "Small",
-        M: "Medium",
-        L: "Large",
-        XL: "Extra Large",
-        XXL: "Extra Extra Large",
-        OS: "One Size"
-    };
+    const { sizes, sizeObj } = filters;
 
     const [validOptions, setValidOptions] = useState({
         XXS: 0,

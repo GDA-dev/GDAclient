@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "npm run build:tailwind && remix build",
-    "build:tailwind": "tailwindcss -i ./root.css -o ./app/root.css -m",
+    "build:tailwind": "tailwindcss -i ./app/root.css -m",
     "dev": "concurrently \"npm run dev:tailwind\" \"remix dev --manual\"",
-    "dev:tailwind": "tailwindcss -i ./root.css -o ./app/root.css -w",
+    "dev:tailwind": "tailwindcss -i ./app/root.css -w",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/index.js",
     "typecheck": "tsc"
