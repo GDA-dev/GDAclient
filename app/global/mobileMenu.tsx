@@ -38,7 +38,7 @@ export default function MobileMenu() {
     return (
         <>
             <Button colorScheme='white' onClick={onOpen}>
-                <FaBars id='MobileHeaderOpen' style={{ color: "black", height: "5vh", width: "100%" }} />
+                <FaBars id='MobileHeaderOpen' className="w-full h-[5vh] text-black" />
             </Button>
             <Drawer isOpen={isOpen} placement='right' onClose={onClose} size="full">
                 <DrawerOverlay />
@@ -52,7 +52,7 @@ export default function MobileMenu() {
                             <li className="MobileHeaderListItem"><a href="/clothes/sale">Sale Clothing</a></li>
                             <li className="MobileHeaderListItem"><a href="/clothes/sold">Sold Clothing</a></li>
                             <li className="MobileHeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
-                            <li className="MobileHeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}><FaHeart style={{ color: "red" }}/></li>
+                            <li className="MobileHeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}><FaHeart className="text-red-600" /></li>
                             {wishlistModalOpen && 
                                 <WishlistModal 
                                     wishlistItems={wishlistItems}

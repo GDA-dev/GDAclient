@@ -142,7 +142,7 @@ export default function Header() {
                                 </div>
                             </li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
-                                <FaHeart style={{ color: "red", fontSize: "25px" }} />
+                                <FaHeart className="text-red-600 text-2xl" />
                             </li>
                         </ul>
                         {wishlistModalOpen && 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink, unstable_useViewTransitionState, useLocation } from '@remix-run/react';
-import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
 import { Card, CardBody, Image, Stack, Heading, Text, Button } from "@chakra-ui/react";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { addToWishlist, deleteFromWishlist } from "../../utils/localStorage";
 import { Clothing } from "../../utils/types";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface SaleCardProps {
     clothing: Clothing;
@@ -25,13 +25,14 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
     };
     
     return (
-        <Card style={{ display: "flex", height: "100%", alignItems: "flex-start" }}>
+        <Card className="flex h-full items-start">
             <NavLink to={`${clothing.id}`} unstable_viewTransition>
                 <CardBody>
                     <Image
                         src={clothing.thumbnail}
                         alt='Clothing Card Thumbnail'
-                        style={ isTransitioning && (location.pathname === "/clothes/sale" || location.pathname === "/clothes/sale") ? { viewTransitionName: "clothing-image", borderRadius: "5px" } : { borderRadius: "5px" } }
+                        style={ isTransitioning && (location.pathname === "/clothes/sale" || location.pathname === "/clothes/sale") ? { viewTransitionName: "clothing-image"} : undefined }
+                        className="rounded-[5px]"
                     />
                     <Stack mt='6' spacing='3'>
                         <Heading size='md'>{clothing.title}</Heading>
@@ -43,9 +44,9 @@ const ClothingCard: React.FC<SaleCardProps> = ({ clothing, inWishlist }) => {
                     </Stack>
                 </CardBody>
             </NavLink>
-            <Button variant='ghost' onClick={updateWishlistState} style={{ margin: "0 0 10px 10px" }}>
+            <Button variant='ghost' onClick={updateWishlistState} className="ml-[10px] mb-[10px]">
                 {wishlist ? (
-                    <FaHeart style={{ color: "red" }} /> 
+                    <FaHeart className="text-red-600" /> 
                 ) : (
                     <FaRegHeart />
                 )}

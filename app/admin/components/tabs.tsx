@@ -5,11 +5,11 @@ import { Heading, Tabs, TabList, Tab } from '@chakra-ui/react';
 const AdminTabs: React.FC<{ clothingType: string }> = ({ clothingType }) => {
     
     return (
-        <div style={{ position: "fixed", top: "0", right: "0", width: "80vw", height: "20vh", borderBottom: "1px solid #ccc" }}>
-            <div style={{ display: "flex",  height: "50%", paddingLeft: "20px", alignItems: "flex-end"  }}>
+        <div className="fixed top-0 right-0 w-[80vw] h-[20vh] border-[#ccc] border-b">
+            <div className="flex h-[50%] pl-[20px] items-end">
                 <Heading size="2xl">{`S${clothingType}`}</Heading>
             </div>
-            <div style={{ display: "flex", height: "50%", paddingLeft: "20px", alignItems: "flex-end" }}>
+            <div className="flex h-[50%] pl-[20px] items-end">
                 <Tabs size="lg">
                     <TabList>
                         <Tab>

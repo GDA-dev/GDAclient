@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Outlet } from "@remix-run/react";
 import Sidebar from '../components/sidebar';
 import Login from './Login';
 import checkCredentials from '../../../services/GET/checkCredentials';
@@ -77,6 +78,7 @@ export default function Auth() {
 	return (
 		<>
 			{ loggedIn ? <Sidebar /> : <Login updateLoginState={(username, password) => checkValidity(username, password)} /> }
+			{ loggedIn && <Outlet /> }
 		</>
 	);
 };

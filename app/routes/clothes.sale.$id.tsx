@@ -2,7 +2,7 @@ import React from "react";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import getSaleClothingByID from "../../services/GET/getSaleClothingByID";
-import SaleByID from "../containers/saleByID";
+import ClothingByID from "../containers/clothingByID";
 
 export const meta: MetaFunction = () => {
     return [
@@ -22,7 +22,7 @@ export default function SaleByIDPage() {
 
     return (
         <>
-            <SaleByID saleClothing={saleClothingByID[0]} />
+            <ClothingByID clothing={saleClothingByID[0]} clothingType="sale" />
         </>
     );
 };

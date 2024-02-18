@@ -129,23 +129,23 @@ const Create: React.FC<{ clothingType: string }> = ({ clothingType }) => {
     };
     
     return (
-        <div style={{ display: "flex", position: "fixed", bottom: "0", right: "0", width: "80vw", height: "80vh", flexDirection: "row" }}>
-            <div style={{ display: "flex", position: "relative", width: "50%", height: "100%", paddingLeft: "5%", justifyContent: "flex-start", alignItems: "center" }}>
+        <div className="flex fixed bottom-0 right-0 w-[80vw] h-[80vh] flex-row">
+            <div className="flex relative w-[50%] h-full pl-[5%] justify-start items-center">
                 {/* <input id="UploadGallery" type="file" accept="image/*" onChange={(file) => sendImage(file, "gallery")} />
                 {imageURLArray.map((image: string, index: number) => (
                     <div id='GalleryImagePreview' key={index}>
                         <Image src={image} alt="Gallery Image" />
                     </div>
                 ))} */}
-                <div style={{ display: "flex", flexDirection: "column" }}>
+                <div className="flex flex-col">
                     <input id="UploadThumbnail" type="file" accept="image/*" onChange={(file) => sendImage(file, "thumbnail")} />
-                    <img src={thumbnail} alt="Thumbnail Image" style={{ width: "80%", objectFit: "contain" }} />
+                    <img src={thumbnail} alt="Thumbnail Image" className="w-[80%] object-contain" />
                 </div>
             </div>
 
-            <div style={{ display: "flex", position: "relative", width: "50%", height: "100%", paddingRight: "7.5%", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <div style={{ display: "flex", position: "absolute", width: "100%", height: "90%", backgroundColor: "rgba(0, 0, 0, 0.75)", borderRadius: "25px", zIndex: "0" }} />
-                <div style={{ display: "flex", position: "relative", width: "100%", height: "80%", paddingRight: "2%", flexDirection: "column", justifyContent: "space-around", alignItems: "flex-start", color: "white", overflowY: "scroll" }}>
+            <div className="flex relative w-[50%] h-full pr-[7.5%] flex-col justify-center items-center">
+                <div className="flex absolute w-full h-[90%] rounded-[25px] z-0" style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }} />
+                <div className="flex relative w-full h-[80%] pr-[2%] flex-col justify-around items-start text-white overflow-y-scroll">
                     <FormControl variant="floating" isRequired>
                         <Input variant="flushed" placeholder=" " onChange={(e) => setNewClothing({...newClothing, title: e.target.value})} />
                         <FormLabel>Clothing Title</FormLabel>
