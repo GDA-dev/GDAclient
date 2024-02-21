@@ -127,7 +127,7 @@ const WishlistModal: React.FC<WishlistModalProps> = ({ wishlistItems, requestWis
                         position: relative;
                         width: 95%;
                         height: 200px;
-                        margin-top: 2%;
+                        margin-top: 3%;
                         border: 1px solid black;
                     }
 

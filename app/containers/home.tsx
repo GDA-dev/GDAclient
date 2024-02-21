@@ -123,6 +123,8 @@ export default function Home() {
 
             }, { passive: false });
 
+            window.addEventListener("scroll", () => { setSelectedSection(Math.floor(window.scrollY / window.innerHeight)); }, { passive: false });
+
             return () => {
 
                 window.removeEventListener("wheel", (event) => {
@@ -132,10 +134,14 @@ export default function Home() {
                     };
 
                 });
+                
+                window.removeEventListener("scroll", () => { setSelectedSection(Math.floor(window.scrollY / window.innerHeight)); });
             };
         };
 
-    }, [initialLoad, setInitialLoad]);
+        
+
+    }, [initialLoad, setInitialLoad, selectedSection, setSelectedSection]);
     
     return (
         <div id="Home">
@@ -143,7 +149,7 @@ export default function Home() {
                 <div id="Hero">
                     <div id="HeroVideoContainer">
                         <video id="HeroVideo" muted autoPlay loop preload="true" playsInline poster={HeroVideoThumbnail}>
-                            {/* <source src="https://res.cloudinary.com/don8pmkp2/video/upload/v1706380664/mobileHero_kxrpwo.mp4" /> */}
+                            <source src="https://res.cloudinary.com/don8pmkp2/video/upload/v1706380664/mobileHero_kxrpwo.mp4" />
                         </video>
                     </div>
                     <div id="HeroTextContainer">
@@ -212,7 +218,7 @@ export default function Home() {
                     #Home {
                         display: flex;
                         position: relative;
-                        width: 99.5vw;
+                        width: 100vw;
                         height: 100%;
                         flex-direction: row;
                         justify-content: center;
@@ -568,16 +574,18 @@ export default function Home() {
 
                         #HeroSubtitleContainer {
                             padding-top: 85px;
+                            margin-bottom: 10px;
                             justify-content: center;
                             align-items: center;
                             text-align: center;
                         }
 
                         #HeroSubtitle {
-                            font-size: 20px;
+                            font-size: 18px;
                         }
 
                         #About {
+                            margin-top: 10vh;
                             flex-direction: column;
                         }
 
@@ -606,6 +614,10 @@ export default function Home() {
 
                         #AboutHeaderImage {
                             height: 80%;
+                        }
+
+                        #Contact {
+                            margin-top: 10vh;
                         }
 
                         #ContactHeaderContainer {

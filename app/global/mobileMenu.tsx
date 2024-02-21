@@ -49,15 +49,15 @@ export default function MobileMenu() {
                         <ul id="MobileHeaderListContainer">
                             <li className="MobileHeaderListItem" onClick={() => redirect("Hero")}>Home</li>
                             <li className="MobileHeaderListItem" onClick={() => redirect("About")}>About</li>
-                            <li className="MobileHeaderListItem"><a href="/clothes/sale">Sale Clothing</a></li>
-                            <li className="MobileHeaderListItem"><a href="/clothes/sold">Sold Clothing</a></li>
                             <li className="MobileHeaderListItem" onClick={() => redirect("Contact")}>Contact</li>
-                            <li className="MobileHeaderListItem" onClick={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}><FaHeart className="text-red-600" /></li>
+                            <li className="MobileHeaderListItem"><a href="/clothes/sale">Sale Clothes</a></li>
+                            <li className="MobileHeaderListItem"><a href="/clothes/sold">Sold Clothes</a></li>
+                            <li className="MobileHeaderListItem" onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}><FaHeart className="text-red-600" /></li>
                             {wishlistModalOpen && 
                                 <WishlistModal 
                                     wishlistItems={wishlistItems}
                                     requestWishlistItems={() => {setWishlistItems(getWishlistItems()); setWishlistModalOpen(true)}}
-                                    closeWishlistModal={() => setWishlistModalOpen(false)}
+                                    closeWishlistModal={() => { setWishlistModalOpen(false); onClose(); }}
                                 />
                             }
                         </ul>
