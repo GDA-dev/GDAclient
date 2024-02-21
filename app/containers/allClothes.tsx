@@ -20,7 +20,7 @@ const AllClothes: React.FC<AllClothesProps> = ({ allClothes, clothingType }) => 
             <div id="AllClothesContainer">
                 <div id="AllClothesHeaderContainer">
                     <div id="AllClothesTitleContainer">
-                        <p id="AllClothesTitle">{clothingType} Clothing</p>
+                        <p id="AllClothesTitle">{clothingType} Clothes</p>
                     </div>
                     <div id="AllClothesFiltersContainer">
                         <FilterBar clothes={allClothes} sendFilteredClothes={(filteredClothes?: Clothing[]) => setDisplayedClothes(filteredClothes)} />
@@ -43,7 +43,7 @@ const AllClothes: React.FC<AllClothesProps> = ({ allClothes, clothingType }) => 
                         display: flex;
                         position: relative;
                         width: 100vw;
-                        height: 90vh;
+                        height: 100%;
                         margin-top: 10vh;
                         overflow-x: hidden;
                     }
@@ -54,14 +54,13 @@ const AllClothes: React.FC<AllClothesProps> = ({ allClothes, clothingType }) => 
                         width: 100%;
                         height: 100%;
                         flex-direction: column;
-                        overflow-y: hidden;
                     }
 
                     #AllClothesHeaderContainer {
                         display: flex;
                         position: relative;
                         width: 100%;
-                        height: 20%;
+                        height: 125px;
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
@@ -104,18 +103,7 @@ const AllClothes: React.FC<AllClothesProps> = ({ allClothes, clothingType }) => 
                         padding: 2% 3%;
                         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                         grid-gap: 25px;
-                        overflow-y: scroll;
                         border-top: 1px solid black;
-                    }
-
-                    #AllClothesCardContainer::-webkit-scrollbar {
-                        width: 0.5em;
-                        background-color: transparent;
-                    }
-                    
-                    #AllClothesCardContainer::-webkit-scrollbar-thumb {
-                        background-color: #ccc;
-                        border-radius: 25px;
                     }
 
                     #AllClothesCard {
@@ -132,13 +120,13 @@ const AllClothes: React.FC<AllClothesProps> = ({ allClothes, clothingType }) => 
                     
                     @media (max-width: 900px) {
 
-                        #AllClothesHeaderContainer {
-                            height: 15%;
-                        }
-
                         #AllClothesTitleContainer {
                             width: 100%;
                             padding-left: 5%;
+                        }
+
+                        #AllClothesTitle {
+                            font-size: 35px;
                         }
                         
                         #AllClothesCardContainer {

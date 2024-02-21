@@ -60,7 +60,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ clothes, sendFilteredClothes }) =
                 <DrawerOverlay />
                     <DrawerContent>
                         <DrawerCloseButton size="lg" />
-                        <DrawerHeader>Filter</DrawerHeader>
+                        <DrawerHeader>Filters</DrawerHeader>
                         <DrawerBody>
                             <div className="my-[15px]">
                                 <CategoryFilter currentOptions={clothes} sendSelectedFilter={(filter: string) => handleFilterSelection(filter, "category")} />

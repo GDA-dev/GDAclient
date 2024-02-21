@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from '@remix-run/react';
+import { useNavigate, useLocation, NavLink } from '@remix-run/react';
 import MobileMenu from "./mobileMenu";
 import WishlistModal from "../containers/wishlistModal";
 import { getWishlistItems } from "../../utils/localStorage";
@@ -42,6 +42,9 @@ export default function Header() {
 
     const updateItemBackgroundPercentage = (percentage: string, direction: string) => {
         if (direction === "horizontal") {
+            if (horizontalPercentage === "60%" && percentage !== "60%") {
+                closeClothingOptions();
+            };
             setShowItemBackground("flex");
             setVerticalPercentage("22.5%");
             setHorizontalPercentage(percentage);
@@ -59,12 +62,8 @@ export default function Header() {
     };
 
     const openClothingOptions = () => {
-        if (verticalPercentage !== "0%") {
-            setClothingOptionsView(true);
-            setClothingOptionsAnimation(true);
-        } else {
-            closeClothingOptions();
-        };
+        setClothingOptionsView(true);
+        setClothingOptionsAnimation(true);
         updateItemBackgroundPercentage("60%", "horizontal");
     };
 
@@ -95,7 +94,7 @@ export default function Header() {
     const closeMobileHeader = () => {
         if (window.scrollY <= 10) {
             setScrolled(false);
-        }
+        };
     };
 
     useEffect(() => {
@@ -117,10 +116,10 @@ export default function Header() {
     }, []);
     
     return (
-        <div id="Header">
+        <div id="Header" onMouseLeave={closeClothingOptions}>
             <div id="HeaderContainer" className={ scrolled ? 'scrolled' : '' }>
                 <div id="HeaderLogoContainer">
-                    <a href="/"><img id="HeaderLogo" src={headerLogo} alt="Genet Design's and Alterations Logo" /></a>
+                    <NavLink to="/"><img id="HeaderLogo" src={headerLogo} alt="Genet Design's and Alterations Logo" /></NavLink>
                 </div>
                 {showMobileView ? (
                     <div id="MobileHeaderMenuContainer">
@@ -137,12 +136,12 @@ export default function Header() {
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
                                 <FaHeart className="text-red-600 text-2xl" />
                             </li>
-                            <div id="HeaderClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" } onMouseEnter={openClothingOptions} onMouseLeave={closeClothingOptions}>
+                            <div id="HeaderClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" }>
                                 <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("102.5%", "vertical")}>
-                                    <a id="HeaderClothingOptionLink" href="/clothes/sale">Sale Clothing</a>
+                                    <a id="HeaderClothingOptionLink" href="/clothes/sale">Sale Clothes</a>
                                 </div>
                                 <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("162.5%", "vertical")}>
-                                    <a id="HeaderClothingOptionLink" href="/clothes/sold">Sold Clothing</a>
+                                    <a id="HeaderClothingOptionLink" href="/clothes/sold">Sold Clothes</a>
                                 </div>
                             </div>
                         </ul>
@@ -187,8 +186,8 @@ export default function Header() {
                 }
 
                 #HeaderContainer.scrolled {
-                    width: 100%;
-                    padding: 0 2.5%;
+                    // width: 100%;
+                    // padding: 0 2.5%;
                     backdrop-filter: blur(50px);
                 }
 
@@ -207,7 +206,10 @@ export default function Header() {
                     align-items: center;
                 }
 
-                #HeaderLogo { height: 100%; }
+                #HeaderLogo {
+                    height: 100%;
+                    user-select: none;
+                }
 
                 #HeaderListContainer {
                     display: flex;
@@ -242,7 +244,9 @@ export default function Header() {
                     align-items: center;
                     text-decoration: none;
                     font-size: 17px;
+                    font-weight: 550;
                     cursor: pointer;
+                    user-select: none;
                     transition: 0.5s;
                     z-index: 3;
                 }
@@ -262,6 +266,7 @@ export default function Header() {
                     justify-content: center;
                     align-items: center;
                     font-size: 16px;
+                    font-weight: 550;
                     border: 1px solid black;
                     border-top: none;
                     border-radius: 0 0 25px 25px;
@@ -270,8 +275,8 @@ export default function Header() {
                 }
 
                 @keyframes slide-down {
-                    from { transform: translateY(-12vh); }
-                    to { transform: transalateY(0vh); }
+                    from { transform: translateY(-12vh); opacity: 0; }
+                    to { transform: transalateY(0vh); opacity: 1;}
                 }
 
                 #HeaderClothingOptionsContainer.down {
@@ -279,8 +284,8 @@ export default function Header() {
                 }
 
                 @keyframes slide-up {
-                    from { transform: translateY(0vh); }
-                    to { transform: translateY(-12vh); }
+                    from { transform: translateY(0vh); opacity: 1; }
+                    to { transform: translateY(-12vh); opacity: 0; }
                 }
 
                 #HeaderClothingOptionsContainer.up {
@@ -307,6 +312,7 @@ export default function Header() {
                     height: 100%;
                     justify-content: center;
                     align-items: center;
+                    user-select: none;
                 }
 
                 #HeaderClothingOptionLink:hover {
@@ -326,21 +332,38 @@ export default function Header() {
                     display: grid;
                     position: relative;
                     width: 100%;
-                    height: 25%;
+                    height: 30%;
                     grid-template-columns: 1fr 1fr 1fr;
-                    align-items: center;
-                    gap: 10px;
                 }
 
                 .MobileHeaderListItem {
                     display: flex;
-                    height: 60%;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
                     justify-content: center;
                     align-items: center;
                     text-decoration: none;
-                    font-size: 18px;
+                    text-align: center;
+                    font-size: 16px;
+                    font-weight: 550;
                     border: 1px solid black;
-                    border-radius: 25px;
+                }
+
+                .MobileHeaderListItem:first-child {
+                    border-radius: 15px 0 0 0;
+                }
+
+                .MobileHeaderListItem:nth-child(3) {
+                    border-radius: 0 15px 0 0;
+                }
+
+                .MobileHeaderListItem:nth-child(4) {
+                    border-radius: 0 0 0 15px;
+                }
+
+                .MobileHeaderListItem:last-child {
+                    border-radius: 0 0 15px 0;
                 }
 
                 .MobileHeaderListItem:hover {

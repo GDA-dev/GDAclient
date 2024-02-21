@@ -15,12 +15,12 @@ const AdminTabs: React.FC<{ clothingType: string }> = ({ clothingType }) => {
             <div className="flex h-[50%] pl-[20px] items-end">
                 <Tabs size="lg" defaultIndex={index}>
                     <TabList>
-                        <Tab>
-                            <NavLink to={`/admin/s${clothingType}/view`}>View</NavLink>
-                        </Tab>
-                        <Tab>
-                            <NavLink to={`/admin/s${clothingType}/create`}>Create</NavLink>
-                        </Tab>
+                        <NavLink to={`/admin/s${clothingType}/view`}>
+                            <Tab>View</Tab>
+                        </NavLink>
+                        <NavLink to={`/admin/s${clothingType}/create`}>
+                            <Tab>Create</Tab>
+                        </NavLink>
                     </TabList>
                 </Tabs> 
             </div>   

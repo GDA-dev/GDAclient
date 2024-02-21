@@ -84,10 +84,11 @@ const ClothingByID: React.FC<ClothingByIDProps> = ({ clothing, clothingType }) =
                     #ClothingByID {
                         display: flex;
                         position: fixed;
-                        top: 10vh;
+                        top: 0;
                         left: 0;
                         width: 100vw;
-                        height: 90vh;
+                        height: 100vh;
+                        padding-top: 10vh;
                         justify-content: center;
                         align-items: center;
                         backdrop-filter: blur(50px);
@@ -103,7 +104,7 @@ const ClothingByID: React.FC<ClothingByIDProps> = ({ clothing, clothingType }) =
 
                     #ClothingByIDCloseButton {
                         display: flex;
-                        position: fixed;
+                        position: absolute;
                         top: 0;
                         left: 0;
                         width: 100px;
@@ -169,16 +170,6 @@ const ClothingByID: React.FC<ClothingByIDProps> = ({ clothing, clothingType }) =
                         align-items: flex-start;
                         color: white;
                         overflow-y: scroll;
-                    }
-                    
-                    #IndividualClothingStack::-webkit-scrollbar {
-                        width: 0.5em;
-                        background-color: transparent;
-                    }
-                    
-                    #IndividualClothingStack::-webkit-scrollbar-thumb {
-                        background-color: #ccc;
-                        border-radius: 25px;
                     }
 
                     #IndividualClothingStackBackground {

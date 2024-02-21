@@ -17,6 +17,7 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
 
     const { categories, categoryObj, sizes, sizeObj, genders, genderObj } = filters;
     const [showWarning, setShowWarning] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     // const [imageURLArray, setImageURLArray] = useState<string[]>([]);
     const [thumbnail, setThumbnail] = useState(clothing.thumbnail);
     const [updatedClothing, setUpdatedClothing] = useState<Clothing>({
@@ -66,11 +67,13 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
                     stringPattern.test(String(clothing.price)) &&
                     typeof clothing.price === "number"
                 ) {
+                    setSubmitting(true);
                     updateSaleClothingByID(clothing, String(clothing.id));
                     setTimeout(() => {
                         window.location.href = `/admin/sale/view`;
                     }, 1000);
                 } else {
+                    setSubmitting(true);
                     updateSoldClothingByID(clothing, String(clothing.id));
                     setTimeout(() => {
                         window.location.href = `/admin/sold/view`;;
@@ -104,7 +107,7 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
             <div className="flex relative w-[50%] h-full pr-[7.5%] flex-col justify-center items-center">
                 <div className="flex absolute w-full h-[90%] rounded-[25px] z-0" style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }} />
                 <div className="flex relative w-full h-[80%] pt-[5%] pr-[2%] flex-col justify-start items-start text-white">
-                    <div className="flex relative w-full h-[98%] mb-[2%] pt-[2%] flex-col justify-start items-start overflow-y-scroll">
+                    <div className="flex relative w-full h-[98%] mb-[2%] pt-[2%] pr-[2%] flex-col justify-start items-start overflow-y-scroll">
                         <FormControl variant="floating" isRequired className="h-[60px] mb-[20px]">
                             <Input variant="flushed" value={updatedClothing.title} placeholder=" " onChange={(e) => setUpdatedClothing({...updatedClothing, title: e.target.value})} />
                             <FormLabel>Clothing Title</FormLabel>
@@ -125,7 +128,7 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
                                 {categories.map((category: string, index: number) => {
                                     const key = Object.keys(categoryObj).find(k => categoryObj[k] === category);
                                     return (
-                                        <option key={index} value={key}>{category}</option>
+                                        <option key={index} value={key} className="text-black border-[#ccc]">{category}</option>
                                     )
                                 })}
                             </Select>
@@ -137,7 +140,7 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
                                 {sizes.map((size: string, index: number) => {
                                     const key = Object.keys(sizeObj).find(k => sizeObj[k] === size);
                                     return (
-                                        <option key={index} value={key}>{size}</option>
+                                        <option key={index} value={key} className="text-black border-[#ccc]">{size}</option>
                                     )
                                 })}
                             </Select>
@@ -149,7 +152,7 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
                                 {genders.map((gender: string, index: number) => {
                                     const key = Object.keys(genderObj).find(k => genderObj[k] === gender);
                                     return (
-                                        <option key={index} value={key}>{gender}</option>
+                                        <option key={index} value={key} className="text-black border-[#ccc]">{gender}</option>
                                     )
                                 })}
                             </Select>
@@ -164,7 +167,7 @@ const Update: React.FC<UpdateProps> = ({ clothing, clothingType }) => {
                             <FormLabel>Notes</FormLabel>
                         </FormControl>
                     </div>
-                    <Button onClick={() => validateUpdatedClothing(updatedClothing)}>Update</Button>
+                    <Button isLoading={submitting} onClick={() => validateUpdatedClothing(updatedClothing)}>Update</Button>
                     {showWarning && 
                         <div className="flex absolute bottom-0 right-0 items-center text-red-600 text-2xl font-semibold">Invalid Information</div>
                     }
