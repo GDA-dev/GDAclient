@@ -2,7 +2,7 @@ import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData, Outlet } from "@remix-run/react";
 import { saleClothesQueries } from "../../graphql/saleClothes";
-import View from "../admin/components/view";
+import View from "../admin/containers/view";
 import { Clothing } from "../../utils/types";
 
 export const meta: MetaFunction = () => {

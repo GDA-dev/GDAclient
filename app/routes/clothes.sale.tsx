@@ -9,7 +9,7 @@ import { Clothing } from "../../utils/types";
 
 export const meta: MetaFunction = () => {
     return [
-        { title: "Sale Clothing" },
+        { title: "All Sale Clothes" },
         { name: "description", content: "Welcome to Genet Design's and Alterations!" },
     ];
 };

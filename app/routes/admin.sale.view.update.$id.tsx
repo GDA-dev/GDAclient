@@ -2,7 +2,7 @@ import React from "react";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import getSaleClothingByID from "../../services/GET/getSaleClothingByID";
-import Update from "../admin/components/update";
+import Update from "../admin/containers/update";
 
 export const meta: MetaFunction = () => {
     return [
