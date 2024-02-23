@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, unstable_useViewTransitionState, useLocation } from '@remix-run/react';
 import { Card, CardBody, Image, Stack, Heading, Text, Button, ButtonGroup } from "@chakra-ui/react";
-import deleteSaleClothingByID from "../../../services/DELETE/deleteSaleClothingByID";
-import deleteSoldClothingByID from "../../../services/DELETE/deleteSoldClothingByID";
 import { Clothing } from "../../../utils/types";
+import DeleteModal from "../containers/deleteModal";
 
 interface AdminCardProps {
     clothing: Clothing;
@@ -11,19 +10,19 @@ interface AdminCardProps {
 
 const AdminCard: React.FC<AdminCardProps> = ({ clothing }) => {
     
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const isTransitioning = unstable_useViewTransitionState(`update/${clothing.id}`);
     const clothingType = clothing.price ? "sale" : "sold";
     const location = useLocation();
 
-    const deleteClothing = () => {
-        if (clothingType === "sale") {
-            deleteSaleClothingByID(String(clothing.id));
-        } else if (clothingType === "sold") {
-            deleteSoldClothingByID(String(clothing.id));
-        };
+    const openDeleteModal = () => {
+        setShowDeleteModal(true);
+    };
+
+    const closeDeleteModal = () => {
         setTimeout(() => {
-            window.location.href = `/admin/${clothingType}/view`;
-        }, 1000);
+            setShowDeleteModal(false);
+        }, 100);
     };
 
     return (
@@ -48,7 +47,8 @@ const AdminCard: React.FC<AdminCardProps> = ({ clothing }) => {
                 <Button variant='ghost' colorScheme="blue" className="ml-[10px] mb-[10px]">
                     <NavLink to={`/admin/${clothingType}/view/update/${clothing.id}`} unstable_viewTransition>Update</NavLink>
                 </Button>
-                <Button variant='ghost' colorScheme="red" className="mr-[10px] mb-[10px]" onClick={deleteClothing}>Delete</Button>
+                <Button variant='ghost' colorScheme="red" className="mr-[10px] mb-[10px]" onClick={openDeleteModal}>Delete</Button>
+                {showDeleteModal && <DeleteModal clothingType={clothingType} clothingID={String(clothing.id)} showModal={true} closeModal={closeDeleteModal} />}
             </ButtonGroup>
         </Card>
     );

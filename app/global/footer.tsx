@@ -71,6 +71,15 @@ export default function Footer() {
                         margin: 0 15px;
                     }
 
+                    .FooterSocialIcon {
+                        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                    }
+
+                    .FooterSocialIcon:hover {
+                        opacity: 0.9;
+                        transform: scale(1.1);
+                    }
+
                     @media (max-width: 600px) {
                         #Footer { height: 17vh; padding-bottom: 2vh;}
                         #FooterContainer { grid-template-columns: 1fr 1fr; }

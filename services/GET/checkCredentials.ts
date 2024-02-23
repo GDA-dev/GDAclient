@@ -11,11 +11,8 @@ export default async function checkCredentials(username: string, password: strin
         } else {
             return false;
         };
-
-    } catch (error) {
         
-        console.log(error);
+    } catch (error) {
         return false;
-
     };
 };

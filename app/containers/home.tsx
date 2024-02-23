@@ -123,7 +123,11 @@ export default function Home() {
 
             }, { passive: false });
 
-            window.addEventListener("scroll", () => { setSelectedSection(Math.floor(window.scrollY / window.innerHeight)); }, { passive: false });
+            window.addEventListener("scroll", () => {
+                setTimeout(() => {
+                    setSelectedSection(Math.floor(window.scrollY / window.innerHeight));
+                }, 700);
+            }, { passive: false });
 
             return () => {
 
@@ -135,7 +139,11 @@ export default function Home() {
 
                 });
                 
-                window.removeEventListener("scroll", () => { setSelectedSection(Math.floor(window.scrollY / window.innerHeight)); });
+                window.removeEventListener("scroll", () => {
+                    setTimeout(() => {
+                        setSelectedSection(Math.floor(window.scrollY / window.innerHeight));
+                    }, 700);
+                });
             };
         };
 
@@ -491,6 +499,15 @@ export default function Home() {
                         justify-content: space-around;
                         align-items: center;
                         font-size: 50px;
+                    }
+
+                    #ContactInfoLinks a {
+                        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+                    }
+
+                    #ContactInfoLinks a:hover {
+                        opacity: 0.9;
+                        transform: scale(1.1);
                     }
 
                     #SideSectionSelection {

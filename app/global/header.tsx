@@ -132,7 +132,7 @@ export default function Header() {
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("0%", "horizontal")} onClick={() => redirect("Hero")}><p>Home</p></li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("20%", "horizontal")} onClick={() => redirect("About")}><p>About</p></li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("40%", "horizontal")} onClick={() => redirect("Contact")}><p>Contact</p></li>
-                            <li className="HeaderListItem" onMouseEnter={openClothingOptions}><p>Clothing</p></li>
+                            <li className="HeaderListItem" onMouseEnter={openClothingOptions} onClick={openClothingOptions}><p>Clothing</p></li>
                             <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
                                 <FaHeart className="text-red-600 text-2xl" />
                             </li>

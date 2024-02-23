@@ -6,7 +6,7 @@ import ClothingByID from "../containers/clothingByID";
 
 export const meta: MetaFunction = () => {
     return [
-        { title: "Sold Clothing" },
+        { title: "View Sold Clothing" },
         { name: "description", content: "Welcome to Genet Design's and Alterations!" },
     ];
 };
