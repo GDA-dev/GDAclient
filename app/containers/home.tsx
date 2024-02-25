@@ -192,7 +192,7 @@ export default function Home() {
                                 <img id="ContactLocationImage" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="Genet Design's Store Front" />
                             </div>
                             <div id="ContactLocationAddressContainer">
-                                <p id="ContactLocationAddress">Placeholder</p>
+                                <a id="ContactLocationAddress" href="https://www.google.com/maps/place/11433+Georgia+Ave,+Wheaton,+MD+20902/@39.0425118,-77.0541528,17z/data=!3m1!4b1!4m6!3m5!1s0x89b7cf0343090efb:0x7f2a47709a124e43!8m2!3d39.0425077!4d-77.0515779!16s%2Fg%2F11b8v6b_7h?entry=ttu" target="_blank">11433 Georgia Ave, Wheaton, MD 20902</a>
                             </div>
                         </div>
                         <div id="ContactInfoContainer">
@@ -204,7 +204,7 @@ export default function Home() {
                             </div>
                             <div id="ContactInfoLinksContainer">
                                 <div id="ContactInfoLinks">
-                                    <a href=""><FaFacebook /></a>
+                                    <a href="" target="_blank"><FaFacebook /></a>
                                     <a href="https://www.instagram.com/genetbekele_dmv?igsh=MTlkYXB1NHRwaWllcQ%3D%3D&utm_source=qr" target="_blank"><FaInstagram /></a>
                                     <a href="https://mail.google.com/mail/u/0/?fs=1&to= HER EMAIL @gmail.com&su=Draft&tf=cm" target="_blank"><MdEmail /></a>
                                 </div>
@@ -442,6 +442,11 @@ export default function Home() {
 
                     #ContactLocationAddress {
                         font-size: 24px;
+                    }
+
+                    #ContactLocationAddress:hover {
+                        text-decoration: underline;
+                        opacity: 0.9;
                     }
 
                     #ContactInfoContainer {
