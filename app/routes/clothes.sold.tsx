@@ -1,7 +1,7 @@
 import React from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { soldClothesQueries } from "../../graphql/soldClothes";
+import getAllSoldClothes from "../../services/GET/getAllSoldClothes";
 import Header from "../global/header";
 import AllClothes from "../containers/allClothes";
 import Footer from "../global/footer";
@@ -15,9 +15,8 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
-    const gql = new soldClothesQueries();
-    const res: any = await gql.getAllSoldClothes();
-    return res;
+    const res: any = await getAllSoldClothes();
+    return res.reverse();
 };
 
 export default function AllSoldPage() {

@@ -1,35 +1,11 @@
 import { GraphQLClient, gql } from 'graphql-request';
-import { env } from '../utils/env';
 import toArray from '../utils/toArray';
+import { env } from '../utils/env';
 import { Clothing } from '../utils/types';
 
 const client = new GraphQLClient(`${env.GRAPHQL_URL}`);
 
 export class saleClothesQueries {
-
-    async getAllSaleClothes() {
-
-        const query = gql`
-            {
-                saleClothes {
-                    id
-                    title
-                    description
-                    category
-                    size
-                    measurements
-                    gender
-                    price
-                    notes 
-                    thumbnail
-                    gallery
-                }
-            }
-        `;
-
-        const res: Clothing = await client.request(query);
-        return toArray(res.saleClothes).reverse();
-    };
 
     async getSaleClothingByCategory(category: string) {
 

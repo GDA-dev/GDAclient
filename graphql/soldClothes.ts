@@ -7,29 +7,6 @@ const client = new GraphQLClient(`${env.GRAPHQL_URL}`);
 
 export class soldClothesQueries {
 
-    async getAllSoldClothes() {
-
-        const query = gql`
-            {
-                soldClothes {
-                    id
-                    title
-                    description
-                    category
-                    size
-                    measurements
-                    gender
-                    notes 
-                    thumbnail
-                    gallery
-                }
-            }
-        `;
-
-        const res: Clothing = await client.request(query);
-        return toArray(res.soldClothes).reverse();
-    };
-
     async getSoldClothingByCategory(category: string) {
 
         const query = gql`
