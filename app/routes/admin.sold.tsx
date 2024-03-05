@@ -7,6 +7,7 @@ export const meta: MetaFunction = () => {
     return [
         { title: "Admin Sold" },
         { name: "description", content: "Welcome to Genet Design's and Alterations!" },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ];
 };
 

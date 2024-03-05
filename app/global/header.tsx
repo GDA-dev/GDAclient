@@ -17,7 +17,6 @@ export default function Header() {
     const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
     const [wishlistItems, setWishlistItems] = useState<Clothing[]>([]);
     const [scrolled, setScrolled] = useState(false);
-    const [showMobileView, setShowMobileView] = useState(false);
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 
@@ -83,14 +82,6 @@ export default function Header() {
         };
     };
 
-    const handleMediaQuery = () => {
-        if (window.innerWidth < 900) {
-            setShowMobileView(true);
-        } else {
-            setShowMobileView(false);
-        };
-    };
-
     const closeMobileHeader = () => {
         if (window.scrollY <= 10) {
             setScrolled(false);
@@ -99,18 +90,10 @@ export default function Header() {
 
     useEffect(() => {
 
-        if (window.innerWidth < 900) {
-            setShowMobileView(true);
-        } else {
-            setShowMobileView(false);
-        };
-
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', handleMediaQuery);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleMediaQuery);
         };
 
     }, []);
@@ -121,39 +104,34 @@ export default function Header() {
                 <div id="HeaderLogoContainer">
                     <NavLink to="/"><img id="HeaderLogo" src={headerLogo} alt="Genet Design's and Alterations Logo" /></NavLink>
                 </div>
-                {showMobileView ? (
-                    <div id="MobileHeaderMenuContainer">
-                        <MobileMenu />
+                <div id="MobileHeaderMenuContainer">
+                    <MobileMenu />
+                </div>
+                <ul id="HeaderListContainer" onMouseLeave={() => { hideItemBackground(); closeClothingOptions(); }}>
+                    <div id="HeaderListBackground"></div>
+                    <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("0%", "horizontal")} onClick={() => redirect("Hero")}><p>Home</p></li>
+                    <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("20%", "horizontal")} onClick={() => redirect("About")}><p>About</p></li>
+                    <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("40%", "horizontal")} onClick={() => redirect("Contact")}><p>Contact</p></li>
+                    <li className="HeaderListItem" onMouseEnter={openClothingOptions} onClick={openClothingOptions}><p>Clothing</p></li>
+                    <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
+                        <FaHeart className="text-red-600 text-2xl" />
+                    </li>
+                    <div id="HeaderClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" }>
+                        <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("102.5%", "vertical")}>
+                            <a id="HeaderClothingOptionLink" href="/clothes/sale">Sale Clothes</a>
+                        </div>
+                        <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("162.5%", "vertical")}>
+                            <a id="HeaderClothingOptionLink" href="/clothes/sold">Sold Clothes</a>
+                        </div>
                     </div>
-                ) : (
-                    <>
-                        <ul id="HeaderListContainer" onMouseLeave={() => { hideItemBackground(); closeClothingOptions(); }}>
-                            <div id="HeaderListBackground"></div>
-                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("0%", "horizontal")} onClick={() => redirect("Hero")}><p>Home</p></li>
-                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("20%", "horizontal")} onClick={() => redirect("About")}><p>About</p></li>
-                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("40%", "horizontal")} onClick={() => redirect("Contact")}><p>Contact</p></li>
-                            <li className="HeaderListItem" onMouseEnter={openClothingOptions} onClick={openClothingOptions}><p>Clothing</p></li>
-                            <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
-                                <FaHeart className="text-red-600 text-2xl" />
-                            </li>
-                            <div id="HeaderClothingOptionsContainer" style={{ display: clothingOptionsView ? "flex" : "none" }} className={ clothingOptionsAnimation ? "down" : "up" }>
-                                <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("102.5%", "vertical")}>
-                                    <a id="HeaderClothingOptionLink" href="/clothes/sale">Sale Clothes</a>
-                                </div>
-                                <div id="HeaderClothingOption" onMouseEnter={() => updateItemBackgroundPercentage("162.5%", "vertical")}>
-                                    <a id="HeaderClothingOptionLink" href="/clothes/sold">Sold Clothes</a>
-                                </div>
-                            </div>
-                        </ul>
-                        {wishlistModalOpen && 
-                            <WishlistModal 
-                                wishlistItems={wishlistItems}
-                                requestWishlistItems={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}
-                                closeWishlistModal={() => setWishlistModalOpen(false)}
-                            />
-                        }
-                    </>
-                )}
+                </ul>
+                {wishlistModalOpen && 
+                    <WishlistModal 
+                        wishlistItems={wishlistItems}
+                        requestWishlistItems={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}
+                        closeWishlistModal={() => setWishlistModalOpen(false)}
+                    />
+                }
             </div>
 
         <style>
@@ -320,7 +298,7 @@ export default function Header() {
                 }
 
                 #MobileHeaderMenuContainer {
-                    display: flex;
+                    display: none;
                     position: relative;
                     width: 20%;
                     height: 100%;
@@ -371,9 +349,13 @@ export default function Header() {
                     opacity: 0.5;
                 }
 
+                @media screen and (max-width: 900px) {
+                    #MobileHeaderMenuContainer { display: flex; }
+                    #HeaderListContainer { display: none; }
+                }
+
                 @media (max-width: 600px) {
                     #HeaderLogoContainer { justify-content: flex-start; }
-                    #MenuContainer { display: none; }
                 }
 
             `}

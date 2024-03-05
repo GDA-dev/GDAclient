@@ -8,7 +8,7 @@ export default function Home() {
     const [initialLoad, setInitialLoad] = useState(false);
     const [selectedSection, setSelectedSection] = useState(0);
 
-    const handleIntialLoad = (isMobile: boolean) => {
+    const handleInitialLoad = (isMobile: boolean) => {
 
         if (isMobile) {
             
@@ -111,7 +111,7 @@ export default function Home() {
 
     useEffect(() => {
         
-        handleIntialLoad(window.innerWidth < 1100);
+        handleInitialLoad(window.innerWidth < 1100);
 
         if (window.innerWidth > 1100) {
 
@@ -441,7 +441,8 @@ export default function Home() {
                     }
 
                     #ContactLocationAddress {
-                        font-size: 24px;
+                        font-size: 20px;
+                        text-align: center;
                     }
 
                     #ContactLocationAddress:hover {
@@ -662,7 +663,7 @@ export default function Home() {
 
                         #ContactLocationAddressContainer {
                             height: 20%;
-                         }
+                        }
 
                         #ContactInfoContainer {
                             width: 100%;
