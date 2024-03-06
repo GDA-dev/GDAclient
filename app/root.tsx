@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
   return [
     { charset: 'utf-8' },
     { title: 'New Remix App' },
-    { viewport: 'width=device-width,initial-scale=1' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
   ];
 };
 
