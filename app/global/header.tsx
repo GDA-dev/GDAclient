@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, NavLink } from '@remix-run/react';
+import { useNavigate, useLocation, NavLink } from "@remix-run/react";
 import MobileMenu from "./mobileMenu";
 import WishlistModal from "../containers/wishlistModal";
 import { getWishlistItems } from "../../utils/localStorage";
-import headerLogo from "../../public/headerLogo.jpg"
-import { FaHeart } from 'react-icons/fa';
+import headerLogo from "../../public/headerLogo.jpg";
+import { IoIosArrowDown } from "react-icons/io";
+import { FaHeart } from "react-icons/fa";
 import { Clothing } from "../../utils/types";
 
 export default function Header() {
@@ -14,6 +15,7 @@ export default function Header() {
     const [showItemBackground, setShowItemBackground] = useState("none");
     const [horizontalPercentage, setHorizontalPercentage] = useState("0%");
     const [verticalPercentage, setVerticalPercentage] = useState("0%");
+    const [downArrow, setDownArrow] = useState(false);
     const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
     const [wishlistItems, setWishlistItems] = useState<Clothing[]>([]);
     const [scrolled, setScrolled] = useState(false);
@@ -68,9 +70,15 @@ export default function Header() {
 
     const closeClothingOptions = () => {
         setClothingOptionsAnimation(false);
+        setDownArrow(false);
         setTimeout(() => {
             setClothingOptionsView(false);
         }, 500);
+    };
+
+    const showDownArrow = () => {
+        updateItemBackgroundPercentage("60%", "horizontal");
+        setDownArrow(true);
     };
 
     const handleScroll = () => {
@@ -112,7 +120,10 @@ export default function Header() {
                     <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("0%", "horizontal")} onClick={() => redirect("Hero")}><p>Home</p></li>
                     <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("20%", "horizontal")} onClick={() => redirect("About")}><p>About</p></li>
                     <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("40%", "horizontal")} onClick={() => redirect("Contact")}><p>Contact</p></li>
-                    <li className="HeaderListItem" onMouseEnter={openClothingOptions} onClick={openClothingOptions}><p>Clothing</p></li>
+                    <li className="HeaderListItem" onMouseEnter={showDownArrow} onClick={openClothingOptions}>
+                        <p>Clothing</p>
+                        <IoIosArrowDown id="ClothingDownArrow" style={{ display: downArrow ? "flex" : "none" }} />
+                    </li>
                     <li className="HeaderListItem" onMouseEnter={() => updateItemBackgroundPercentage("80%", "horizontal")} onClick={() => { setWishlistItems(getWishlistItems()); setWishlistModalOpen(true); }}>
                         <FaHeart className="text-red-600 text-2xl" />
                     </li>
@@ -231,7 +242,15 @@ export default function Header() {
 
                 .HeaderListItem:hover {
                     color: white;
-                }       
+                }
+
+                #ClothingDownArrow {
+                    position: absolute;
+                    bottom: 0;
+                    color: black;
+                    font-size: 20px;
+                    transition: 0.5s;
+                }
 
                 #HeaderClothingOptionsContainer {
                     display: flex;
